@@ -257,9 +257,7 @@ Game >> winner [
 
 	| winner |
 	self hasEnded ifFalse: [ ^ self hasEnded ].
-
-	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = 1 and: [
-			          aSpaceship lap = (board laps + 1) ] ].
+	
+	winner := self spaceShipsPositionsRanking first.
 	^ winner
 ]

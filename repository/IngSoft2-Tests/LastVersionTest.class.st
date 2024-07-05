@@ -353,6 +353,7 @@ LastVersionTest >> testLV07IfAllShipsLooseTheirTurbinesThenTheWinnerIsTheOneClos
 	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
 	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
 	self assert: aGame hasEnded .
+	self assert: aGame winner name equals:'Danny' .
 
 		
 	
