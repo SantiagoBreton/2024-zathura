@@ -195,9 +195,3 @@ SpaceShip >> turbine [
 
 	^ turbines
 ]
-
-{ #category : #accessing }
-SpaceShip >> turnsToLose [
-
-	^ turnsToLose
-]
