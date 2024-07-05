@@ -16,6 +16,13 @@ EffectManager class >> usedIn: aGame with: aBoard affecting: someShips [
 	^ self new initializeIn: aGame using: aBoard affecting: someShips
 ]
 
+{ #category : #playing }
+EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
+
+	board move: aSpaceShip by: -4.
+	aSpaceShip decreaseATurbine .
+]
+
 { #category : #initialization }
 EffectManager >> applyEffectOnLandingShip: aSpaceship [
 

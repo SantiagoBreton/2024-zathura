@@ -43,6 +43,12 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 	self losesTurns: 2
 ]
 
+{ #category : #'accessing - arguments' }
+SpaceShip >> canPlay [
+	(turbines > 0 and: turnsToLose <= 0) ifTrue:  [ ^true ].
+	^false.
+]
+
 { #category : #playing }
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
