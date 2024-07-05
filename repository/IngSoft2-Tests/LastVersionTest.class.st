@@ -246,3 +246,116 @@ LastVersionTest >> testLV05IfAShipLoosesThenItCannotPlayAnymore [
 
 
 ]
+
+{ #category : #tests }
+LastVersionTest >> testLV06IfAllShipsLooseTheirTurbinesThenTheGameHasEnded [
+	
+	| aGame aBoard aDie1 someSpaceships |
+	someSpaceships := #( 'Danny' 'Walter' ).
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (HyperGravity needsToThrow: 3).
+				          BlackHole new.
+				          Null create
+				           }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+
+	aDie1 := LoadedDie of: {3. 4. 2. 4. 2. 4. 1. 1. 2. 1. 2. 4. 20}.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 3
+		         rolling: aDie1
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+	aGame playNextTurn.
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
+	
+	aGame playNextTurn .
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 1.
+	aGame playNextTurn .
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	self assert: aGame hasEnded 
+		
+	
+
+
+]
+
+{ #category : #tests }
+LastVersionTest >> testLV07IfAllShipsLooseTheirTurbinesThenTheWinnerIsTheOneClosestToTheEnd [
+	
+	| aGame aBoard aDie1 someSpaceships |
+	someSpaceships := #( 'Danny' 'Walter' ).
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (HyperGravity needsToThrow: 3).
+				          BlackHole new.
+				          Null create
+				           }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+
+	aDie1 := LoadedDie of: {3. 4. 2. 4. 2. 4. 1. 1. 2. 1. 2. 4. 20}.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 3
+		         rolling: aDie1
+		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
+	aGame playNextTurn.
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
+	
+	aGame playNextTurn .
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 1.
+	aGame playNextTurn .
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
+	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	self assert: aGame hasEnded .
+
+		
+	
+
+
+]

@@ -117,7 +117,8 @@ Game >> cardsHandOf: aSpaceship [
 { #category : #asserting }
 Game >> endGameIfPossible [
 
-	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
+	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
+	turnHandler areThereAnyShipsToPlayWith ifFalse: [ hasEnded := true ]
 ]
 
 { #category : #playing }
