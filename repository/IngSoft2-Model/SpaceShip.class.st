@@ -8,7 +8,8 @@ Class {
 		'turnsToLose',
 		'needsToThrow',
 		'ally',
-		'fuelTank'
+		'fuelTank',
+		'turbines'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -38,6 +39,7 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 
 	position := 1.
 	fuelTank refuelToMax.
+	self decreaseATurbine .
 	self losesTurns: 2
 ]
 
@@ -45,6 +47,20 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
 	needsToThrow := aNumber
+]
+
+{ #category : #accessing }
+SpaceShip >> checkForRollInHyperGravity: rolledNumber [
+    (needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
+        needsToThrow := 0
+    ] ifFalse: [
+        self decreaseATurbine 
+    ].
+]
+
+{ #category : #playing }
+SpaceShip >> decreaseATurbine [
+	turbines := turbines - 1.
 ]
 
 { #category : #playing }
@@ -89,6 +105,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
+	turbines:=3.
 	fuelTank := FuelTank withMaxFuel: anAmount.
 	ally := nil
 ]
@@ -150,8 +167,7 @@ SpaceShip >> rollDiceUsing: aDiceRoller [
 
 	| rolledNumber |
 	rolledNumber := aDiceRoller roll.
-	(needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
-		needsToThrow := 0 ].
+	self checkForRollInHyperGravity: rolledNumber.
 	^ rolledNumber
 ]
 
@@ -166,6 +182,12 @@ SpaceShip >> skipTurn [
 
 	self losesTurns: 1.
 	fuelTank refuelToMax
+]
+
+{ #category : #accessing }
+SpaceShip >> turbine [
+
+	^ turbines
 ]
 
 { #category : #accessing }
