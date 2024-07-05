@@ -1441,7 +1441,7 @@ ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItR
 		          of: {
 				          Null create.
 				          Null create.
-				          Null new.
+				          Null create.
 				          Null create.
 				          Null create.
 				          Null create.
@@ -1466,7 +1466,7 @@ ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItR
 		         usingCardsFrom: aDeck.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 12.
 
 	aGame play: anAllyCard  by: 'Danny' targetting: 'Walter'.
 	
