@@ -366,6 +366,7 @@ SecondVersionTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 	self
 		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
 		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel
+		
 ]
 
 { #category : #tests }
