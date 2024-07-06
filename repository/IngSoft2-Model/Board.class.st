@@ -137,7 +137,15 @@ Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 { #category : #accessing }
 Board >> reversePolarityOfEffectAtTile: aNumber [
 	|effect inversedEffect|
+	self validateIfIsPossibleToRevertATileEffect: aNumber.
 	effect:=tiles at: aNumber.
 	inversedEffect:= InversedEffect reversePolarityOf: effect.
 	tiles at:aNumber put:inversedEffect.
+]
+
+{ #category : #accessing }
+Board >> validateIfIsPossibleToRevertATileEffect: aTileNumber [
+
+	self amountOfTiles < aTileNumber ifTrue: [
+		Error signal: 'The tile number is greater than the amounts of tiles in the board' ]
 ]

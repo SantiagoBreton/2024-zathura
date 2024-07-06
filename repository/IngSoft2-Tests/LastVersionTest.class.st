@@ -1057,3 +1057,53 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 	
 
 ]
+
+{ #category : #tests }
+LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoesntExistItCannot [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          BlackHole new  }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 7. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+						aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard. }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+	
+ 
+		self
+		should: [ aGame play: aReversePolarityCard  by: 'Danny'  targetting: 556 ]
+		raise: Error
+		withMessage: 'The tile number is greater than the amounts of tiles in the board'.
+
+
+	
+	
+	
+
+]
