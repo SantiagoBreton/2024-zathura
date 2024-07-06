@@ -92,9 +92,9 @@ EffectManager >> initializeIn: aGame using: aBoard affecting: someShips [
 ]
 
 { #category : #playing }
-EffectManager >> move: aSpaceShip by: anAmountOfTiles [
+EffectManager >> move: aSpaceShip by: anAmountOfTiles [ 
 
-	board move: aSpaceShip by: anAmountOfTiles
+	board move: aSpaceShip by: anAmountOfTiles.
 ]
 
 { #category : #playing }
@@ -121,4 +121,16 @@ EffectManager >> moveAllSpaceshipsToFirstPosition [
 EffectManager >> repeatLastEffectAppliedOn: aSpaceship [
 
 	lastEffectApplied triggeredBy: aSpaceship on: self
+]
+
+{ #category : #playing }
+EffectManager >> teleport: aSpaceship to: tileToTeleport [
+
+	board move: aSpaceship toTile: tileToTeleport.
+]
+
+{ #category : #playing }
+EffectManager >> teleportAllBut: aSpaceship to: tileToTeleport [ 	
+		(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self teleport: spaceship  to: tileToTeleport ].
 ]

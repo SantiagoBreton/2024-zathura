@@ -2,8 +2,8 @@ Class {
 	#name : #Wormhole,
 	#superclass : #Effect,
 	#instVars : [
-		'tilesToMove',
-		'reversePolarity'
+		'reversePolarity',
+		'tileToTeleport'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -19,14 +19,13 @@ Wormhole class >> assertAtLeastTwoWormholes: positionOfTheWormholes [
 Wormhole class >> betweenTiles: positionOfTheWormholes [
 
 	self assertAtLeastTwoWormholes: positionOfTheWormholes.
-	^ self new initialize:
-		  positionOfTheWormholes last - positionOfTheWormholes first
+	^ self new initialize:positionOfTheWormholes last 
 ]
 
 { #category : #initialization }
-Wormhole >> initialize: aNumberOfTilesToMove [
+Wormhole >> initialize: aTileToTeleportTo [
 
-	tilesToMove := aNumberOfTilesToMove.
+	tileToTeleport  := aTileToTeleportTo.
 	reversePolarity:=false.
 ]
 
@@ -38,5 +37,8 @@ Wormhole >> reversePolarity [
 { #category : #playing }
 Wormhole >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager move: aSpaceship by: tilesToMove
+	reversePolarity
+		ifTrue: [
+		anEffectManager teleportAllBut: aSpaceship to: tileToTeleport ]
+		ifFalse: [ anEffectManager teleport: aSpaceship to: tileToTeleport ]
 ]

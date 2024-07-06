@@ -119,6 +119,11 @@ Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	self move: aSpaceship by: tilesToMove
 ]
 
+{ #category : #accessing }
+Board >> move: aSpaceship toTile: tileToTeleport [
+	self move: aSpaceship  by: tileToTeleport - aSpaceship position. 
+]
+
 { #category : #initialization }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 

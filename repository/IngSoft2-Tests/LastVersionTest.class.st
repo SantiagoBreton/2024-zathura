@@ -865,3 +865,125 @@ LastVersionTest >> testLV15IfAPlayersPlaysTheReversePolarityCardOnAHyperGravityE
 
 
 ]
+
+{ #category : #tests }
+LastVersionTest >> testLV16IfAPlayersPlaysTheReversePolarityCardOnAWormholeEffectTileItTargetsAllButTheSpaceshipThatTriggeredIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard wormholeTile3 wormholeTile5|
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	wormholeTile3 := Wormhole betweenTiles: { 3. 5 }.
+	wormholeTile5 := Wormhole betweenTiles: { 5. 3 }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          wormholeTile3.
+				          Null create.
+				          wormholeTile5.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 1. 5. 2. 2. 2. 3. 2. 4. 2. 4. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.}.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 3.
+	
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 3.
+
+
+]
+
+{ #category : #tests }
+LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyReversedTileItChangesToTheOriginalTaregt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          BlackHole create  }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 2. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+						aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard. }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+	
+ 
+	
+	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 7.
+
+	
+	aGame playNextTurn .
+	aGame playNextTurn .
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	aGame playNextTurn .
+	
+	aGame play: aReversePolarityCard by: 'Walter' targetting: 7.
+	
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	
+	
+
+]

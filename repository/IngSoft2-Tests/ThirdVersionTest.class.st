@@ -1370,7 +1370,7 @@ ThirdVersionTest >> testTV26WhenSpaceshipUsesRepeatCardAfterWormHoleItTriggersIt
 	
 	aGame play: aRepeatCard by: 'Walter'  targetting: 'Walter'.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
 	
 
 
