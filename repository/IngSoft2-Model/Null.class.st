@@ -1,9 +1,6 @@
 Class {
 	#name : #Null,
 	#superclass : #Effect,
-	#instVars : [
-		'reversePolarity'
-	],
 	#category : #'IngSoft2-Model'
 }
 
@@ -13,16 +10,15 @@ Null class >> create [
 	^ self new initialize.
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 Null >> initialize [
-	reversePolarity:=false.
-
 	
 ]
 
-{ #category : #'as yet unclassified' }
-Null >> reversePolarity [ 
-	reversePolarity := reversePolarity not.
+{ #category : #playing }
+Null >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+
+	
 ]
 
 { #category : #playing }

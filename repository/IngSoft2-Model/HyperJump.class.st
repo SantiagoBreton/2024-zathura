@@ -2,8 +2,7 @@ Class {
 	#name : #HyperJump,
 	#superclass : #Effect,
 	#instVars : [
-		'distances',
-		'reversePolarity'
+		'distances'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,7 +17,7 @@ HyperJump class >> of: distances [
 HyperJump >> initializeOf: groupOfDistances [
 
 	distances := groupOfDistances asOrderedCollection.
-	reversePolarity:=false.
+
 ]
 
 { #category : #'as yet unclassified' }
@@ -31,9 +30,11 @@ HyperJump >> nextJumpValue [
 	^ valueAsParsec
 ]
 
-{ #category : #'as yet unclassified' }
-HyperJump >> reversePolarity [ 
-	reversePolarity := reversePolarity not.
+{ #category : #playing }
+HyperJump >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	| valueAsParsec |
+	valueAsParsec := self nextJumpValue.
+	anEffectManager moveAllBut: aSpaceship jumping: valueAsParsec
 ]
 
 { #category : #playing }
@@ -42,8 +43,5 @@ HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
 	| valueAsParsec |
 	valueAsParsec := self nextJumpValue.
 
-	reversePolarity
-		ifTrue: [
-		anEffectManager moveAllBut: aSpaceship jumping: valueAsParsec ]
-		ifFalse: [ anEffectManager move: aSpaceship jumping: valueAsParsec ]
+	 anEffectManager move: aSpaceship jumping: valueAsParsec 
 ]
