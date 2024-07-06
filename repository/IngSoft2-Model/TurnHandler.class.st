@@ -21,11 +21,6 @@ TurnHandler class >> withPlayers: someSpaceShips [
 	^ self new initializeWithSpaceships: someSpaceShips
 ]
 
-{ #category : #accessing }
-TurnHandler >> areThereAnyShipsToPlayWith [
-	^ spaceships anySatisfy:  [ :aSpaceship |  aSpaceship canPlay ]
-]
-
 { #category : #playing }
 TurnHandler >> changeTurns [
 

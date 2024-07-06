@@ -118,7 +118,8 @@ Game >> cardsHandOf: aSpaceship [
 Game >> endGameIfPossible [
 
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
-	turnHandler areThereAnyShipsToPlayWith ifFalse: [ hasEnded := true ]
+	
+	(spaceships anySatisfy:  [ :aSpaceship |  aSpaceship canPlay ]) ifFalse: [ hasEnded := true ]
 ]
 
 { #category : #playing }
