@@ -431,11 +431,11 @@ SecondVersionTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesN
 	aBoard := Board
 		          of: {
 				          Null create.
-				          AtomicBomb create.
+				          AtomicBomb new.
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create.
+				          BlackHole new.
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -521,7 +521,7 @@ SecondVersionTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFour
 				          Null new.
 				          Null new.
 				          Null new.
-				          BlackHole create.
+				          BlackHole new.
 				          Null new.
 				          Null new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -568,7 +568,7 @@ SecondVersionTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTh
 				          Null new.
 				          Null new.
 				          Null new.
-				          BlackHole create.
+				          BlackHole new.
 				          Null new.
 				          Null new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -624,7 +624,7 @@ SecondVersionTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesI
 	aBoard := Board
 		          of: {
 				          Null new.
-				          BlackHole create.
+				          BlackHole new.
 				          Null new.
 				          Null new.
 				          Null new.
@@ -927,7 +927,7 @@ SecondVersionTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTil
 				          Null create.
 				          Null create.
 				          Null create.
-				          AtomicBomb create.
+				          AtomicBomb new.
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).

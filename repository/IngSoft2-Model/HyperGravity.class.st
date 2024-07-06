@@ -2,8 +2,7 @@ Class {
 	#name : #HyperGravity,
 	#superclass : #Effect,
 	#instVars : [
-		'needsToThrow',
-		'reversePolarity'
+		'needsToThrow'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,12 +17,7 @@ HyperGravity class >> needsToThrow: aRollingResult [
 HyperGravity >> initializedWith: aNumber [
 
 	needsToThrow := aNumber.
-	reversePolarity:=false.
-]
 
-{ #category : #'as yet unclassified' }
-HyperGravity >> reversePolarity [ 
-	reversePolarity := reversePolarity not.
 ]
 
 { #category : #playing }

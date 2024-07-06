@@ -143,7 +143,7 @@ LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLoosesATurbine [
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create.
+				          BlackHole new.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
@@ -187,7 +187,7 @@ LastVersionTest >> testLV05IfAShipLoosesThenItCannotPlayAnymore [
 				          (HyperGravity needsToThrow: 3).
 				          Null create.
 				          Null create.
-				          BlackHole create }
+				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3. 1. 2. 1. 2. 2. 3. 1. 2. 1. 2. 4. 20}.
@@ -258,7 +258,7 @@ LastVersionTest >> testLV06IfAllShipsLooseTheirTurbinesThenTheGameHasEnded [
 				          Null create.
 				          Null create.
 				          (HyperGravity needsToThrow: 3).
-				          BlackHole create.
+				          BlackHole new.
 				          Null create
 				           }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -314,7 +314,7 @@ LastVersionTest >> testLV07IfAllShipsLooseTheirTurbinesThenTheWinnerIsTheOneClos
 				          Null create.
 				          Null create.
 				          (HyperGravity needsToThrow: 3).
-				          BlackHole create.
+				          BlackHole new.
 				          Null create
 				           }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -374,7 +374,7 @@ LastVersionTest >> testLV08IfAPlayersPlaysTheReversePolarityCardOnABlackHoleItMo
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create  }
+				          BlackHole new  }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 2. 2. 2. 2. 2. 2. 2. 20 }.
 
@@ -435,7 +435,7 @@ LastVersionTest >> testLV09IfAPlayersPlaysTheReversePolarityCardOnABlackHoleAllT
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create  }
+				          BlackHole new  }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 2. 2. 2. 2. 2. 2. 2. 20 }.
 
@@ -621,7 +621,7 @@ LastVersionTest >> testLV12IfAPlayersPlaysTheReversePolarityCardOnAnAtomicBombEf
 				          Null create.
 				          Null create.
 				          Null create.
-				          AtomicBomb create.
+				          AtomicBomb new.
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -744,7 +744,7 @@ LastVersionTest >> testLV14IfAPlayersPlaysTheReversePolarityCardOnACardGiverEffe
 				          Null create.
 				          Null create.
 				          Null create.
-				          CardGiver create.
+				          CardGiver new.
 				          Null create.
 				          Null create.
 				          Null create.
@@ -936,7 +936,7 @@ LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyRever
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create  }
+				          BlackHole new  }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 2. 2. 2. 2. 2. 20 }.
 
@@ -982,6 +982,76 @@ LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyRever
 	aGame playNextTurn .
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	
+	
+
+]
+
+{ #category : #tests }
+LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSameTileItIsOnlyReversedOnce [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          BlackHole new  }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 7. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+						aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard. }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+	
+ 
+	
+	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 7.
+
+	
+	aGame playNextTurn .
+	aGame playNextTurn .
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	aGame playNextTurn .
+	
+	aGame play: aReversePolarityCard by: 'Walter' targetting: 7.
+	
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	aGame play: aReversePolarityCard by: 'Joseph' targetting: 7.
+	aGame playNextTurn .
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
 	
 	

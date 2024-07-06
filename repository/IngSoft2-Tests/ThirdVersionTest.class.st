@@ -44,7 +44,7 @@ ThirdVersionTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 		          of: {
 				          Null create.
 				          Null create.
-				          CardGiver create.
+				          CardGiver new.
 				          Null create.
 				          Null create.
 				          Null create }
@@ -78,7 +78,7 @@ ThirdVersionTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalR
 		          of: {
 				          Null create.
 				          Null create.
-				          CardGiver create.
+				          CardGiver new.
 				          Null create.
 				          Null create.
 				          Null create }
@@ -303,7 +303,7 @@ ThirdVersionTest >> testTV08WhenSpaceshipUsesCancellationCardOnAnAccelerationCar
 		          of: {
 				          Null create.
 				          Null create.
-				          CardGiver create.
+				          CardGiver new.
 				          Null create.
 				          Null create.
 				          Null create.
@@ -355,7 +355,7 @@ ThirdVersionTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlay
 		          of: {
 				          Null create.
 				          Null create.
-				          CardGiver create.
+				          CardGiver new.
 				          Null create.
 				          Null create.
 				          Null create.
@@ -799,7 +799,7 @@ ThirdVersionTest >> testTV17WhenSpaceshipUsesReDoCardAfterARepeatCardItCopiesIt 
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create.
+				          BlackHole new.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
@@ -1038,7 +1038,7 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 				          Null create.
 				          Null create.
 				          Null create.
-				          AtomicBomb create.
+				          AtomicBomb new.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
@@ -1093,7 +1093,7 @@ ThirdVersionTest >> testTV22WhenSpaceshipUsesRepeatCardAfterABlackHoleItTriggers
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole create.
+				          BlackHole new.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 6. 5. 3. 3. 20 }.
@@ -1274,7 +1274,7 @@ ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggers
 				          Null create.
 				          Null create.
 				          Null create.
-				          CardGiver create.
+				          CardGiver new.
 				          Null create.
 				          Null create.
 				          Null create.

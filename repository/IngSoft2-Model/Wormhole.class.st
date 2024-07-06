@@ -2,7 +2,6 @@ Class {
 	#name : #Wormhole,
 	#superclass : #Effect,
 	#instVars : [
-		'reversePolarity',
 		'tileToTeleport'
 	],
 	#category : #'IngSoft2-Model'
@@ -26,12 +25,7 @@ Wormhole class >> betweenTiles: positionOfTheWormholes [
 Wormhole >> initialize: aTileToTeleportTo [
 
 	tileToTeleport  := aTileToTeleportTo.
-	reversePolarity:=false.
-]
 
-{ #category : #'as yet unclassified' }
-Wormhole >> reversePolarity [ 
-	reversePolarity := reversePolarity not.
 ]
 
 { #category : #playing }
