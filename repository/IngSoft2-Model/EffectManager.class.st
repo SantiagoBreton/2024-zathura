@@ -41,6 +41,17 @@ EffectManager >> applyEffectOnLandingShip: aSpaceship [
 ]
 
 { #category : #playing }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow to: aSpaceship [
+	aSpaceship changeRollingResultNeededToMove:  needsToThrow.
+]
+
+{ #category : #playing }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow toAllShipsBut: aSpaceship [
+		(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self applyHyperGravityEffectOf: needsToThrow to: spaceship ].
+]
+
+{ #category : #playing }
 EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting: aShip [
 
 	(self getAllButOneSpaceship:aShip) do: [ :spaceship |

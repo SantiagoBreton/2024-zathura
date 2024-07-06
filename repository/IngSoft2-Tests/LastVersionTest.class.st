@@ -791,3 +791,77 @@ LastVersionTest >> testLV14IfAPlayersPlaysTheReversePolarityCardOnACardGiverEffe
 	self assert: (aGame cardsHandOf: 'Joseph') cardsInHand size equals: 3.
 
 ]
+
+{ #category : #tests }
+LastVersionTest >> testLV15IfAPlayersPlaysTheReversePolarityCardOnAHyperGravityEffectTileItTargetsAllButTheSpaceshipThatTriggeredIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (HyperGravity needsToThrow: 4).
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 4. 5. 3. 2. 2. 3. 2. 4. 2. 4. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.}.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
+	
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 10.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 9.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 10.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 9.
+
+
+]
