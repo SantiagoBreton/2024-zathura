@@ -1061,7 +1061,7 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 { #category : #tests }
 LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoesntExistItCannot [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard cardplay1 cardplay2|
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
 	aBoard := Board
 		          of: {
@@ -1107,5 +1107,9 @@ LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoe
 		aGame play: aReversePolarityCard by: 'Danny' targetting: -4 ]
 		raise: Error
 		withMessage:
-		'The tile number is greater or lower than the amounts of tiles in the board'
+		'The tile number is greater or lower than the amounts of tiles in the board'.
+	
+
+		
+	
 ]

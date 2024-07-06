@@ -297,7 +297,7 @@ ThirdVersionTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotal
 { #category : #tests }
 ThirdVersionTest >> testTV08WhenSpaceshipUsesCancellationCardOnAnAccelerationCardThenItRemovesItsEffect [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard  aCancellationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard  aCancellationCard aCardPlay|
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -337,8 +337,8 @@ ThirdVersionTest >> testTV08WhenSpaceshipUsesCancellationCardOnAnAccelerationCar
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
 
-
-	aGame play: aCancellationCard by: 'Danny' targetting:anAccelerationCard. 
+	aCardPlay:= CardPlay a: anAccelerationCard wasPlayedBy:'Danny'  targetting:'all' .
+	aGame play: aCancellationCard by: 'Danny' targetting:aCardPlay. 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
@@ -676,7 +676,7 @@ ThirdVersionTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFue
 { #category : #tests }
 ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThenItRemovesItsEffect [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anOverloadCard aCancellationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck anOverloadCard aCancellationCard aCardPlay|
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -718,8 +718,8 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
 
-	
-	aGame play: aCancellationCard by: 'Danny'  targetting:anOverloadCard. 
+	aCardPlay:= CardPlay a: anOverloadCard wasPlayedBy: 'Danny' targetting:'Walter' .
+	aGame play: aCancellationCard by: 'Danny'  targetting:aCardPlay. 
 
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -910,7 +910,7 @@ ThirdVersionTest >> testTV18WhenSpaceshipUsesReDoCardAfterAnAllyCardItCopiesIt [
 { #category : #tests }
 ThirdVersionTest >> testTV19WhenSpaceshipUsesReDoCardAfterACancelationCardItCopiesIt [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aCancellationCard aRedoCard anAccelerationCard anOverloadCard   |
+	| aGame aBoard aDie1 someSpaceships aDeck aCancellationCard aRedoCard anAccelerationCard anOverloadCard  aCardPlay1  aCardPlay2 |
 	someSpaceships := { 'Danny'.'Walter'.   }.
 	aBoard := Board
 		          of: {
@@ -953,14 +953,14 @@ ThirdVersionTest >> testTV19WhenSpaceshipUsesReDoCardAfterACancelationCardItCopi
 	self assert:(aGame spaceshipCalled: 'Walter') position equals: 5.
 	aGame playNextTurn .
 	self assert:(aGame spaceshipCalled: 'Danny') position equals: 7.
-
-	aGame play: aCancellationCard by:'Walter'  targetting:anOverloadCard .
+	aCardPlay1:=	CardPlay a: anOverloadCard wasPlayedBy: 'Danny' targetting:'Walter' .
+	aGame play: aCancellationCard by:'Walter'  targetting:aCardPlay1.
 	aGame playNextTurn .
 	aGame playNextTurn .
 	self assert:(aGame spaceshipCalled: 'Walter') position equals: 1.
 	self assert:(aGame spaceshipCalled: 'Danny') position equals: 3.
-
-	aGame play: aRedoCard by:'Walter'  targetting: anAccelerationCard.
+	aCardPlay2:=CardPlay a: anAccelerationCard wasPlayedBy: 'Danny' targetting:'all' .
+	aGame play: aRedoCard by:'Walter'  targetting: aCardPlay2.
 	aGame playNextTurn .
 	aGame playNextTurn .
 	self assert:(aGame spaceshipCalled: 'Walter') position equals: 3.
@@ -1435,7 +1435,7 @@ ThirdVersionTest >> testTV27WhenSpaceshipUsesReDoCardAfterAReDoCardItCopiesTheLa
 { #category : #tests }
 ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItRemovesItsEffect [
 
-	| aGame aBoard aDie1 someSpaceships aDeck anAllyCard aCancellationCard |
+	| aGame aBoard aDie1 someSpaceships aDeck anAllyCard aCancellationCard aCardPlay |
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
@@ -1474,8 +1474,10 @@ ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItR
 	aGame playNextTurn.
 	
 	self assert:((aGame spaceshipCalled: 'Walter') ally) equals: (aGame spaceshipCalled: 'Danny') .
-
-	aGame play: aCancellationCard by: 'Walter'  targetting:anAllyCard. 
+	
+	aCardPlay:= CardPlay a: anAllyCard  wasPlayedBy:'Danny'  targetting:'Walter' .
+	
+	aGame play: aCancellationCard by: 'Walter'  targetting:aCardPlay. 
 	
 	self deny:((aGame spaceshipCalled: 'Walter') ally) equals: (aGame spaceshipCalled: 'Danny') .
 	

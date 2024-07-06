@@ -9,8 +9,8 @@ Class {
 		'turnHandler',
 		'deck',
 		'cardHands',
-		'cardPlayResolver',
-		'effectManager'
+		'effectManager',
+		'cardPlayManager'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -95,6 +95,14 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 
 ]
 
+{ #category : #initialization }
+Game >> cancelAllianceBetween: aPlayer and: anotherPlayer [
+	(self spaceshipCalled: aPlayer ) setAllyToNil .
+	(self spaceshipCalled: anotherPlayer ) setAllyToNil .
+	
+
+]
+
 { #category : #accessing }
 Game >> cancelTheEffectOf: aPermanentCard [
 	|filteredCardsHands|
@@ -103,6 +111,16 @@ Game >> cancelTheEffectOf: aPermanentCard [
 	self validateIfIsPossibleToCancelACard: filteredCardsHands.
 	filteredCardsHands do: [ :cardsHand |
 		cardsHand removeEffectOf: aPermanentCard ].
+]
+
+{ #category : #accessing }
+Game >> cancelTheEffectOfAnAccelerationCard [
+	cardHands do:[:cardHand | cardHand removeEffectOf: AccelerationCard new]
+]
+
+{ #category : #accessing }
+Game >> cancelTheEffectOfAnOverloadCardTargeting: aPlayer [
+	(self cardsHandOf: aPlayer) removeEffectOf: OverloadCard new.
 ]
 
 { #category : #accessing }
@@ -147,7 +165,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	board finishesAfter: laps.
 	cardHands := spaceships collect: [ :spaceShip |
 		             CardsHand of: spaceShip using: aDeck ].
-	cardPlayResolver := CardPlayManager with: self.
+	cardPlayManager := CardPlayManager with: self.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	effectManager := EffectManager
 		                 usedIn: self
@@ -158,7 +176,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 { #category : #'target resize' }
 Game >> play: aCard by:aPlayer targetting: anotherPlayer [
 	self validate: aPlayer  has: aCard .
-	cardPlayResolver resolve: aCard by: aPlayer  targetting: anotherPlayer.
+	cardPlayManager resolve: aCard by: aPlayer  targetting: anotherPlayer.
 	
 ]
 
@@ -199,13 +217,6 @@ Game >> reversePolarityOfEffectAtTile: aNumber [
 Game >> rollModifierFor: aSpaceShip [
 
 	^ (self cardsHandOf: aSpaceShip name) totalEffectsOnSpaceShip
-]
-
-{ #category : #initialization }
-Game >> setAllyToNil [
-
-	spaceships do: [ :spaceship | spaceship setAllyToNil ]
-
 ]
 
 { #category : #'target resize' }

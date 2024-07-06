@@ -5,7 +5,8 @@ Class {
 		'game',
 		'lastCardPlayed',
 		'cardPlayer',
-		'cardTarget'
+		'cardTarget',
+		'cardPlays'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -18,39 +19,43 @@ CardPlayManager class >> with: aGame [
 
 { #category : #resolving }
 CardPlayManager >> cancelAnAccelerationCard: aCard [
-	game cancelTheEffectOf: aCard
+	game cancelTheEffectOfAnAccelerationCard 
 ]
 
 { #category : #resolving }
-CardPlayManager >> cancelAnAllyCard: aCard [
-
-game setAllyToNil.
+CardPlayManager >> cancelAnAllyCardPlayedBy: aPlayer targetting: anotherPlayer [
+	game cancelAllianceBetween: aPlayer and: anotherPlayer
+	
 ]
 
 { #category : #resolving }
-CardPlayManager >> cancelAnOverloadCard: aCard [
-	game cancelTheEffectOf:aCard
+CardPlayManager >> cancelAnOverloadCardTargetting: aPlayer [
+	game cancelTheEffectOfAnOverloadCardTargeting: aPlayer
 ]
 
 { #category : #initialization }
 CardPlayManager >> initializeWith: aGame [
 
-	game := aGame
+	game := aGame.
+	cardPlays:= OrderedCollection new .
 ]
 
 { #category : #resolving }
-CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
+CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: anotherPlayer [
 
 	cardPlayer := aPlayer.
-	cardTarget := anotherPalyer.
+	cardTarget := anotherPlayer.
+	cardPlays add: (CardPlay a: aCardPlayed  wasPlayedBy: aPlayer targetting:anotherPlayer ).
+	
 	aCardPlayed uses: self
 ]
 
 { #category : #resolving }
 CardPlayManager >> resolveACancellationCardPlay: aCard [
-
-	
-	cardTarget cancelEffectUsing:self.
+	|cardPlayToCancel|
+	cardPlayToCancel:=cardPlays detect:  [ :cardPlay | cardPlay = cardTarget  ].
+	cardPlayToCancel cancelEffectUsing: self.
+	cardPlays remove:cardPlayToCancel.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]

@@ -5,9 +5,9 @@ Class {
 }
 
 { #category : #delegating }
-AllyCard >> cancelEffectUsing: cardPlayResolver [
+AllyCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aTarget [
 
-	cardPlayResolver cancelAnAllyCard: self
+	cardPlayResolver cancelAnAllyCardPlayedBy: aPlayer targetting: aTarget.
 ]
 
 { #category : #initialization }

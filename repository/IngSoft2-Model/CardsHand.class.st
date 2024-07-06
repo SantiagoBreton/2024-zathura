@@ -63,8 +63,10 @@ CardsHand >> initializeOf: aSpaceship using: aDeck [
 
 { #category : #removing }
 CardsHand >> removeEffectOf: aCard [
-
-	cardsAffecting := cardsAffecting reject: [ :each | each = aCard ]
+	|cardToRemove|
+	cardToRemove := cardsAffecting detect: [ :each | each = aCard ].
+	cardsAffecting remove:cardToRemove.
+	
 ]
 
 { #category : #removing }
