@@ -18,6 +18,11 @@ BlackHole >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
+BlackHole >> pol [ 
+	^reversePolarity 
+]
+
+{ #category : #'as yet unclassified' }
 BlackHole >> reversePolarity [ 
 	reversePolarity := reversePolarity not.
 ]
@@ -25,5 +30,7 @@ BlackHole >> reversePolarity [
 { #category : #playing }
 BlackHole >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager applyBlackHoleEffectTo: aSpaceship .
+	reversePolarity
+		ifTrue: [ anEffectManager applyBlackHoleEffectToAllBut: aSpaceship ]
+		ifFalse: [anEffectManager applyBlackHoleEffectTo: aSpaceship  ]
 ]

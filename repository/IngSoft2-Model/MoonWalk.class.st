@@ -29,7 +29,10 @@ MoonWalk >> reversePolarity [
 { #category : #playing }
 MoonWalk >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager
-		applyMoonwalkMoving: tilesToMove
-		notAffecting: aSpaceship
+	reversePolarity
+		ifTrue: [ anEffectManager move: aSpaceship by: tilesToMove  ]
+		ifFalse: [
+			anEffectManager
+				applyMoonwalkMoving: tilesToMove
+				notAffecting: aSpaceship ]
 ]

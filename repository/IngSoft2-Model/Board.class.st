@@ -128,3 +128,10 @@ Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 			lapBy: 0
 			neededFuel: 0 ]
 ]
+
+{ #category : #accessing }
+Board >> reversePolarityOfEffectAtTile: aNumber [
+	|tile |
+	tile:=tiles at: aNumber.
+	tile reversePolarity .
+]

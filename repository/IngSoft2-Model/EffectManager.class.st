@@ -23,6 +23,17 @@ EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
 	aSpaceShip decreaseATurbine .
 ]
 
+{ #category : #playing }
+EffectManager >> applyBlackHoleEffectToAllBut: aSpaceship [
+
+	| filteredShips |
+	filteredShips := spaceships select: [ :spaceship |
+		                 spaceship ~= aSpaceship ].
+	filteredShips do: [ :spaceship |
+		board move: spaceship by: -4.
+		spaceship decreaseATurbine ]
+]
+
 { #category : #initialization }
 EffectManager >> applyEffectOnLandingShip: aSpaceship [
 
