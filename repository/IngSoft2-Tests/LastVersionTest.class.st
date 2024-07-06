@@ -1071,7 +1071,7 @@ LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoe
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new  }
+				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 7. 2. 2. 2. 2. 20 }.
 
@@ -1084,9 +1084,9 @@ LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoe
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -1094,16 +1094,18 @@ LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoe
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-		self
-		should: [ aGame play: aReversePolarityCard  by: 'Danny'  targetting: 556 ]
+
+
+	self
+		should: [
+		aGame play: aReversePolarityCard by: 'Danny' targetting: 556 ]
 		raise: Error
-		withMessage: 'The tile number is greater than the amounts of tiles in the board'.
-
-
-	
-	
-	
-
+		withMessage:
+		'The tile number is greater or lower than the amounts of tiles in the board'.
+	self
+		should: [
+		aGame play: aReversePolarityCard by: 'Danny' targetting: -4 ]
+		raise: Error
+		withMessage:
+		'The tile number is greater or lower than the amounts of tiles in the board'
 ]

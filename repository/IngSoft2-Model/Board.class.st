@@ -146,6 +146,6 @@ Board >> reversePolarityOfEffectAtTile: aNumber [
 { #category : #accessing }
 Board >> validateIfIsPossibleToRevertATileEffect: aTileNumber [
 
-	self amountOfTiles < aTileNumber ifTrue: [
-		Error signal: 'The tile number is greater than the amounts of tiles in the board' ]
+	(self amountOfTiles < aTileNumber or: aTileNumber<0) ifTrue: [
+		Error signal: 'The tile number is greater or lower than the amounts of tiles in the board' ]
 ]
