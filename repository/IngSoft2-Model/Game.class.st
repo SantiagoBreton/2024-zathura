@@ -8,7 +8,6 @@ Class {
 		'hasEnded',
 		'turnHandler',
 		'deck',
-		'cardHands',
 		'effectManager',
 		'cardPlayManager'
 	],
@@ -59,17 +58,6 @@ Game >> anySpaceShipAtLastTileAndLap [
 		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
 ]
 
-{ #category : #testing }
-Game >> applyACardEffect: aCard to:aSpaceship [
-	(self cardsHandOf: aSpaceship) addEffectOf: aCard.
-]
-
-{ #category : #testing }
-Game >> applyToAllSpaceShips: aCardEffect [
-	cardHands do: [ :cardHand |
-		cardHand addEffectOf: aCardEffect ]
-]
-
 { #category : #asserting }
 Game >> assertIsTurnOf: spaceship [
 
@@ -98,15 +86,6 @@ Game >> cancelAllianceBetween: aPlayer and: anotherPlayer [
 
 ]
 
-{ #category : #accessing }
-Game >> cardsHandOf: aSpaceship [
-
-	| spaceshipCardHandler |
-	spaceshipCardHandler := cardHands detect: [ :handler |
-		                        handler player = aSpaceship ].
-	^ spaceshipCardHandler
-]
-
 { #category : #asserting }
 Game >> endGameIfPossible [
 
@@ -123,6 +102,12 @@ Game >> giveCardFromDeckTo: aSpaceship [
 	cardPlayManager addNewCard:  card to: aSpaceship name.
 ]
 
+{ #category : #accessing }
+Game >> handOf: aPlayer [
+
+	^ cardPlayManager handOf: aPlayer.
+]
+
 { #category : #testing }
 Game >> hasEnded [
 
@@ -131,7 +116,7 @@ Game >> hasEnded [
 
 { #category : #initialization }
 Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: dice usingCardsFrom: aDeck [
-
+	|cardHands|
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
@@ -139,7 +124,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	deck := aDeck.
 	board finishesAfter: laps.
 	cardHands := spaceships collect: [ :spaceShip |
-		             CardsHand of: spaceShip using: aDeck ].
+		             PlayerHand of: spaceShip using: aDeck ].
 	cardPlayManager := CardPlayManager with: self having:cardHands.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	effectManager := EffectManager
@@ -150,7 +135,6 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 
 { #category : #'target resize' }
 Game >> play: aCard by:aPlayer targetting: anotherPlayer [
-	self validate: aPlayer  has: aCard .
 	cardPlayManager resolve: aCard by: aPlayer  targetting: anotherPlayer.
 	
 ]
@@ -213,16 +197,6 @@ Game >> spaceShipsPositionsRanking [
 Game >> spaceshipCalled: aName [
 
 	^ spaceships detect: [ :spaceship | spaceship name = aName ]
-]
-
-{ #category : #asserting }
-Game >> validate: aSpaceship has: aCard [
-
-	| cardsHand |
-	cardsHand := self cardsHandOf: aSpaceship .
-	(cardsHand hasInHand: aCard) ifFalse: [
-		Error signal:
-			'Spaceship cannot throw this card because he does not have it' ]
 ]
 
 { #category : #asserting }

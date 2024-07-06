@@ -775,20 +775,20 @@ LastVersionTest >> testLV14IfAPlayersPlaysTheReversePolarityCardOnACardGiverEffe
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
-	self assert: (aGame cardsHandOf: 'Joseph') cardsInHand size equals: 2.
+	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 2.
+	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 2.
+	self assert: (aGame handOf: 'Joseph') cardsInHand size equals: 2.
 
 	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
 	
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
+	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 1.
 
 	aGame playNextTurn.
 	
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 3.
-	self assert: (aGame cardsHandOf: 'Joseph') cardsInHand size equals: 3.
+	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 1.
+	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 3.
+	self assert: (aGame handOf: 'Joseph') cardsInHand size equals: 3.
 
 ]
 

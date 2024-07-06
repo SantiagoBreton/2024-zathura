@@ -7,7 +7,7 @@ Class {
 		'cardPlayer',
 		'cardTarget',
 		'cardPlays',
-		'cardHands'
+		'allPlayersHands'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -26,12 +26,12 @@ CardPlayManager class >> with: aGame having: cardsHands [
 
 { #category : #resolving }
 CardPlayManager >> addNewCard: aCard to:aPlayer [
-	(self cardsHandOf: aPlayer)  addToHand: aCard.
+	(self handOf: aPlayer)  addToHand: aCard.
 ]
 
 { #category : #resolving }
 CardPlayManager >> cancelAnAccelerationCard: aCard [
-	cardHands do:[:cardHand | cardHand removeEffectOf: AccelerationCard new]
+	allPlayersHands do:[:playerHand | playerHand removeEffectOf: AccelerationCard new]
 ]
 
 { #category : #resolving }
@@ -42,42 +42,48 @@ CardPlayManager >> cancelAnAllyCardPlayedBy: aPlayer targetting: anotherPlayer [
 
 { #category : #resolving }
 CardPlayManager >> cancelAnOverloadCardTargetting: aPlayer [
-	(self cardsHandOf: aPlayer) removeEffectOf: OverloadCard new.
-]
-
-{ #category : #resolving }
-CardPlayManager >> cardsHandOf: aPlayer [
-
-	| aPlayerHand |
-	aPlayerHand := cardHands detect: [ :handler |
-		                        handler player = aPlayer ].
-	^ aPlayerHand
+	(self handOf: aPlayer) removeEffectOf: OverloadCard new.
 ]
 
 { #category : #initialization }
 CardPlayManager >> diceEffectApplyingTo:aPlayer [
-	^ (self cardsHandOf: aPlayer ) totalEffectsOnSpaceShip
+	^ (self handOf: aPlayer ) totalEffectsOnSpaceShip
 
 ]
 
+{ #category : #resolving }
+CardPlayManager >> handOf: aPlayer [
+
+	| aPlayerHand |
+	aPlayerHand := allPlayersHands detect: [ :playerHand |
+		                        playerHand player = aPlayer ].
+	^ aPlayerHand
+]
+
+{ #category : #resolving }
+CardPlayManager >> handleWrongCancellationCard [
+	Error signal: 'There is no CardPlay matching the one tried to be cancelled'.
+	cardPlays removeLast .
+]
+
 { #category : #initialization }
-CardPlayManager >> initializeWith: aGame having:aCardsHands [
+CardPlayManager >> initializeWith: aGame having:anAllPlayersHands [
 
 	game := aGame.
-	cardHands:=aCardsHands .
+	allPlayersHands:=anAllPlayersHands .
 	cardPlays:= OrderedCollection new .
 ]
 
 { #category : #resolving }
-CardPlayManager >> removeFromHand: aCard to: aSpaceShip [
+CardPlayManager >> removeFromHand: aCard to: aPlayer [
 
-	(self cardsHandOf:  aSpaceShip)
+	(self handOf:  aPlayer)
 		removeFromHand: aCard
 ]
 
 { #category : #resolving }
 CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: anotherPlayer [
-
+	self validate: aPlayer  has: aCardPlayed.
 	cardPlayer := aPlayer.
 	cardTarget := anotherPlayer.
 	cardPlays add: (CardPlay a: aCardPlayed  wasPlayedBy: aPlayer targetting:anotherPlayer ).
@@ -88,7 +94,8 @@ CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: anotherPlayer [
 { #category : #resolving }
 CardPlayManager >> resolveACancellationCardPlay: aCard [
 	|cardPlayToCancel|
-	cardPlayToCancel:=cardPlays detect:  [ :cardPlay | cardPlay = cardTarget  ].
+
+	cardPlayToCancel:=cardPlays detect:  [ :cardPlay | cardPlay = cardTarget  ] ifNone: [ self handleWrongCancellationCard ].
 	cardPlayToCancel cancelEffectUsing: self.
 	cardPlays remove:cardPlayToCancel.
 	lastCardPlayed := aCard.
@@ -127,7 +134,7 @@ CardPlayManager >> resolveAnAccelerationCardPlay:aCard [
 	
 	
 	game assertIsTurnOf: cardPlayer.
-	cardHands do:[:cardHand| cardHand addEffectOf: aCard ] .
+	allPlayersHands do:[:cardHand| cardHand addEffectOf: aCard ] .
 	lastCardPlayed := aCard.
 	self removeFromHand: aCard to: cardPlayer.
 ]
@@ -145,7 +152,17 @@ CardPlayManager >> resolveAnAllyCardPlay: aCard [
 CardPlayManager >> resolveAnOverloadCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
-	(self cardsHandOf: cardTarget) addEffectOf: aCard .
+	(self handOf: cardTarget) addEffectOf: aCard .
 	lastCardPlayed := aCard.
 	self removeFromHand: aCard to: cardPlayer
+]
+
+{ #category : #resolving }
+CardPlayManager >> validate: aSpaceship has: aCard [
+
+	| cardsHand |
+	cardsHand := self handOf: aSpaceship .
+	(cardsHand hasInHand: aCard) ifFalse: [
+		Error signal:
+			'Spaceship cannot throw this card because he does not have it' ]
 ]

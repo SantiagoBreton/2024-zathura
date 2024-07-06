@@ -28,8 +28,8 @@ ThirdVersionTest >> testTV01EverySpaceshipStartsWithTwoCards [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size  equals: 2.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
+	self assert: (aGame handOf: 'Danny') cardsInHand size  equals: 2.
+	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 2.
 
 	aGame playNextTurn.
 	aGame playNextTurn
@@ -59,14 +59,14 @@ ThirdVersionTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
+	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 2.
+	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 2.
 
 	aGame playNextTurn.
 
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 3.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2
+	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 3.
+	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 2
 ]
 
 { #category : #tests }
@@ -1307,13 +1307,13 @@ ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggers
 
 	aGame playNextTurn.
 	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size   equals: 3.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size  equals: 2.
+	self assert: (aGame handOf: 'Danny') cardsInHand size   equals: 3.
+	self assert: (aGame handOf: 'Walter') cardsInHand size  equals: 2.
 
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Walter'.
-	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size   equals: 3.
-	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size   equals: 2.
+	self assert: (aGame handOf: 'Danny') cardsInHand size   equals: 3.
+	self assert: (aGame handOf: 'Walter') cardsInHand size   equals: 2.
 	
 
 
@@ -1480,5 +1480,59 @@ ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItR
 	aGame play: aCancellationCard by: 'Walter'  targetting:aCardPlay. 
 	
 	self deny:((aGame spaceshipCalled: 'Walter') ally) equals: (aGame spaceshipCalled: 'Danny') .
+	
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV29WhenSpaceshipUsesCancellationCardOnACardPlayThatWastnPlayItRaisesAnError [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anAccelerationCard aCancellationCard aCardPlay |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+
+	anAccelerationCard := AccelerationCard  new.
+	aCancellationCard := CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         anAccelerationCard.
+			         aCancellationCard.
+			         anAccelerationCard.
+			         aCancellationCard.
+						anAccelerationCard.}.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+
+	aGame play: anAccelerationCard  by: 'Danny' targetting: 'all'.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aCardPlay:= CardPlay a: OverloadCard new  wasPlayedBy:'Danny'  targetting:'Walter' .
+	self
+		should: [ aGame play: aCancellationCard by: 'Walter'  targetting:aCardPlay ]
+		raise: Error
+		withMessage: 'There is no CardPlay matching the one tried to be cancelled'.
+	
+	
+	
+	 
+	
+	
 	
 ]

@@ -10,12 +10,6 @@ AllyCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aT
 	cardPlayResolver cancelAnAllyCardPlayedBy: aPlayer targetting: aTarget.
 ]
 
-{ #category : #initialization }
-AllyCard >> effect [
-
-	^ 0
-]
-
 { #category : #delegating }
 AllyCard >> uses: cardPlayResolver [
 
