@@ -39,7 +39,7 @@ TurnHandler >> nextSpaceshipTurn [
 
 	| spaceshipTurn |
 	spaceshipTurn := self nextTurn.
-	[ spaceshipTurn turnsToLose > 0 ] whileTrue: [
+	[ spaceshipTurn canPlay ] whileFalse: [
 		spaceshipTurn losesTurns: -1.
 		self changeTurns.
 		spaceshipTurn := self nextTurn ].

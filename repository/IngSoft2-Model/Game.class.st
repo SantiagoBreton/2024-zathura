@@ -117,7 +117,9 @@ Game >> cardsHandOf: aSpaceship [
 { #category : #asserting }
 Game >> endGameIfPossible [
 
-	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ]
+	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
+	
+	(spaceships anySatisfy:  [ :aSpaceship |  aSpaceship canPlay ]) ifFalse: [ hasEnded := true ]
 ]
 
 { #category : #playing }
@@ -256,9 +258,7 @@ Game >> winner [
 
 	| winner |
 	self hasEnded ifFalse: [ ^ self hasEnded ].
-
-	winner := spaceships detect: [ :aSpaceship |
-		          aSpaceship position = 1 and: [
-			          aSpaceship lap = (board laps + 1) ] ].
+	
+	winner := self spaceShipsPositionsRanking first.
 	^ winner
 ]
