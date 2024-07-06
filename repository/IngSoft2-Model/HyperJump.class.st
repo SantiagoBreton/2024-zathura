@@ -2,7 +2,8 @@ Class {
 	#name : #HyperJump,
 	#superclass : #Effect,
 	#instVars : [
-		'distances'
+		'distances',
+		'reversePolarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,7 +17,13 @@ HyperJump class >> of: distances [
 { #category : #'instance creation' }
 HyperJump >> initializeOf: groupOfDistances [
 
-	distances := groupOfDistances asOrderedCollection
+	distances := groupOfDistances asOrderedCollection.
+	reversePolarity:=false.
+]
+
+{ #category : #'as yet unclassified' }
+HyperJump >> reversePolarity [ 
+	reversePolarity := reversePolarity not.
 ]
 
 { #category : #playing }

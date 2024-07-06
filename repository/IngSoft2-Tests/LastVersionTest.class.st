@@ -143,7 +143,7 @@ LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLoosesATurbine [
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new.
+				          BlackHole create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
@@ -187,7 +187,7 @@ LastVersionTest >> testLV05IfAShipLoosesThenItCannotPlayAnymore [
 				          (HyperGravity needsToThrow: 3).
 				          Null create.
 				          Null create.
-				          BlackHole new }
+				          BlackHole create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: {3. 1. 2. 1. 2. 2. 3. 1. 2. 1. 2. 4. 20}.
@@ -258,7 +258,7 @@ LastVersionTest >> testLV06IfAllShipsLooseTheirTurbinesThenTheGameHasEnded [
 				          Null create.
 				          Null create.
 				          (HyperGravity needsToThrow: 3).
-				          BlackHole new.
+				          BlackHole create.
 				          Null create
 				           }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -314,7 +314,7 @@ LastVersionTest >> testLV07IfAllShipsLooseTheirTurbinesThenTheWinnerIsTheOneClos
 				          Null create.
 				          Null create.
 				          (HyperGravity needsToThrow: 3).
-				          BlackHole new.
+				          BlackHole create.
 				          Null create
 				           }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
