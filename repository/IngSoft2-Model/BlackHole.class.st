@@ -18,11 +18,6 @@ BlackHole >> initialize [
 ]
 
 { #category : #'as yet unclassified' }
-BlackHole >> pol [ 
-	^reversePolarity 
-]
-
-{ #category : #'as yet unclassified' }
 BlackHole >> reversePolarity [ 
 	reversePolarity := reversePolarity not.
 ]

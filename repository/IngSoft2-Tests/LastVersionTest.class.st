@@ -730,3 +730,64 @@ LastVersionTest >> testLV13IfAPlayersPlaysTheReversePolarityCardOnAHyperJumpEffe
 	self assert: (aGame spaceshipCalled: 'Walter') position equals: 9.
 	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4
 ]
+
+{ #category : #tests }
+LastVersionTest >> testLV14IfAPlayersPlaysTheReversePolarityCardOnACardGiverEffectTileItTargetsAllButTheSpaceshipThatTriggeredIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard unitsToMove |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	unitsToMove := OrderedCollection
+		               with: (Parsecs with: 3)
+		               with: (Parsecs with: 2).
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          CardGiver create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 5. 3. 2. 2. 2. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 2.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 2.
+	self assert: (aGame cardsHandOf: 'Joseph') cardsInHand size equals: 2.
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
+	
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
+
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame cardsHandOf: 'Danny') cardsInHand size equals: 1.
+	self assert: (aGame cardsHandOf: 'Walter') cardsInHand size equals: 3.
+	self assert: (aGame cardsHandOf: 'Joseph') cardsInHand size equals: 3.
+
+]

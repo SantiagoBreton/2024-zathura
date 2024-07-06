@@ -64,6 +64,13 @@ EffectManager >> giveCardFromDeckTo: aSpaceship [
 	game giveCardFromDeckTo: aSpaceship
 ]
 
+{ #category : #playing }
+EffectManager >> giveCardFromDeckToAllBut: aSpaceship [
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self giveCardFromDeckTo: spaceship ].
+	
+]
+
 { #category : #initialization }
 EffectManager >> initializeIn: aGame using: aBoard affecting: someShips [
 
