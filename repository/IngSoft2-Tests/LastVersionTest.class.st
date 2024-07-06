@@ -1061,7 +1061,7 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 { #category : #tests }
 LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoesntExistItCannot [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard cardplay1 cardplay2|
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard|
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
 	aBoard := Board
 		          of: {
@@ -1108,6 +1108,66 @@ LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoe
 		raise: Error
 		withMessage:
 		'The tile number is greater or lower than the amounts of tiles in the board'.
+	
+
+		
+	
+]
+
+{ #category : #tests }
+LastVersionTest >> testLV20IfAPlayersCancelsAReversePolarityCardTheTileEffectGoesBackToNormal [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard aCancellationCard cardPlay|
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          BlackHole new }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 7. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+	aCancellationCard:=CancellationCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aCancellationCard.
+			         aReversePolarityCard.
+			         aCancellationCard.
+			         aReversePolarityCard.
+			         aCancellationCard.
+			         aReversePolarityCard.
+			         aCancellationCard.
+			         aReversePolarityCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+
+	aGame play: aReversePolarityCard  by: 'Danny' targetting: 7.
+	
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	aGame playNextTurn.
+	cardPlay:= CardPlay a:aReversePolarityCard  wasPlayedBy: 'Danny' targetting: 7 .
+	aGame play: aCancellationCard  by: 'Walter'  targetting: cardPlay . 
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
 	
 
 		

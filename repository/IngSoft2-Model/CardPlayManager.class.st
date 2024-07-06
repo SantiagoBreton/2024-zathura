@@ -30,6 +30,13 @@ CardPlayManager >> addNewCard: aCard to:aPlayer [
 ]
 
 { #category : #resolving }
+CardPlayManager >> cancelAReversePolarityCardTargetting: aTarget [
+	
+	game reversePolarityOfEffectAtTile: aTarget.
+
+]
+
+{ #category : #resolving }
 CardPlayManager >> cancelAnAccelerationCard: aCard [
 	allPlayersHands do:[:playerHand | playerHand removeEffectOf: AccelerationCard new]
 ]
