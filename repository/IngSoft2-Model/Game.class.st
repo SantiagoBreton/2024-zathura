@@ -147,7 +147,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	board finishesAfter: laps.
 	cardHands := spaceships collect: [ :spaceShip |
 		             CardsHand of: spaceShip using: aDeck ].
-	cardPlayResolver := CardPlayResolver with: self.
+	cardPlayResolver := CardPlayManager with: self.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	effectManager := EffectManager
 		                 usedIn: self

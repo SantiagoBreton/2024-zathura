@@ -22,7 +22,13 @@ Null >> initialize [
 
 { #category : #'as yet unclassified' }
 Null >> reversePolarity [ 
-	reversePolarity := reversePolarity not.
+	
+]
+
+{ #category : #playing }
+Null >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+
+	
 ]
 
 { #category : #playing }

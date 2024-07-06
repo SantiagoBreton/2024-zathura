@@ -136,7 +136,8 @@ Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 
 { #category : #accessing }
 Board >> reversePolarityOfEffectAtTile: aNumber [
-	|tile |
-	tile:=tiles at: aNumber.
-	tile reversePolarity .
+	|effect inversedEffect|
+	effect:=tiles at: aNumber.
+	inversedEffect:= InversedEffect reversePolarityOf: effect.
+	tiles at:aNumber put:inversedEffect.
 ]

@@ -22,6 +22,10 @@ AtomicBomb >> reversePolarity [
 	reversePolarity := reversePolarity not.
 ]
 
+{ #category : #'as yet unclassified' }
+AtomicBomb >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+]
+
 { #category : #playing }
 AtomicBomb >> triggeredBy: aSpaceship on: anEffectManager [
 	reversePolarity ifFalse:  [anEffectManager moveAllSpaceshipsToFirstPosition  ].

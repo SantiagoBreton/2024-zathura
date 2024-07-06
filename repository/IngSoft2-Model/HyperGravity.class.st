@@ -27,8 +27,13 @@ HyperGravity >> reversePolarity [
 ]
 
 { #category : #playing }
+HyperGravity >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	anEffectManager applyHyperGravityEffectOf: needsToThrow toAllShipsBut: aSpaceship
+]
+
+{ #category : #playing }
 HyperGravity >> triggeredBy: aSpaceship on: anEffectManager [
 	
-	reversePolarity ifTrue: [ anEffectManager applyHyperGravityEffectOf: needsToThrow toAllShipsBut: aSpaceship ] ifFalse:[anEffectManager applyHyperGravityEffectOf: needsToThrow to: aSpaceship ]. 
+	anEffectManager applyHyperGravityEffectOf: needsToThrow to: aSpaceship . 
 	
 ]

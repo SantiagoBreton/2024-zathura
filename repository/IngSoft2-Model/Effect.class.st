@@ -9,6 +9,11 @@ Effect >> reversePolarity [
 	self subclassResponsibility 
 ]
 
+{ #category : #'as yet unclassified' }
+Effect >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	self subclassResponsibility .
+]
+
 { #category : #playing }
 Effect >> triggeredBy: aPlayer on: anEffectManager [
 

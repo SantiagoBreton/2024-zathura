@@ -35,10 +35,12 @@ Wormhole >> reversePolarity [
 ]
 
 { #category : #playing }
+Wormhole >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	anEffectManager teleportAllBut: aSpaceship to: tileToTeleport
+]
+
+{ #category : #playing }
 Wormhole >> triggeredBy: aSpaceship on: anEffectManager [
 
-	reversePolarity
-		ifTrue: [
-		anEffectManager teleportAllBut: aSpaceship to: tileToTeleport ]
-		ifFalse: [ anEffectManager teleport: aSpaceship to: tileToTeleport ]
+	 anEffectManager teleport: aSpaceship to: tileToTeleport
 ]

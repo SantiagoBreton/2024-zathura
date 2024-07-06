@@ -1,5 +1,5 @@
 Class {
-	#name : #CardPlayResolver,
+	#name : #CardPlayManager,
 	#superclass : #Object,
 	#instVars : [
 		'game',
@@ -11,35 +11,35 @@ Class {
 }
 
 { #category : #'instance creation' }
-CardPlayResolver class >> with: aGame [
+CardPlayManager class >> with: aGame [
 
 	^ self new initializeWith: aGame
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnAccelerationCard: aCard [
+CardPlayManager >> cancelAnAccelerationCard: aCard [
 	game cancelTheEffectOf: aCard
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnAllyCard: aCard [
+CardPlayManager >> cancelAnAllyCard: aCard [
 
 game setAllyToNil.
 ]
 
 { #category : #resolving }
-CardPlayResolver >> cancelAnOverloadCard: aCard [
+CardPlayManager >> cancelAnOverloadCard: aCard [
 	game cancelTheEffectOf:aCard
 ]
 
 { #category : #initialization }
-CardPlayResolver >> initializeWith: aGame [
+CardPlayManager >> initializeWith: aGame [
 
 	game := aGame
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
+CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 
 	cardPlayer := aPlayer.
 	cardTarget := anotherPalyer.
@@ -47,16 +47,16 @@ CardPlayResolver >> resolve: aCardPlayed by: aPlayer targetting: anotherPalyer [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveACancellationCardPlay: aCard [
+CardPlayManager >> resolveACancellationCardPlay: aCard [
 
-	"game cancelTheEffectOf: cardTarget."
+	
 	cardTarget cancelEffectUsing:self.
 	lastCardPlayed := aCard.
 	game removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveARedoCardPlay: aCard [
+CardPlayManager >> resolveARedoCardPlay: aCard [
 
 	game addNewCard: lastCardPlayed to: cardPlayer.
 	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
@@ -64,7 +64,7 @@ CardPlayResolver >> resolveARedoCardPlay: aCard [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveARepeatCardPlay: aCard [
+CardPlayManager >> resolveARepeatCardPlay: aCard [
 
 	game repeatLastEffectAppliedOn: cardTarget.
 	lastCardPlayed := aCard.
@@ -72,7 +72,7 @@ CardPlayResolver >> resolveARepeatCardPlay: aCard [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveAReversePolarityCardPlay:aCard [
+CardPlayManager >> resolveAReversePolarityCardPlay:aCard [
 	
 	
 	game assertIsTurnOf: cardPlayer.
@@ -82,7 +82,7 @@ CardPlayResolver >> resolveAReversePolarityCardPlay:aCard [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
+CardPlayManager >> resolveAnAccelerationCardPlay:aCard [
 	
 	
 	game assertIsTurnOf: cardPlayer.
@@ -92,7 +92,7 @@ CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveAnAllyCardPlay: aCard [
+CardPlayManager >> resolveAnAllyCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
 	game setAnAllianceBewtween: cardPlayer and: cardTarget.
@@ -103,7 +103,7 @@ CardPlayResolver >> resolveAnAllyCardPlay: aCard [
 ]
 
 { #category : #resolving }
-CardPlayResolver >> resolveAnOverloadCardPlay: aCard [
+CardPlayManager >> resolveAnOverloadCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
 	game applyACardEffect: aCard to: cardTarget.

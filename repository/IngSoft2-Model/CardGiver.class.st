@@ -23,9 +23,12 @@ CardGiver >> reversePolarity [
 ]
 
 { #category : #playing }
+CardGiver >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	anEffectManager giveCardFromDeckToAllBut:  aSpaceship
+]
+
+{ #category : #playing }
 CardGiver >> triggeredBy: aSpaceship on: anEffectManager [
 
-	reversePolarity
-		ifTrue: [  anEffectManager giveCardFromDeckToAllBut: aSpaceship ]
-		ifFalse: [ anEffectManager giveCardFromDeckTo: aSpaceship ]
+	 anEffectManager giveCardFromDeckTo: aSpaceship 
 ]

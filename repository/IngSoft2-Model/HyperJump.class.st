@@ -37,13 +37,17 @@ HyperJump >> reversePolarity [
 ]
 
 { #category : #playing }
+HyperJump >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	| valueAsParsec |
+	valueAsParsec := self nextJumpValue.
+	anEffectManager moveAllBut: aSpaceship jumping: valueAsParsec
+]
+
+{ #category : #playing }
 HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
 
 	| valueAsParsec |
 	valueAsParsec := self nextJumpValue.
 
-	reversePolarity
-		ifTrue: [
-		anEffectManager moveAllBut: aSpaceship jumping: valueAsParsec ]
-		ifFalse: [ anEffectManager move: aSpaceship jumping: valueAsParsec ]
+	 anEffectManager move: aSpaceship jumping: valueAsParsec 
 ]
