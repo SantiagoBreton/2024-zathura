@@ -26,10 +26,7 @@ EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
 { #category : #playing }
 EffectManager >> applyBlackHoleEffectToAllBut: aSpaceship [
 
-	| filteredShips |
-	filteredShips := spaceships select: [ :spaceship |
-		                 spaceship ~= aSpaceship ].
-	filteredShips do: [ :spaceship |
+	(self getAllButOneSpaceship:aSpaceship) do: [ :spaceship |
 		board move: spaceship by: -4.
 		spaceship decreaseATurbine ]
 ]
@@ -46,11 +43,19 @@ EffectManager >> applyEffectOnLandingShip: aSpaceship [
 { #category : #playing }
 EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting: aShip [
 
+	(self getAllButOneSpaceship:aShip) do: [ :spaceship |
+		board move: spaceship by: anAmountOfTiles ]
+]
+
+{ #category : #playing }
+EffectManager >> getAllButOneSpaceship: theSpaceShip [
+
 	| filteredShips |
 	filteredShips := spaceships select: [ :spaceship |
-		                 spaceship ~= aShip ].
-	filteredShips do: [ :spaceship |
-		board move: spaceship by: anAmountOfTiles ]
+		                 spaceship ~= theSpaceShip ].
+	
+	^filteredShips.
+
 ]
 
 { #category : #playing }
@@ -77,7 +82,15 @@ EffectManager >> move: aSpaceShip by: anAmountOfTiles [
 { #category : #playing }
 EffectManager >> move: aSpaceship jumping: aQuantityOfParsec [
 
-	board move: aSpaceship jumping: aQuantityOfParsec
+
+	board move: aSpaceship jumping: aQuantityOfParsec.
+]
+
+{ #category : #playing }
+EffectManager >> moveAllBut: aSpaceship jumping: aQuantityOfParsec [
+
+		(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		board move: spaceship jumping: aQuantityOfParsec ].
 ]
 
 { #category : #playing }

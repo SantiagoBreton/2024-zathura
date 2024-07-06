@@ -24,6 +24,6 @@ AtomicBomb >> reversePolarity [
 
 { #category : #playing }
 AtomicBomb >> triggeredBy: aSpaceship on: anEffectManager [
-
-	anEffectManager moveAllSpaceshipsToFirstPosition
+	reversePolarity ifFalse:  [anEffectManager moveAllSpaceshipsToFirstPosition  ].
+	
 ]

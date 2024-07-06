@@ -609,3 +609,124 @@ LastVersionTest >> testLV11IfAPlayersPlaysTheReversePolarityCardOnANullEffectTil
 	
 		
 ]
+
+{ #category : #tests }
+LastVersionTest >> testLV12IfAPlayersPlaysTheReversePolarityCardOnAnAtomicBombEffectTileItDoesNothing [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          AtomicBomb create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 3. 3. 4. 2. 2. 2. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+						aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard. }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+	
+ 
+	
+	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 5.
+
+	
+	aGame playNextTurn .
+	aGame playNextTurn .
+	aGame playNextTurn .
+	
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 5.
+
+	
+
+	
+	
+	
+	
+	
+		
+]
+
+{ #category : #tests }
+LastVersionTest >> testLV13IfAPlayersPlaysTheReversePolarityCardOnAHyperJumpEffectTileItTargetsAllButTheSpaceshipThatTriggeredIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard unitsToMove |
+	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
+	unitsToMove := OrderedCollection
+		               with: (Parsecs with: 3)
+		               with: (Parsecs with: 2).
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          (HyperJump of: unitsToMove).
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 4. 5. 3. 2. 2. 2. 2. 2. 2. 2. 20 }.
+
+	aReversePolarityCard := ReversePolarityCard new.
+
+	aDeck := LoadedDeck of: {
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
+
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	
+	aGame playNextTurn.
+
+	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
+	self assert: (aGame spaceshipCalled: 'Walter') position equals: 9.
+	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4
+]

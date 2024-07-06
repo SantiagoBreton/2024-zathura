@@ -22,6 +22,16 @@ HyperJump >> initializeOf: groupOfDistances [
 ]
 
 { #category : #'as yet unclassified' }
+HyperJump >> nextJumpValue [
+
+	| valueAsParsec |
+	valueAsParsec := (distances at: 1) valueAsParsecs.
+	distances add: distances first.
+	distances removeFirst.
+	^ valueAsParsec
+]
+
+{ #category : #'as yet unclassified' }
 HyperJump >> reversePolarity [ 
 	reversePolarity := reversePolarity not.
 ]
@@ -30,8 +40,10 @@ HyperJump >> reversePolarity [
 HyperJump >> triggeredBy: aSpaceship on: anEffectManager [
 
 	| valueAsParsec |
-	valueAsParsec := (distances at: 1) valueAsParsecs.
-	anEffectManager move: aSpaceship jumping: valueAsParsec.
-	distances add: distances first.
-	distances removeFirst
+	valueAsParsec := self nextJumpValue.
+
+	reversePolarity
+		ifTrue: [
+		anEffectManager moveAllBut: aSpaceship jumping: valueAsParsec ]
+		ifFalse: [ anEffectManager move: aSpaceship jumping: valueAsParsec ]
 ]
