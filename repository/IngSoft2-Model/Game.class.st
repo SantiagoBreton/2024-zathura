@@ -53,11 +53,6 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 ]
 
 { #category : #accessing }
-Game >> addNewCard: aCard to:aPlayer [
-	(self cardsHandOf: aPlayer)  addToHand: aCard.
-]
-
-{ #category : #accessing }
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
@@ -104,31 +99,11 @@ Game >> cancelAllianceBetween: aPlayer and: anotherPlayer [
 ]
 
 { #category : #accessing }
-Game >> cancelTheEffectOf: aPermanentCard [
-	|filteredCardsHands|
-	filteredCardsHands := cardHands select: [ :cardsHand |
-		                      cardsHand affectsSpaceShip: aPermanentCard ].
-	self validateIfIsPossibleToCancelACard: filteredCardsHands.
-	filteredCardsHands do: [ :cardsHand |
-		cardsHand removeEffectOf: aPermanentCard ].
-]
-
-{ #category : #accessing }
-Game >> cancelTheEffectOfAnAccelerationCard [
-	cardHands do:[:cardHand | cardHand removeEffectOf: AccelerationCard new]
-]
-
-{ #category : #accessing }
-Game >> cancelTheEffectOfAnOverloadCardTargeting: aPlayer [
-	(self cardsHandOf: aPlayer) removeEffectOf: OverloadCard new.
-]
-
-{ #category : #accessing }
 Game >> cardsHandOf: aSpaceship [
 
 	| spaceshipCardHandler |
 	spaceshipCardHandler := cardHands detect: [ :handler |
-		                        handler spaceship name = aSpaceship ].
+		                        handler player = aSpaceship ].
 	^ spaceshipCardHandler
 ]
 
@@ -145,7 +120,7 @@ Game >> giveCardFromDeckTo: aSpaceship [
 
 	| card |
 	card := deck pick.
-	self addNewCard:  card to: aSpaceship name.
+	cardPlayManager addNewCard:  card to: aSpaceship name.
 ]
 
 { #category : #testing }
@@ -165,7 +140,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	board finishesAfter: laps.
 	cardHands := spaceships collect: [ :spaceShip |
 		             CardsHand of: spaceShip using: aDeck ].
-	cardPlayManager := CardPlayManager with: self.
+	cardPlayManager := CardPlayManager with: self having:cardHands.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	effectManager := EffectManager
 		                 usedIn: self
@@ -189,17 +164,10 @@ Game >> playNextTurn [
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
 	rollingResult = diceCollection maxRoll ifTrue: [
 		self assignRewardForMaxRollFor: spaceshipTurn ].
-	rollModifier := self rollModifierFor: spaceshipTurn.
+	rollModifier := cardPlayManager diceEffectApplyingTo: spaceshipTurn name.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
 	self endGameIfPossible
-]
-
-{ #category : #removing }
-Game >> removeFromHand: aCard to: aSpaceShip [
-
-	(self cardsHandOf:  aSpaceShip)
-		removeFromHand: aCard
 ]
 
 { #category : #accessing }
@@ -211,12 +179,6 @@ Game >> repeatLastEffectAppliedOn: aSpaceshipName [
 Game >> reversePolarityOfEffectAtTile: aNumber [
 
 	board reversePolarityOfEffectAtTile: aNumber.
-]
-
-{ #category : #playing }
-Game >> rollModifierFor: aSpaceShip [
-
-	^ (self cardsHandOf: aSpaceShip name) totalEffectsOnSpaceShip
 ]
 
 { #category : #'target resize' }

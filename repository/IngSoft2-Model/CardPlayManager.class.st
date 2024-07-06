@@ -6,7 +6,8 @@ Class {
 		'lastCardPlayed',
 		'cardPlayer',
 		'cardTarget',
-		'cardPlays'
+		'cardPlays',
+		'cardHands'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -17,9 +18,20 @@ CardPlayManager class >> with: aGame [
 	^ self new initializeWith: aGame
 ]
 
+{ #category : #'instance creation' }
+CardPlayManager class >> with: aGame having: cardsHands [
+
+	^ self new initializeWith: aGame having:cardsHands.
+]
+
+{ #category : #resolving }
+CardPlayManager >> addNewCard: aCard to:aPlayer [
+	(self cardsHandOf: aPlayer)  addToHand: aCard.
+]
+
 { #category : #resolving }
 CardPlayManager >> cancelAnAccelerationCard: aCard [
-	game cancelTheEffectOfAnAccelerationCard 
+	cardHands do:[:cardHand | cardHand removeEffectOf: AccelerationCard new]
 ]
 
 { #category : #resolving }
@@ -30,14 +42,37 @@ CardPlayManager >> cancelAnAllyCardPlayedBy: aPlayer targetting: anotherPlayer [
 
 { #category : #resolving }
 CardPlayManager >> cancelAnOverloadCardTargetting: aPlayer [
-	game cancelTheEffectOfAnOverloadCardTargeting: aPlayer
+	(self cardsHandOf: aPlayer) removeEffectOf: OverloadCard new.
+]
+
+{ #category : #resolving }
+CardPlayManager >> cardsHandOf: aPlayer [
+
+	| aPlayerHand |
+	aPlayerHand := cardHands detect: [ :handler |
+		                        handler player = aPlayer ].
+	^ aPlayerHand
 ]
 
 { #category : #initialization }
-CardPlayManager >> initializeWith: aGame [
+CardPlayManager >> diceEffectApplyingTo:aPlayer [
+	^ (self cardsHandOf: aPlayer ) totalEffectsOnSpaceShip
+
+]
+
+{ #category : #initialization }
+CardPlayManager >> initializeWith: aGame having:aCardsHands [
 
 	game := aGame.
+	cardHands:=aCardsHands .
 	cardPlays:= OrderedCollection new .
+]
+
+{ #category : #resolving }
+CardPlayManager >> removeFromHand: aCard to: aSpaceShip [
+
+	(self cardsHandOf:  aSpaceShip)
+		removeFromHand: aCard
 ]
 
 { #category : #resolving }
@@ -57,15 +92,16 @@ CardPlayManager >> resolveACancellationCardPlay: aCard [
 	cardPlayToCancel cancelEffectUsing: self.
 	cardPlays remove:cardPlayToCancel.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	self removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
 CardPlayManager >> resolveARedoCardPlay: aCard [
 
-	game addNewCard: lastCardPlayed to: cardPlayer.
+	self addNewCard: lastCardPlayed to: cardPlayer.
+	self removeFromHand: aCard to: cardPlayer.
 	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
-	game removeFromHand: aCard to: cardPlayer
+	
 ]
 
 { #category : #resolving }
@@ -73,7 +109,7 @@ CardPlayManager >> resolveARepeatCardPlay: aCard [
 
 	game repeatLastEffectAppliedOn: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	self removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
@@ -83,7 +119,7 @@ CardPlayManager >> resolveAReversePolarityCardPlay:aCard [
 	game assertIsTurnOf: cardPlayer.
 	game reversePolarityOfEffectAtTile: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer.
+	self removeFromHand: aCard to: cardPlayer.
 ]
 
 { #category : #resolving }
@@ -91,9 +127,9 @@ CardPlayManager >> resolveAnAccelerationCardPlay:aCard [
 	
 	
 	game assertIsTurnOf: cardPlayer.
-	game applyToAllSpaceShips: aCard.
+	cardHands do:[:cardHand| cardHand addEffectOf: aCard ] .
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer.
+	self removeFromHand: aCard to: cardPlayer.
 ]
 
 { #category : #resolving }
@@ -101,17 +137,15 @@ CardPlayManager >> resolveAnAllyCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
 	game setAnAllianceBewtween: cardPlayer and: cardTarget.
-	game applyACardEffect: aCard to: cardPlayer.
-	game applyACardEffect: aCard to: cardTarget.
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	self removeFromHand: aCard to: cardPlayer
 ]
 
 { #category : #resolving }
 CardPlayManager >> resolveAnOverloadCardPlay: aCard [
 
 	game assertIsTurnOf: cardPlayer.
-	game applyACardEffect: aCard to: cardTarget.
+	(self cardsHandOf: cardTarget) addEffectOf: aCard .
 	lastCardPlayed := aCard.
-	game removeFromHand: aCard to: cardPlayer
+	self removeFromHand: aCard to: cardPlayer
 ]

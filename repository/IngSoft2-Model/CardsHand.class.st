@@ -2,9 +2,9 @@ Class {
 	#name : #CardsHand,
 	#superclass : #Object,
 	#instVars : [
-		'spaceship',
 		'cardsInHand',
-		'cardsAffecting'
+		'cardsAffecting',
+		'player'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -55,10 +55,16 @@ CardsHand >> hasInHand: aCard [
 { #category : #initialization }
 CardsHand >> initializeOf: aSpaceship using: aDeck [
 
-	spaceship := aSpaceship.
+	player := aSpaceship name.
 	cardsInHand := OrderedCollection new.
 	cardsAffecting := OrderedCollection new.
 	self distributeCardsFrom: aDeck
+]
+
+{ #category : #accessing }
+CardsHand >> player [
+
+	^ player
 ]
 
 { #category : #removing }
@@ -73,12 +79,6 @@ CardsHand >> removeEffectOf: aCard [
 CardsHand >> removeFromHand: aCard [
 
 	cardsInHand remove: aCard
-]
-
-{ #category : #accessing }
-CardsHand >> spaceship [
-
-	^ spaceship
 ]
 
 { #category : #accessing }
