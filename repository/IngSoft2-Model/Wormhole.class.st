@@ -2,7 +2,8 @@ Class {
 	#name : #Wormhole,
 	#superclass : #Effect,
 	#instVars : [
-		'tilesToMove'
+		'tilesToMove',
+		'reversePolarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -25,7 +26,13 @@ Wormhole class >> betweenTiles: positionOfTheWormholes [
 { #category : #initialization }
 Wormhole >> initialize: aNumberOfTilesToMove [
 
-	tilesToMove := aNumberOfTilesToMove
+	tilesToMove := aNumberOfTilesToMove.
+	reversePolarity:=false.
+]
+
+{ #category : #'as yet unclassified' }
+Wormhole >> reversePolarity [ 
+	reversePolarity := reversePolarity not.
 ]
 
 { #category : #playing }

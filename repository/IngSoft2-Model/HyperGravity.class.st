@@ -2,7 +2,8 @@ Class {
 	#name : #HyperGravity,
 	#superclass : #Effect,
 	#instVars : [
-		'needsToThrow'
+		'needsToThrow',
+		'reversePolarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,11 +17,18 @@ HyperGravity class >> needsToThrow: aRollingResult [
 { #category : #initialization }
 HyperGravity >> initializedWith: aNumber [
 
-	needsToThrow := aNumber
+	needsToThrow := aNumber.
+	reversePolarity:=false.
+]
+
+{ #category : #'as yet unclassified' }
+HyperGravity >> reversePolarity [ 
+	reversePolarity := reversePolarity not.
 ]
 
 { #category : #playing }
 HyperGravity >> triggeredBy: aSpaceship on: anEffectManager [
-
-	aSpaceship changeRollingResultNeededToMove: needsToThrow
+	
+	reversePolarity ifTrue: [ anEffectManager applyHyperGravityEffectOf: needsToThrow toAllShipsBut: aSpaceship ] ifFalse:[anEffectManager applyHyperGravityEffectOf: needsToThrow to: aSpaceship ]. 
+	
 ]

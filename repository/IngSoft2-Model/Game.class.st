@@ -189,6 +189,12 @@ Game >> repeatLastEffectAppliedOn: aSpaceshipName [
 	effectManager repeatLastEffectAppliedOn: (self spaceshipCalled: aSpaceshipName).
 ]
 
+{ #category : #testing }
+Game >> reversePolarityOfEffectAtTile: aNumber [
+
+	board reversePolarityOfEffectAtTile: aNumber.
+]
+
 { #category : #playing }
 Game >> rollModifierFor: aSpaceShip [
 

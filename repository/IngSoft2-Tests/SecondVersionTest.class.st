@@ -431,11 +431,11 @@ SecondVersionTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesN
 	aBoard := Board
 		          of: {
 				          Null create.
-				          AtomicBomb new.
+				          AtomicBomb create.
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new.
+				          BlackHole create.
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -521,7 +521,7 @@ SecondVersionTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFour
 				          Null new.
 				          Null new.
 				          Null new.
-				          BlackHole new.
+				          BlackHole create.
 				          Null new.
 				          Null new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -568,7 +568,7 @@ SecondVersionTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTh
 				          Null new.
 				          Null new.
 				          Null new.
-				          BlackHole new.
+				          BlackHole create.
 				          Null new.
 				          Null new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
@@ -624,7 +624,7 @@ SecondVersionTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesI
 	aBoard := Board
 		          of: {
 				          Null new.
-				          BlackHole new.
+				          BlackHole create.
 				          Null new.
 				          Null new.
 				          Null new.
@@ -670,14 +670,14 @@ SecondVersionTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsAC
 	aDie1 := LoadedDie of: { 5. 5. 4. 4. 6 }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (HyperGravity needsToThrow: 4).
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 
@@ -712,14 +712,14 @@ SecondVersionTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItD
 	aDie1 := LoadedDie of: {5}.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (HyperGravity needsToThrow: 4).
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aGame := Game
@@ -752,14 +752,14 @@ SecondVersionTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTile
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (MoonWalk backwardDistance: 2).
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 4. 30 }.
@@ -791,14 +791,14 @@ SecondVersionTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToThe
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (MoonWalk backwardDistance: 4).
-				          Null new }
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 3. 1. 4 }.
@@ -837,12 +837,12 @@ SecondVersionTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesIt
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null new.
+				          Null create.
 				          (MoonWalk backwardDistance: 4).
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
@@ -927,7 +927,7 @@ SecondVersionTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTil
 				          Null create.
 				          Null create.
 				          Null create.
-				          AtomicBomb new.
+				          AtomicBomb create.
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).

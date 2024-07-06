@@ -23,6 +23,14 @@ EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
 	aSpaceShip decreaseATurbine .
 ]
 
+{ #category : #playing }
+EffectManager >> applyBlackHoleEffectToAllBut: aSpaceship [
+
+	(self getAllButOneSpaceship:aSpaceship) do: [ :spaceship |
+		board move: spaceship by: -4.
+		spaceship decreaseATurbine ]
+]
+
 { #category : #initialization }
 EffectManager >> applyEffectOnLandingShip: aSpaceship [
 
@@ -33,19 +41,45 @@ EffectManager >> applyEffectOnLandingShip: aSpaceship [
 ]
 
 { #category : #playing }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow to: aSpaceship [
+	aSpaceship changeRollingResultNeededToMove:  needsToThrow.
+]
+
+{ #category : #playing }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow toAllShipsBut: aSpaceship [
+		(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self applyHyperGravityEffectOf: needsToThrow to: spaceship ].
+]
+
+{ #category : #playing }
 EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting: aShip [
+
+	(self getAllButOneSpaceship:aShip) do: [ :spaceship |
+		board move: spaceship by: anAmountOfTiles ]
+]
+
+{ #category : #playing }
+EffectManager >> getAllButOneSpaceship: theSpaceShip [
 
 	| filteredShips |
 	filteredShips := spaceships select: [ :spaceship |
-		                 spaceship ~= aShip ].
-	filteredShips do: [ :spaceship |
-		board move: spaceship by: anAmountOfTiles ]
+		                 spaceship ~= theSpaceShip ].
+	
+	^filteredShips.
+
 ]
 
 { #category : #playing }
 EffectManager >> giveCardFromDeckTo: aSpaceship [
 
 	game giveCardFromDeckTo: aSpaceship
+]
+
+{ #category : #playing }
+EffectManager >> giveCardFromDeckToAllBut: aSpaceship [
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self giveCardFromDeckTo: spaceship ].
+	
 ]
 
 { #category : #initialization }
@@ -66,7 +100,15 @@ EffectManager >> move: aSpaceShip by: anAmountOfTiles [
 { #category : #playing }
 EffectManager >> move: aSpaceship jumping: aQuantityOfParsec [
 
-	board move: aSpaceship jumping: aQuantityOfParsec
+
+	board move: aSpaceship jumping: aQuantityOfParsec.
+]
+
+{ #category : #playing }
+EffectManager >> moveAllBut: aSpaceship jumping: aQuantityOfParsec [
+
+		(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		board move: spaceship jumping: aQuantityOfParsec ].
 ]
 
 { #category : #playing }

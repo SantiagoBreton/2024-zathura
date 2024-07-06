@@ -2,7 +2,8 @@ Class {
 	#name : #MoonWalk,
 	#superclass : #Effect,
 	#instVars : [
-		'tilesToMove'
+		'tilesToMove',
+		'reversePolarity'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -16,13 +17,22 @@ MoonWalk class >> backwardDistance: anAmountOfTiles [
 { #category : #initialization }
 MoonWalk >> initializedWith: anAmountOfTiles [
 
-	tilesToMove := 0 - anAmountOfTiles
+	tilesToMove := 0 - anAmountOfTiles.
+	reversePolarity:=false.
+]
+
+{ #category : #'as yet unclassified' }
+MoonWalk >> reversePolarity [ 
+	reversePolarity := reversePolarity not.
 ]
 
 { #category : #playing }
 MoonWalk >> triggeredBy: aSpaceship on: anEffectManager [
 
-	anEffectManager
-		applyMoonwalkMoving: tilesToMove
-		notAffecting: aSpaceship
+	reversePolarity
+		ifTrue: [ anEffectManager move: aSpaceship by: tilesToMove  ]
+		ifFalse: [
+			anEffectManager
+				applyMoonwalkMoving: tilesToMove
+				notAffecting: aSpaceship ]
 ]

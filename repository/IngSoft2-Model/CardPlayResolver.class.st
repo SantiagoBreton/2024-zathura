@@ -72,6 +72,16 @@ CardPlayResolver >> resolveARepeatCardPlay: aCard [
 ]
 
 { #category : #resolving }
+CardPlayResolver >> resolveAReversePolarityCardPlay:aCard [
+	
+	
+	game assertIsTurnOf: cardPlayer.
+	game reversePolarityOfEffectAtTile: cardTarget.
+	lastCardPlayed := aCard.
+	game removeFromHand: aCard to: cardPlayer.
+]
+
+{ #category : #resolving }
 CardPlayResolver >> resolveAnAccelerationCardPlay:aCard [
 	
 	
