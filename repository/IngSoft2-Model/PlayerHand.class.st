@@ -82,7 +82,7 @@ PlayerHand >> removeFromHand: aCard [
 ]
 
 { #category : #accessing }
-PlayerHand >> totalEffectsOnSpaceShip [
+PlayerHand >> totalEffectsOnPlayer [
 
 	cardsAffectingRoll isEmpty ifTrue: [ ^ 0 ].
 	^ cardsAffectingRoll sum: [ :card | card effect ]

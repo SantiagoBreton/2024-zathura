@@ -54,7 +54,7 @@ CardPlayManager >> cancelAnOverloadCardTargetting: aPlayer [
 
 { #category : #initialization }
 CardPlayManager >> diceEffectApplyingTo:aPlayer [
-	^ (self handOf: aPlayer ) totalEffectsOnSpaceShip
+	^ (self handOf: aPlayer ) totalEffectsOnPlayer
 
 ]
 
