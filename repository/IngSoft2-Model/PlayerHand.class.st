@@ -55,7 +55,7 @@ PlayerHand >> hasInHand: aCard [
 { #category : #initialization }
 PlayerHand >> initializeOf: aSpaceship using: aDeck [
 
-	player := aSpaceship name.
+	player := aSpaceship owner.
 	cardsInHand := OrderedCollection new.
 	cardsAffectingRoll := OrderedCollection new.
 	self distributeCardsFrom: aDeck

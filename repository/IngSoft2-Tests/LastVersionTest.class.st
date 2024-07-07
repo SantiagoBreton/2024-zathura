@@ -28,8 +28,8 @@ LastVersionTest >> testLV01ShipsAreInitializeWithThreeTurbines [
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 		
 	
 ]
@@ -60,25 +60,25 @@ LastVersionTest >> testLV02IfAShipRunsOutOfFuelItLoosesATurbine [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel equals: 5.
 	
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel equals: 2.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel equals: 8.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel equals: 8.
 		
 	
 ]
@@ -109,23 +109,23 @@ LastVersionTest >> testLV03IfAShipTriestoEscapeFromAnHyperGravityAndItCantItLoos
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 	
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 	
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 
 		
 	
@@ -156,20 +156,20 @@ LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLoosesATurbine [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
 
 
 ]
@@ -200,44 +200,44 @@ LastVersionTest >> testLV05IfAShipLoosesThenItCannotPlayAnymore [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 	
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 	
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
-	self deny: (aGame spaceshipCalled: 'Danny') canPlay .
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
+	self deny: (aGame spaceshipOwnedBy: 'Danny') canPlay .
 	aGame playNextTurn .
 	aGame playNextTurn .
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
-	self deny: (aGame spaceshipCalled: 'Danny') canPlay.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') canPlay.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
+	self deny: (aGame spaceshipOwnedBy: 'Danny') canPlay.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') canPlay.
 	
 	
 
@@ -273,29 +273,29 @@ LastVersionTest >> testLV06IfAllShipsLooseTheirTurbinesThenTheGameHasEnded [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
 	
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 1.
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
 	
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
 	self assert: aGame hasEnded 
 		
 	
@@ -329,31 +329,31 @@ LastVersionTest >> testLV07IfAllShipsLooseTheirTurbinesThenTheWinnerIsTheOneClos
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
 	
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 1.
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
 	
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 0.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
 	self assert: aGame hasEnded .
-	self assert: aGame winner name equals:'Danny' .
+	self assert: aGame winner equals:'Danny' .
 
 		
 	
@@ -406,13 +406,13 @@ LastVersionTest >> testLV08IfAPlayersPlaysTheReversePolarityCardOnABlackHoleItMo
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	
 	
 	
@@ -467,20 +467,20 @@ LastVersionTest >> testLV09IfAPlayersPlaysTheReversePolarityCardOnABlackHoleAllT
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipCalled: 'Joseph') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') turbine equals: 3.
 	
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') turbine equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') turbine equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') turbine equals: 3.
 	
 	
 	
@@ -536,9 +536,9 @@ LastVersionTest >> testLV10IfAPlayersPlaysTheReversePolarityCardOnAMoonwalkTheOn
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 
 	
 
@@ -596,9 +596,9 @@ LastVersionTest >> testLV11IfAPlayersPlaysTheReversePolarityCardOnANullEffectTil
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 2.
 
 	
 
@@ -656,9 +656,9 @@ LastVersionTest >> testLV12IfAPlayersPlaysTheReversePolarityCardOnAnAtomicBombEf
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 5.
 
 	
 
@@ -720,15 +720,15 @@ LastVersionTest >> testLV13IfAPlayersPlaysTheReversePolarityCardOnAHyperJumpEffe
 
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
 	
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 8.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 9.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 8.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 9.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 4
 ]
 
 { #category : #tests }
@@ -785,7 +785,7 @@ LastVersionTest >> testLV14IfAPlayersPlaysTheReversePolarityCardOnACardGiverEffe
 
 	aGame playNextTurn.
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
 	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 1.
 	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 3.
 	self assert: (aGame handOf: 'Joseph') cardsInHand size equals: 3.
@@ -837,31 +837,31 @@ LastVersionTest >> testLV15IfAPlayersPlaysTheReversePolarityCardOnAHyperGravityE
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 4.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 10.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 10.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 9.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 10.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 9.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 9.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 10.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 9.
 
 
 ]
@@ -911,14 +911,14 @@ LastVersionTest >> testLV16IfAPlayersPlaysTheReversePolarityCardOnAWormholeEffec
 	aGame playNextTurn.
 	aGame playNextTurn.
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 3.
 
 
 ]
@@ -968,21 +968,21 @@ LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyRever
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	aGame playNextTurn .
 	
 	aGame play: aReversePolarityCard by: 'Walter' targetting: 7.
 	
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	
 	
 
@@ -1033,26 +1033,26 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 	aGame playNextTurn .
 	aGame playNextTurn .
 	
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	aGame playNextTurn .
 	
 	aGame play: aReversePolarityCard by: 'Walter' targetting: 7.
 	
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	aGame play: aReversePolarityCard by: 'Joseph' targetting: 7.
 	aGame playNextTurn .
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	
 	
 
@@ -1158,16 +1158,16 @@ LastVersionTest >> testLV20IfAPlayersCancelsAReversePolarityCardTheTileEffectGoe
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	aGame playNextTurn.
 	cardPlay:= CardPlay a:aReversePolarityCard  wasPlayedBy: 'Danny' targetting: 7 .
 	aGame play: aCancellationCard  by: 'Walter'  targetting: cardPlay . 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 7.
 	
 
 		
