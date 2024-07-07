@@ -25,6 +25,24 @@ EffectDistribution class >> with: probabilityTileList [
 	^ self new initializeWith: probabilityTileList
 ]
 
+{ #category : #creating }
+EffectDistribution >> createWormholes: randomCollection [
+
+	| wormhole1 wormhole2 |
+	wormhole1 := randomCollection size atRandom.
+	[
+	wormhole2 := randomCollection size atRandom.
+	wormhole2 = wormhole1 ] whileTrue: [
+		wormhole2 := randomCollection size atRandom ].
+	randomCollection at: wormhole1 put: (Wormhole betweenTiles: {
+				 wormhole1.
+				 wormhole2 }).
+	randomCollection at: wormhole2 put: (Wormhole betweenTiles: {
+				 wormhole2.
+				 wormhole1 }).
+	^ randomCollection
+]
+
 { #category : #initialization }
 EffectDistribution >> initializeWith: probabilityTileList [
 
@@ -38,10 +56,14 @@ EffectDistribution >> initializeWith: probabilityTileList [
 { #category : #creating }
 EffectDistribution >> randomCollectionWith: length [
 
-	| randomCollection |
+	| randomCollection  |
 	randomCollection := OrderedCollection new.
 
 	length timesRepeat: [ randomCollection add: self randomEffect ].
+	
+	randomCollection:=self createWormholes:randomCollection.
+
+	
 
 	^ randomCollection
 ]

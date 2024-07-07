@@ -1052,7 +1052,7 @@ SecondVersionTest >> testSV23GameWithRandomBoardAndRandomDie [
 				                       with: AtomicBomb new
 				                       and: 0.02) }.
 
-	randomCollection := effectDistribution randomCollectionWith: 5.
+	randomCollection := effectDistribution randomCollectionWith: 10.
 
 	aBoard := Board
 		          of: randomCollection
