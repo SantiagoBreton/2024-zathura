@@ -64,7 +64,7 @@ ThirdVersionTest >> testTV02WhenSpaceshipLandsInCardGiverTileItReceivesACard [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 3.
 	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 2
 ]
@@ -97,8 +97,8 @@ ThirdVersionTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalR
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame play: anOverloadCard by:'Danny'  targetting:'Walter'. 
@@ -106,8 +106,8 @@ ThirdVersionTest >> testTV03WhenSpaceshipUsesOverloadCardItReducesByTwoTheTotalR
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2
 ]
 
 { #category : #tests }
@@ -206,9 +206,9 @@ ThirdVersionTest >> testTV05HyperJumpMeasuredInLightYearsItMovesForward [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4
 ]
 
 { #category : #tests }
@@ -243,11 +243,11 @@ ThirdVersionTest >> testTV06HyperJumpCanBeUsedInParsecsAndLightYears [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2
 ]
 
@@ -279,9 +279,9 @@ ThirdVersionTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotal
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
 
 	aGame play: anAccelerationCard  by:'Danny'  targetting: 'all'.
 
@@ -289,9 +289,9 @@ ThirdVersionTest >> testTV07WhenSpaceshipUsesAccelerationCardItAddsOneToTheTotal
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 3.
 ]
 
 { #category : #tests }
@@ -326,24 +326,24 @@ ThirdVersionTest >> testTV08WhenSpaceshipUsesCancellationCardOnAnAccelerationCar
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame play: anAccelerationCard by: 'Danny' targetting: 'all'. 
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 
 	aCardPlay:= CardPlay a: anAccelerationCard wasPlayedBy:'Danny'  targetting:'all' .
 	aGame play: aCancellationCard by: 'Danny' targetting:aCardPlay. 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6
 ]
 
 { #category : #tests }
@@ -381,21 +381,21 @@ ThirdVersionTest >> testTV09WhenSpaceshipUsesReDoCardItHasTheEffectOfTheLastPlay
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame play: anOverloadCard by: 'Danny' targetting: 'Walter'.
 
 	aGame playNextTurn.
 	
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	
 	aGame play:aRedoCard  by: 'Walter' targetting: 'Danny'.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 ]
 
 { #category : #tests }
@@ -433,19 +433,19 @@ ThirdVersionTest >> testTV10WhenSpaceshipUsesRepeatCardItHasTheEffectOfTheLastPl
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 
 
 	
 	aGame play:aRepeatCard  by: 'Danny' targetting: 'Walter'.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2
 ]
 
 { #category : #tests }
@@ -481,8 +481,8 @@ ThirdVersionTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpac
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	
@@ -495,8 +495,8 @@ ThirdVersionTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpac
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 	self
 		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 0.
@@ -506,8 +506,8 @@ ThirdVersionTest >> testTV11WhenSpaceshipUsesAllyCardItSharesFuelWithAnotherSpac
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 8.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 8.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 	self
 		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 0.
@@ -548,8 +548,8 @@ ThirdVersionTest >> testTV12SpaceshipCannotUseAPermanentCardWhenItIsNotItsTurn [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 
@@ -593,8 +593,8 @@ ThirdVersionTest >> testTV13SpaceshipCannotUseACardThatIsNotInItsHand [
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 
@@ -639,8 +639,8 @@ ThirdVersionTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFue
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	
 	aGame play: anAllyCard by: 'Danny' targetting: 'Walter'.
@@ -650,8 +650,8 @@ ThirdVersionTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFue
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 	self
 		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 2.
@@ -661,15 +661,15 @@ ThirdVersionTest >> testTV14WhenSpaceshipUsesAllyCardAndNeitherOfTheHasEnoughFue
 
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 8.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 8.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1
 ]
 
@@ -706,8 +706,8 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame play: anOverloadCard  by: 'Danny' targetting: 'Walter' .
@@ -715,8 +715,8 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aCardPlay:= CardPlay a: anOverloadCard wasPlayedBy: 'Danny' targetting:'Walter' .
 	aGame play: aCancellationCard by: 'Danny'  targetting:aCardPlay. 
@@ -724,8 +724,8 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 
 	
 	
@@ -766,8 +766,8 @@ ThirdVersionTest >> testTV16WhenSpaceshipUsesReDoCardAfterAnAccelerationCardItCo
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	
@@ -779,12 +779,12 @@ ThirdVersionTest >> testTV16WhenSpaceshipUsesReDoCardAfterAnAccelerationCardItCo
 	
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3
 ]
 
 { #category : #tests }
@@ -822,24 +822,24 @@ ThirdVersionTest >> testTV17WhenSpaceshipUsesReDoCardAfterARepeatCardItCopiesIt 
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.	
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.	
 	
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 
 
 	aGame play: aRedoCard by: 'Danny' targetting: 'Walter'.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 ]
@@ -889,10 +889,10 @@ ThirdVersionTest >> testTV18WhenSpaceshipUsesReDoCardAfterAnAllyCardItCopiesIt [
 
 	
 	aGame play:anAllyCard  by: 'Danny' targetting: 'Walter'.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Anthony') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Anthony') tileNumber equals: 1.
 	aGame playNextTurn. 
 
 	aGame play: aRedoCard by:'Anthony'  targetting: 'Joseph'.
@@ -949,22 +949,22 @@ ThirdVersionTest >> testTV19WhenSpaceshipUsesReDoCardAfterACancelationCardItCopi
 	aGame play: anOverloadCard by:'Danny'  targetting:'Walter'. 
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert:(aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert:(aGame spaceshipOwnedBy: 'Walter') position equals: 5.
+	self assert:(aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert:(aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 	aGame playNextTurn .
-	self assert:(aGame spaceshipOwnedBy: 'Danny') position equals: 7.
+	self assert:(aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
 	aCardPlay1:=	CardPlay a: anOverloadCard wasPlayedBy: 'Danny' targetting:'Walter' .
 	aGame play: aCancellationCard by:'Walter'  targetting:aCardPlay1.
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert:(aGame spaceshipOwnedBy: 'Walter') position equals: 1.
-	self assert:(aGame spaceshipOwnedBy: 'Danny') position equals: 3.
+	self assert:(aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert:(aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	aCardPlay2:=CardPlay a: anAccelerationCard wasPlayedBy: 'Danny' targetting:'all' .
 	aGame play: aRedoCard by:'Walter'  targetting: aCardPlay2.
 	aGame playNextTurn .
 	aGame playNextTurn .
-	self assert:(aGame spaceshipOwnedBy: 'Walter') position equals: 3.
-	self assert:(aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert:(aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
+	self assert:(aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 
 
 	
@@ -1007,20 +1007,20 @@ ThirdVersionTest >> testTV20WhenSpaceshipUsesRepeatCardAfterANullEffecItDoesNoth
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.	
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.	
 
 
 	aGame play: aRepeatCard by:  'Walter' targetting: 'Danny'.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 
 
 
@@ -1060,22 +1060,22 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.	
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.	
 	
 	(aGame spaceshipOwnedBy: 'Walter') movePositionBy: 4 lapBy:0  neededFuel:0  .
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 
@@ -1115,20 +1115,20 @@ ThirdVersionTest >> testTV22WhenSpaceshipUsesRepeatCardAfterABlackHoleItTriggers
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.	
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.	
 
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'. 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 
 
 
@@ -1174,21 +1174,21 @@ ThirdVersionTest >> testTV23WhenSpaceshipUsesRepeatCardAfterAHyperJumpItTriggers
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 7.
 
 
 	
 	aGame play: aRepeatCard  by: 'Walter' targetting:'Walter'. 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 9.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 9.
 	
 
 
@@ -1232,32 +1232,32 @@ ThirdVersionTest >> testTV24WhenSpaceshipUsesRepeatCardAfterAHyperGravityItTrigg
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	
 	aGame play: aRepeatCard by:'Walter'  targetting:'Walter'. 
 	
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 8.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 8.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 8.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 5. 
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 8.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5. 
 
 
 
@@ -1301,12 +1301,12 @@ ThirdVersionTest >> testTV25WhenSpaceshipUsesRepeatCardAfterACardGiverItTriggers
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame handOf: 'Danny') cardsInHand size   equals: 3.
 	self assert: (aGame handOf: 'Walter') cardsInHand size  equals: 2.
 
@@ -1359,18 +1359,18 @@ ThirdVersionTest >> testTV26WhenSpaceshipUsesRepeatCardAfterWormHoleItTriggersIt
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 
 
 	
 	aGame play: aRepeatCard by: 'Walter'  targetting: 'Walter'.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 	
 
 
@@ -1415,13 +1415,13 @@ ThirdVersionTest >> testTV27WhenSpaceshipUsesReDoCardAfterAReDoCardItCopiesTheLa
 	aGame play: anAccelerationCard by: 'Danny' targetting: 'all' .
 	aGame play: aRedoCard   by:'Danny'  targetting:'all'.
 	aGame playNextTurn .
-	self assert:(aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert:(aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert:(aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert:(aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	
 	aGame play: aRedoCard   by:'Walter'  targetting:'all'.
 	aGame playNextTurn .
-	self assert:(aGame spaceshipOwnedBy: 'Danny') position equals: 5.
-	self assert:(aGame spaceshipOwnedBy: 'Walter') position equals: 7.
+	self assert:(aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert:(aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 7.
 
 
 
@@ -1465,8 +1465,8 @@ ThirdVersionTest >> testTV28WhenSpaceshipUsesCancellationCardOnAnAllyCardThenItR
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame play: anAllyCard  by: 'Danny' targetting: 'Walter'.
 	
@@ -1516,8 +1516,8 @@ ThirdVersionTest >> testTV29WhenSpaceshipUsesCancellationCardOnACardPlayThatWast
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame play: anAccelerationCard  by: 'Danny' targetting: 'all'.
 	

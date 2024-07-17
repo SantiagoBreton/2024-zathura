@@ -2,14 +2,13 @@ Class {
 	#name : #SpaceShip,
 	#superclass : #Object,
 	#instVars : [
-		'position',
-		'lap',
 		'turnsToLose',
 		'needsToThrow',
 		'ally',
 		'fuelTank',
 		'turbines',
-		'owner'
+		'owner',
+		'position'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,7 +29,7 @@ SpaceShip class >> ownedBy: aName withMaxFuel: anAmount [
 
 { #category : #accessing }
 SpaceShip >> >=anotherSpaceship [
-	^ ((self lap > anotherSpaceship lap) or: (self lap = anotherSpaceship lap and: self position > anotherSpaceship position)).
+	^ ((self lap > anotherSpaceship lap) or: (self lap = anotherSpaceship lap and: self tileNumber > anotherSpaceship tileNumber)).
 ]
 
 { #category : #accessing }
@@ -42,7 +41,7 @@ SpaceShip >> ally [
 { #category : #playing }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
-	position := 1.
+	position resetPosition.
 	fuelTank refuelToMax.
 	self decreaseATurbine .
 	self losesTurns: 2
@@ -118,12 +117,11 @@ SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLaps
 SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
 	owner := aName.
-	position := 1.
-	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
 	turbines:=3.
 	fuelTank := FuelTank withMaxFuel: anAmount.
+	position := SpaceShipPosition create.
 	ally := nil
 ]
 
@@ -136,7 +134,7 @@ SpaceShip >> isAlliedWith: anotherSpaceship [
 { #category : #'accessing - arguments' }
 SpaceShip >> lap [
 
-	^ lap
+	^ position lap
 ]
 
 { #category : #playing }
@@ -162,21 +160,15 @@ SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFu
 
 { #category : #playing }
 SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
+	position updateTileNumberBy: aNumber.
+	position updateLapBy: quantityOfLapsToMove.
 
-	position := position + aNumber.
-	lap := lap + quantityOfLapsToMove
 ]
 
 { #category : #accessing }
 SpaceShip >> owner [
 
 	^ owner
-]
-
-{ #category : #'accessing - arguments' }
-SpaceShip >> position [
-
-	^ position
 ]
 
 { #category : #playing }
@@ -199,6 +191,12 @@ SpaceShip >> skipTurn [
 
 	self losesTurns: 1.
 	fuelTank refuelToMax
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> tileNumber [
+
+	^ position tileNumber .
 ]
 
 { #category : #accessing }

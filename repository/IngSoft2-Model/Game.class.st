@@ -55,7 +55,7 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
-		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
 ]
 
 { #category : #asserting }
