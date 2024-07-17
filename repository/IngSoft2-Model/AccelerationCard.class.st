@@ -5,9 +5,9 @@ Class {
 }
 
 { #category : #delegating }
-AccelerationCard >> cancelEffectUsing: cardPlayResolver [
+AccelerationCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aTarget [
 
-	cardPlayResolver cancelAnAccelerationCard: self
+	cardPlayResolver cancelAnAccelerationCard: self.
 ]
 
 { #category : #initialization }

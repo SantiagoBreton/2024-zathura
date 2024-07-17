@@ -18,15 +18,15 @@ SpaceShipTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMe
 SpaceShipTest >> testASpaceshipCanBeCreatedWithAName [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
-	self assert: aSpaceShip name equals: 'Danny'
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
+	self assert: aSpaceShip owner equals: 'Danny'
 ]
 
 { #category : #running }
 SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
 	self assert: aSpaceShip fuelTank currentFuel equals: 10
 ]
 
@@ -34,7 +34,7 @@ SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 SpaceShipTest >> testASpaceshipCanMoveBackwards [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
 	aSpaceShip movePositionBy: 5 lapBy: 0 neededFuel: 0.
 	aSpaceShip movePositionBy: -2 lapBy: 0 neededFuel: 0.
 
@@ -47,7 +47,7 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 	| aName |
 	aName := ''.
 	self
-		should: [ SpaceShip named: aName withMaxFuel: 10 ]
+		should: [ SpaceShip ownedBy: aName withMaxFuel: 10 ]
 		raise: Error
 		withMessage: 'Ship cant be created without a name'
 ]
@@ -56,7 +56,7 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 SpaceShipTest >> testASpaceshipIsMovedOnePosition [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
 	aSpaceShip movePositionBy: 1 lapBy: 0 neededFuel: 1.
 	self assert: aSpaceShip position equals: 2
 ]
