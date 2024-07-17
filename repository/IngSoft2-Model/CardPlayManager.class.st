@@ -13,12 +13,6 @@ Class {
 }
 
 { #category : #'instance creation' }
-CardPlayManager class >> with: aGame [
-
-	^ self new initializeWith: aGame
-]
-
-{ #category : #'instance creation' }
 CardPlayManager class >> with: aGame having: cardsHands [
 
 	^ self new initializeWith: aGame having:cardsHands.
