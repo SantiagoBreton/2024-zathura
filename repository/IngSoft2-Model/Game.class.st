@@ -87,6 +87,13 @@ Game >> cancelAllianceBetween: aPlayer and: anotherPlayer [
 ]
 
 { #category : #asserting }
+Game >> checkIf: spaceshipTurn isRewardedWhenRolling: rollingResult [
+
+	rollingResult = diceCollection maxRoll ifTrue: [
+		self assignRewardForMaxRollFor: spaceshipTurn ]
+]
+
+{ #category : #asserting }
 Game >> endGameIfPossible [
 
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
@@ -102,7 +109,7 @@ Game >> giveCardFromDeckTo: aSpaceship [
 	cardPlayManager addNewCard:  card to: aSpaceship owner.
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 Game >> handOf: aPlayer [
 
 	^ cardPlayManager handOf: aPlayer.
@@ -146,8 +153,7 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	rollingResult = diceCollection maxRoll ifTrue: [
-		self assignRewardForMaxRollFor: spaceshipTurn ].
+	self checkIf: spaceshipTurn isRewardedWhenRolling:rollingResult.
 	rollModifier := cardPlayManager diceEffectApplyingTo: spaceshipTurn owner.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.

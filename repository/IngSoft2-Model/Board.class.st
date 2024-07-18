@@ -72,6 +72,7 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
 	tileAfterMovement := ((tilesSinceBeginning-1) % self amountOfTiles)+1.
 	lapAfterMovement := ((tilesSinceBeginning-1) // self amountOfTiles) + 1.
+	
 	positionAfterMovement := SpaceShipPosition
 		                         createAt: tileAfterMovement
 		                         and: lapAfterMovement.

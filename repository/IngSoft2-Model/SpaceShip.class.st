@@ -176,7 +176,7 @@ SpaceShip >> position [
 
 { #category : #accessing }
 SpaceShip >> resetPosition [
-	position resetPosition.
+	position resetPosition. 
 ]
 
 { #category : #playing }
