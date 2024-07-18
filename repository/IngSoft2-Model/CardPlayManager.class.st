@@ -83,13 +83,13 @@ CardPlayManager >> removeFromHand: aCard to: aPlayer [
 ]
 
 { #category : #resolving }
-CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: anotherPlayer [
+CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: aTarget [
 	self validate: aPlayer  has: aCardPlayed.
 	cardPlayer := aPlayer.
-	cardTarget := anotherPlayer.
-	cardPlays add: (CardPlay a: aCardPlayed  wasPlayedBy: aPlayer targetting:anotherPlayer ).
+	cardTarget := aTarget.
 	
-	aCardPlayed uses: self
+	aCardPlayed uses: self.
+	cardPlays add: (CardPlay a: aCardPlayed  wasPlayedBy: aPlayer targetting: aTarget ).
 ]
 
 { #category : #resolving }
@@ -109,6 +109,8 @@ CardPlayManager >> resolveARedoCardPlay: aCard [
 	self addNewCard: lastCardPlayed to: cardPlayer.
 	self removeFromHand: aCard to: cardPlayer.
 	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
+	cardPlays removeLast.
+	
 	
 ]
 
@@ -159,10 +161,10 @@ CardPlayManager >> resolveAnOverloadCardPlay: aCard [
 ]
 
 { #category : #resolving }
-CardPlayManager >> validate: aSpaceship has: aCard [
+CardPlayManager >> validate: aPlayer has: aCard [
 
 	| cardsHand |
-	cardsHand := self handOf: aSpaceship .
+	cardsHand := self handOf: aPlayer .
 	(cardsHand hasInHand: aCard) ifFalse: [
 		Error signal:
 			'Spaceship cannot throw this card because he does not have it' ]

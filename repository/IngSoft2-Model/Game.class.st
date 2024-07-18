@@ -59,9 +59,9 @@ Game >> anySpaceShipAtLastTileAndLap [
 ]
 
 { #category : #asserting }
-Game >> assertIsTurnOf: spaceship [
+Game >> assertIsTurnOf: aPlayer [
 
-	turnHandler nextTurn = (self spaceshipOwnedBy: spaceship) ifFalse: [
+	turnHandler nextTurn = (self spaceshipOwnedBy: aPlayer) ifFalse: [
 		Error signal: 'It is not your turn' ]
 ]
 
