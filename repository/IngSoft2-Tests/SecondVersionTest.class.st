@@ -490,9 +490,10 @@ SecondVersionTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsH
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 
 	aGame playNextTurn.

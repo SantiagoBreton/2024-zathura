@@ -41,7 +41,7 @@ SpaceShip >> ally [
 { #category : #playing }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
-	position resetPosition.
+	self resetPosition.
 	fuelTank refuelToMax.
 	self decreaseATurbine .
 	self losesTurns: 2
@@ -92,25 +92,24 @@ SpaceShip >> fuelTank [
 ]
 
 { #category : #playing }
-SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> handleAllyFuelToMoveFor:positionAfterMovement [
 
 	(ally canProvideToAnAlly: fuelTank currentFuel abs)
 		ifTrue: [
 			ally decreaseFuelBy: fuelTank currentFuel abs.
 			fuelTank fuel: 0.
-			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove ]
+			self moveToNextPostion:  positionAfterMovement]
 		ifFalse: [
 			ally applyPenaltyForEmptyFuelTank.
 			self applyPenaltyForEmptyFuelTank ]
 ]
 
 { #category : #playing }
-SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> handleEmptyFuelTankToMoveFor: positionAfterMovement [
 
 	ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
 		self
-			handleAllyFuelForMovePositionBy: aNumber
-			lapBy: quantityOfLapsToMove ]
+			handleAllyFuelToMoveFor:positionAfterMovement.]
 ]
 
 { #category : #initialization }
@@ -121,7 +120,7 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	needsToThrow := 0.
 	turbines:=3.
 	fuelTank := FuelTank withMaxFuel: anAmount.
-	position := SpaceShipPosition create.
+	position := SpaceShipPosition createAt: 1 and: 1 .
 	ally := nil
 ]
 
@@ -144,24 +143,22 @@ SpaceShip >> losesTurns: amountOfTurns [
 ]
 
 { #category : #playing }
-SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
+SpaceShip >> moveTo: positionAfterMovement needing: amountOfFuelNeeded [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	self decreaseFuelBy: aFuelAmount.
+	self decreaseFuelBy: amountOfFuelNeeded.
 
 	fuelTank isEmpty
 		ifTrue: [
 			self
-				handleEmptyFuelTankForMovePositionBy: aNumber
-				lapBy: quantityOfLapsToMove ]
+				handleEmptyFuelTankToMoveFor: positionAfterMovement ]
 		ifFalse: [
-		self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove ]
+		self moveToNextPostion: positionAfterMovement. ]
 ]
 
 { #category : #playing }
-SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
-	position updateTileNumberBy: aNumber.
-	position updateLapBy: quantityOfLapsToMove.
+SpaceShip >> moveToNextPostion: positionAfterMovement [
+	position :=positionAfterMovement.
 
 ]
 
@@ -169,6 +166,17 @@ SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
 SpaceShip >> owner [
 
 	^ owner
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> position [
+
+	^ position .
+]
+
+{ #category : #accessing }
+SpaceShip >> resetPosition [
+	position resetPosition.
 ]
 
 { #category : #playing }

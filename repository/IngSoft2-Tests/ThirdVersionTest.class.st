@@ -1070,7 +1070,7 @@ ThirdVersionTest >> testTV21WhenSpaceshipUsesRepeatCardAfterAnatomicBombItTrigge
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.	
 	
-	(aGame spaceshipOwnedBy: 'Walter') movePositionBy: 4 lapBy:0  neededFuel:0  .
+	(aGame spaceshipOwnedBy: 'Walter') moveTo: (SpaceShipPosition createAt: 5 and:1)  needing:0   .
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 
 	aGame play: aRepeatCard by: 'Walter' targetting: 'Danny'.
