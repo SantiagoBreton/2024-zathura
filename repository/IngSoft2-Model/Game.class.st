@@ -198,13 +198,6 @@ Game >> spaceshipOwnedBy: aName [
 ]
 
 { #category : #asserting }
-Game >> validateIfIsPossibleToCancelACard: cardsHandCollection [
-
-	cardsHandCollection isEmpty ifTrue: [
-		Error signal: 'There is no CardsHand with the card to be removed' ]
-]
-
-{ #category : #asserting }
 Game >> winner [
 
 	| winner |

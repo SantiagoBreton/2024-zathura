@@ -35,7 +35,7 @@ LastVersionTest >> testLV01ShipsAreInitializeWithThreeTurbines [
 ]
 
 { #category : #tests }
-LastVersionTest >> testLV02IfAShipRunsOutOfFuelItLoosesATurbine [
+LastVersionTest >> testLV02IfAShipRunsOutOfFuelItLosesATurbine [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
@@ -84,7 +84,7 @@ LastVersionTest >> testLV02IfAShipRunsOutOfFuelItLoosesATurbine [
 ]
 
 { #category : #tests }
-LastVersionTest >> testLV03IfAShipTriestoEscapeFromAnHyperGravityAndItCantItLoosesATurbine [
+LastVersionTest >> testLV03IfAShipTriestoEscapeFromAnHyperGravityAndItCantItLosesATurbine [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
@@ -132,7 +132,7 @@ LastVersionTest >> testLV03IfAShipTriestoEscapeFromAnHyperGravityAndItCantItLoos
 ]
 
 { #category : #tests }
-LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLoosesATurbine [
+LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLosesATurbine [
 
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
@@ -175,7 +175,7 @@ LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLoosesATurbine [
 ]
 
 { #category : #tests }
-LastVersionTest >> testLV05IfAShipLoosesThenItCannotPlayAnymore [
+LastVersionTest >> testLV05IfAShipLosesThenItCannotPlayAnymore [
 	
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
@@ -248,7 +248,7 @@ LastVersionTest >> testLV05IfAShipLoosesThenItCannotPlayAnymore [
 ]
 
 { #category : #tests }
-LastVersionTest >> testLV06IfAllShipsLooseTheirTurbinesThenTheGameHasEnded [
+LastVersionTest >> testLV06IfAllShipsLoseTheirTurbinesThenTheGameHasEnded [
 	
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
@@ -304,7 +304,7 @@ LastVersionTest >> testLV06IfAllShipsLooseTheirTurbinesThenTheGameHasEnded [
 ]
 
 { #category : #tests }
-LastVersionTest >> testLV07IfAllShipsLooseTheirTurbinesThenTheWinnerIsTheOneClosestToTheEnd [
+LastVersionTest >> testLV07IfAllShipsLoseTheirTurbinesThenTheWinnerIsTheOneClosestToTheEnd [
 	
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).

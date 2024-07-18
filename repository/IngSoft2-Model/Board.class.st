@@ -38,12 +38,6 @@ Board >> amountOfTiles [
 	^ tiles size
 ]
 
-{ #category : #accessing }
-Board >> correctTileAfterMovement: aTileNumber [
-	aTileNumber = 0 ifTrue: [ ^ self amountOfTiles ].
-	^aTileNumber.
-]
-
 { #category : #initialization }
 Board >> effectToApplyTo: aSpaceship [
 	^ tiles at: (aSpaceship tileNumber).
@@ -76,9 +70,8 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 		                        totalAmountOfSquaresMovedWith:
 		                        self amountOfTiles) + anAmountOfTilesToMove.
 
-	tileAfterMovement := tilesSinceBeginning % self amountOfTiles.
-	tileAfterMovement := self correctTileAfterMovement: tileAfterMovement.
-	lapAfterMovement := (tilesSinceBeginning-1) // self amountOfTiles + 1.
+	tileAfterMovement := ((tilesSinceBeginning-1) % self amountOfTiles)+1.
+	lapAfterMovement := ((tilesSinceBeginning-1) // self amountOfTiles) + 1.
 	positionAfterMovement := SpaceShipPosition
 		                         createAt: tileAfterMovement
 		                         and: lapAfterMovement.
