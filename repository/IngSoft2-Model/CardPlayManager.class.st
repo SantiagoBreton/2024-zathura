@@ -122,7 +122,7 @@ CardPlayManager >> resolveARepeatCardPlay: aCard [
 CardPlayManager >> resolveAReversePolarityCardPlay: aCard [
 
 	game reversePolarityOfEffectAtTile: cardTarget.
-	lastCardPlayed := aCard
+	lastCardPlayed := aCard .
 ]
 
 { #category : #resolving }
