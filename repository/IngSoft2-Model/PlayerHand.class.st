@@ -63,10 +63,10 @@ PlayerHand >> player [
 
 { #category : #removing }
 PlayerHand >> removeEffectOf: aCard [
-	|cardToRemove|
+
+	| cardToRemove |
 	cardToRemove := cardsAffectingRoll detect: [ :each | each = aCard ].
-	cardsAffectingRoll remove:cardToRemove.
-	
+	cardsAffectingRoll remove: cardToRemove
 ]
 
 { #category : #removing }

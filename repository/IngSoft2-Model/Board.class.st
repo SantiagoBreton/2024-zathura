@@ -70,9 +70,9 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 		                        totalAmountOfSquaresMovedWith:
 		                        self amountOfTiles) + anAmountOfTilesToMove.
 
-	tileAfterMovement := ((tilesSinceBeginning-1) % self amountOfTiles)+1.
-	lapAfterMovement := ((tilesSinceBeginning-1) // self amountOfTiles) + 1.
-	
+	tileAfterMovement := tilesSinceBeginning - 1 % self amountOfTiles + 1.
+	lapAfterMovement := tilesSinceBeginning - 1 // self amountOfTiles + 1.
+
 	positionAfterMovement := SpaceShipPosition
 		                         createAt: tileAfterMovement
 		                         and: lapAfterMovement.
@@ -101,22 +101,23 @@ Board >> move: aSpaceship toTile: tileToTeleport [
 { #category : #initialization }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 
-	allSpaceShips do: [ :spaceship |
-		spaceship resetPosition  ]
+	allSpaceShips do: [ :spaceship | spaceship resetPosition ]
 ]
 
 { #category : #accessing }
 Board >> reversePolarityOfEffectAtTile: aNumber [
-	|effect inversedEffect|
+
+	| effect inversedEffect |
 	self validateIfIsPossibleToRevertATileEffect: aNumber.
-	effect:=tiles at: aNumber.
-	inversedEffect:= InversedEffect reversePolarityOf: effect.
-	tiles at:aNumber put:inversedEffect.
+	effect := tiles at: aNumber.
+	inversedEffect := InversedEffect reversePolarityOf: effect.
+	tiles at: aNumber put: inversedEffect
 ]
 
 { #category : #accessing }
 Board >> validateIfIsPossibleToRevertATileEffect: aTileNumber [
 
-	(self amountOfTiles < aTileNumber or: aTileNumber<0) ifTrue: [
-		Error signal: 'The tile number is greater or lower than the amounts of tiles in the board' ]
+	(self amountOfTiles < aTileNumber or: aTileNumber < 0) ifTrue: [
+		Error signal:
+			'The tile number is greater or lower than the amounts of tiles in the board' ]
 ]

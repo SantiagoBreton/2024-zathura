@@ -5,8 +5,9 @@ Class {
 }
 
 { #category : #playing }
-CardGiver >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
-	anEffectManager giveCardFromDeckToAllBut:  aSpaceship
+CardGiver >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
+	anEffectManager giveCardFromDeckToAllBut: aSpaceship
 ]
 
 { #category : #playing }

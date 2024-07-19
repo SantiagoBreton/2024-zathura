@@ -29,7 +29,8 @@ Wormhole >> initialize: aTileToTeleportTo [
 ]
 
 { #category : #playing }
-Wormhole >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+Wormhole >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
 	anEffectManager teleportAllBut: aSpaceship to: tileToTeleport
 ]
 

@@ -6,10 +6,11 @@ Class {
 
 { #category : #'as yet unclassified' }
 AtomicBomb >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+	
 ]
 
 { #category : #playing }
 AtomicBomb >> triggeredBy: aSpaceship on: anEffectManager [
-	anEffectManager moveAllSpaceshipsToFirstPosition  .
-	
+
+	anEffectManager moveAllSpaceshipsToFirstPosition
 ]

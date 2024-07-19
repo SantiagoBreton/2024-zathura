@@ -5,7 +5,8 @@ Class {
 }
 
 { #category : #playing }
-BlackHole >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+BlackHole >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
 	anEffectManager applyBlackHoleEffectToAllBut: aSpaceship
 ]
 

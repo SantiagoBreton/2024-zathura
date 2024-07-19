@@ -600,7 +600,7 @@ ThirdVersionTest >> testTV13SpaceshipCannotUseACardThatIsNotInItsHand [
 
 
 	self
-		should: [ aGame play: anOverloadCard by:'Danny'  targetting:'Walter' ]
+		should: [ aGame play: anOverloadCard by:'Walter'  targetting:'Danny' ]
 		raise: Error
 		withMessage:
 		'Spaceship cannot throw this card because he does not have it'
