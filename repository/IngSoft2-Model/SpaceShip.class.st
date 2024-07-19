@@ -2,14 +2,13 @@ Class {
 	#name : #SpaceShip,
 	#superclass : #Object,
 	#instVars : [
-		'position',
-		'lap',
 		'turnsToLose',
 		'needsToThrow',
 		'ally',
 		'fuelTank',
 		'turbines',
-		'owner'
+		'owner',
+		'position'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -30,7 +29,7 @@ SpaceShip class >> ownedBy: aName withMaxFuel: anAmount [
 
 { #category : #accessing }
 SpaceShip >> >=anotherSpaceship [
-	^ ((self lap > anotherSpaceship lap) or: (self lap = anotherSpaceship lap and: self position > anotherSpaceship position)).
+	^ ((self lap > anotherSpaceship lap) or: (self lap = anotherSpaceship lap and: self tileNumber > anotherSpaceship tileNumber)).
 ]
 
 { #category : #accessing }
@@ -42,7 +41,7 @@ SpaceShip >> ally [
 { #category : #playing }
 SpaceShip >> applyPenaltyForEmptyFuelTank [
 
-	position := 1.
+	self resetPosition.
 	fuelTank refuelToMax.
 	self decreaseATurbine .
 	self losesTurns: 2
@@ -93,37 +92,35 @@ SpaceShip >> fuelTank [
 ]
 
 { #category : #playing }
-SpaceShip >> handleAllyFuelForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> handleAllyFuelToMoveFor:positionAfterMovement [
 
 	(ally canProvideToAnAlly: fuelTank currentFuel abs)
 		ifTrue: [
 			ally decreaseFuelBy: fuelTank currentFuel abs.
 			fuelTank fuel: 0.
-			self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove ]
+			self moveToNextPostion:  positionAfterMovement]
 		ifFalse: [
 			ally applyPenaltyForEmptyFuelTank.
 			self applyPenaltyForEmptyFuelTank ]
 ]
 
 { #category : #playing }
-SpaceShip >> handleEmptyFuelTankForMovePositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> handleEmptyFuelTankToMoveFor: positionAfterMovement [
 
 	ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
 		self
-			handleAllyFuelForMovePositionBy: aNumber
-			lapBy: quantityOfLapsToMove ]
+			handleAllyFuelToMoveFor:positionAfterMovement.]
 ]
 
 { #category : #initialization }
 SpaceShip >> initialize: aName withMaxFuel: anAmount [
 
 	owner := aName.
-	position := 1.
-	lap := 1.
 	turnsToLose := 0.
 	needsToThrow := 0.
 	turbines:=3.
 	fuelTank := FuelTank withMaxFuel: anAmount.
+	position := SpaceShipPosition createAt: 1 and: 1 .
 	ally := nil
 ]
 
@@ -136,7 +133,7 @@ SpaceShip >> isAlliedWith: anotherSpaceship [
 { #category : #'accessing - arguments' }
 SpaceShip >> lap [
 
-	^ lap
+	^ position lap
 ]
 
 { #category : #playing }
@@ -146,25 +143,23 @@ SpaceShip >> losesTurns: amountOfTurns [
 ]
 
 { #category : #playing }
-SpaceShip >> movePositionBy: aNumber lapBy: quantityOfLapsToMove neededFuel: aFuelAmount [
+SpaceShip >> moveTo: positionAfterMovement needing: amountOfFuelNeeded [
 
 	needsToThrow = 0 ifFalse: [ ^ self ].
-	self decreaseFuelBy: aFuelAmount.
+	self decreaseFuelBy: amountOfFuelNeeded.
 
 	fuelTank isEmpty
 		ifTrue: [
 			self
-				handleEmptyFuelTankForMovePositionBy: aNumber
-				lapBy: quantityOfLapsToMove ]
+				handleEmptyFuelTankToMoveFor: positionAfterMovement ]
 		ifFalse: [
-		self moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove ]
+		self moveToNextPostion: positionAfterMovement. ]
 ]
 
 { #category : #playing }
-SpaceShip >> moveToNextPositionBy: aNumber lapBy: quantityOfLapsToMove [
+SpaceShip >> moveToNextPostion: positionAfterMovement [
+	position :=positionAfterMovement.
 
-	position := position + aNumber.
-	lap := lap + quantityOfLapsToMove
 ]
 
 { #category : #accessing }
@@ -176,7 +171,12 @@ SpaceShip >> owner [
 { #category : #'accessing - arguments' }
 SpaceShip >> position [
 
-	^ position
+	^ position .
+]
+
+{ #category : #accessing }
+SpaceShip >> resetPosition [
+	position resetPosition. 
 ]
 
 { #category : #playing }
@@ -199,6 +199,12 @@ SpaceShip >> skipTurn [
 
 	self losesTurns: 1.
 	fuelTank refuelToMax
+]
+
+{ #category : #'accessing - arguments' }
+SpaceShip >> tileNumber [
+
+	^ position tileNumber .
 ]
 
 { #category : #accessing }

@@ -27,12 +27,6 @@ PlayerHand >> addToHand: aCard [
 	cardsInHand add: aCard
 ]
 
-{ #category : #asserting }
-PlayerHand >> affectsSpaceShip: aCard [
-
-	^ cardsAffectingRoll includes: aCard
-]
-
 { #category : #accessing }
 PlayerHand >> cardsInHand [
 

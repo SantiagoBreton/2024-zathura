@@ -38,37 +38,9 @@ Board >> amountOfTiles [
 	^ tiles size
 ]
 
-{ #category : #accessing }
-Board >> calculateLapToMoveWhen: aSpaceship advances: anAmountOfTilesToMove [
-
-	| tilesSinceBeginning |
-	tilesSinceBeginning := (aSpaceship position)
-	                       + anAmountOfTilesToMove
-	                       + (aSpaceship lap - 1 * self amountOfTiles).
-	^ tilesSinceBeginning - 1 // self amountOfTiles + 1
-]
-
-{ #category : #accessing }
-Board >> calculatePositionToMoveWhen: aSpaceship moves: anAmountOfTilesToMove [
-
-	| newPosition tilesSinceBeginning lapAfterMovement |
-	lapAfterMovement := self
-		                    calculateLapToMoveWhen: aSpaceship
-		                    advances: anAmountOfTilesToMove.
-	tilesSinceBeginning := (aSpaceship position)
-	                       + anAmountOfTilesToMove
-	                       + (aSpaceship lap - 1 * self amountOfTiles).
-	newPosition := tilesSinceBeginning % self amountOfTiles.
-	(lapAfterMovement < 1 or: lapAfterMovement > self laps) ifTrue: [
-		^ 1 - aSpaceship position ].
-	newPosition = 0 ifTrue: [ ^ self amountOfTiles - aSpaceship position ].
-
-	^ newPosition - aSpaceship position
-]
-
 { #category : #initialization }
 Board >> effectToApplyTo: aSpaceship [
-	^ tiles at: (aSpaceship position).
+	^ tiles at: (aSpaceship tileNumber).
 ]
 
 { #category : #playing }
@@ -93,20 +65,22 @@ Board >> laps [
 { #category : #accessing }
 Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
-	| positionToMove lapsMoved costToMove newLap |
-	newLap := self
-		          calculateLapToMoveWhen: aSpaceship
-		          advances: anAmountOfTilesToMove.
-	lapsMoved := (newLap min: laps + 1 max: 1) - aSpaceship lap.
-	positionToMove := self
-		                  calculatePositionToMoveWhen: aSpaceship
-		                  moves: anAmountOfTilesToMove.
+	| tilesSinceBeginning positionAfterMovement tileAfterMovement lapAfterMovement amountOfFuelNeeded |
+	tilesSinceBeginning := (aSpaceship position
+		                        totalAmountOfSquaresMovedWith:
+		                        self amountOfTiles) + anAmountOfTilesToMove.
 
-	costToMove := (lapsMoved * self amountOfTiles + positionToMove) abs.
-	aSpaceship
-		movePositionBy: positionToMove
-		lapBy: lapsMoved
-		neededFuel: costToMove
+	tileAfterMovement := ((tilesSinceBeginning-1) % self amountOfTiles)+1.
+	lapAfterMovement := ((tilesSinceBeginning-1) // self amountOfTiles) + 1.
+	
+	positionAfterMovement := SpaceShipPosition
+		                         createAt: tileAfterMovement
+		                         and: lapAfterMovement.
+	positionAfterMovement correctIfBeyond: laps + 1.
+	amountOfFuelNeeded := aSpaceship position
+		                      costToMoveTo: positionAfterMovement
+		                      withBoardSize: self amountOfTiles.
+	aSpaceship moveTo: positionAfterMovement needing: amountOfFuelNeeded
 ]
 
 { #category : #initialization }
@@ -121,17 +95,14 @@ Board >> move: aSpaceship jumping: aQuantityOfParsec [
 
 { #category : #accessing }
 Board >> move: aSpaceship toTile: tileToTeleport [
-	self move: aSpaceship  by: tileToTeleport - aSpaceship position. 
+	self move: aSpaceship  by: tileToTeleport - aSpaceship tileNumber. 
 ]
 
 { #category : #initialization }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 
 	allSpaceShips do: [ :spaceship |
-		spaceship
-			movePositionBy: 1 - spaceship position
-			lapBy: 0
-			neededFuel: 0 ]
+		spaceship resetPosition  ]
 ]
 
 { #category : #accessing }

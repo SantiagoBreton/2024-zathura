@@ -55,13 +55,13 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
-		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship position ] ]
+		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
 ]
 
 { #category : #asserting }
-Game >> assertIsTurnOf: spaceship [
+Game >> assertIsTurnOf: aPlayer [
 
-	turnHandler nextTurn = (self spaceshipOwnedBy: spaceship) ifFalse: [
+	turnHandler nextTurn = (self spaceshipOwnedBy: aPlayer) ifFalse: [
 		Error signal: 'It is not your turn' ]
 ]
 
@@ -87,6 +87,13 @@ Game >> cancelAllianceBetween: aPlayer and: anotherPlayer [
 ]
 
 { #category : #asserting }
+Game >> checkIf: spaceshipTurn isRewardedWhenRolling: rollingResult [
+
+	rollingResult = diceCollection maxRoll ifTrue: [
+		self assignRewardForMaxRollFor: spaceshipTurn ]
+]
+
+{ #category : #asserting }
 Game >> endGameIfPossible [
 
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
@@ -102,7 +109,7 @@ Game >> giveCardFromDeckTo: aSpaceship [
 	cardPlayManager addNewCard:  card to: aSpaceship owner.
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 Game >> handOf: aPlayer [
 
 	^ cardPlayManager handOf: aPlayer.
@@ -146,8 +153,7 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	rollingResult = diceCollection maxRoll ifTrue: [
-		self assignRewardForMaxRollFor: spaceshipTurn ].
+	self checkIf: spaceshipTurn isRewardedWhenRolling:rollingResult.
 	rollModifier := cardPlayManager diceEffectApplyingTo: spaceshipTurn owner.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
 	effectManager applyEffectOnLandingShip: spaceshipTurn.
@@ -195,13 +201,6 @@ Game >> spaceShipsPositionsRanking [
 Game >> spaceshipOwnedBy: aName [
 
 	^ spaceships detect: [ :spaceship | spaceship owner = aName ]
-]
-
-{ #category : #asserting }
-Game >> validateIfIsPossibleToCancelACard: cardsHandCollection [
-
-	cardsHandCollection isEmpty ifTrue: [
-		Error signal: 'There is no CardsHand with the card to be removed' ]
 ]
 
 { #category : #asserting }
