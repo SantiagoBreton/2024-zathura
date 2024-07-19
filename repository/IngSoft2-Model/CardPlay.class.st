@@ -13,7 +13,10 @@ Class {
 CardPlay class >> a:card wasPlayedBy:aPlayer targetting:aTarget [
 	^self new initializewith:card playedBy:aPlayer targetting:aTarget.
 ]
-
+{ #category : #comparing }
+CardPlay >> =anotherCardPlay [
+	^ self hash = anotherCardPlay hash and: self class = anotherCardPlay class
+]
 { #category : #'as yet unclassified' }
 CardPlay >> cancelEffectUsing: aCardPlayManager [
 
