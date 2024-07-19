@@ -20,7 +20,7 @@ LastVersionTest >> testLV01ShipsAreInitializeWithThreeTurbines [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: {3}.
+	aDie1 := LoadedDie of: { 3 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -29,9 +29,7 @@ LastVersionTest >> testLV01ShipsAreInitializeWithThreeTurbines [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-		
-	
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3
 ]
 
 { #category : #tests }
@@ -50,7 +48,7 @@ LastVersionTest >> testLV02IfAShipRunsOutOfFuelItLosesATurbine [
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: {3. 1. 3. 1. 3. 4}.
+	aDie1 := LoadedDie of: { 3. 1. 3. 1. 3. 4 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -59,28 +57,32 @@ LastVersionTest >> testLV02IfAShipRunsOutOfFuelItLosesATurbine [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel equals: 5.
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
+	self
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: 5.
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel equals: 2.
-	aGame playNextTurn .
+	self
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: 2.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel equals: 8.
-		
-	
+	self
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: 8
 ]
 
 { #category : #tests }
@@ -99,7 +101,7 @@ LastVersionTest >> testLV03IfAShipTriestoEscapeFromAnHyperGravityAndItCantItLose
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: {3. 1. 2. 1. 4. 12}.
+	aDie1 := LoadedDie of: { 3. 1. 2. 1. 4. 12 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -108,27 +110,24 @@ LastVersionTest >> testLV03IfAShipTriestoEscapeFromAnHyperGravityAndItCantItLose
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	
-	aGame playNextTurn .
+
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-
-		
-	
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3
 ]
 
 { #category : #tests }
@@ -169,14 +168,12 @@ LastVersionTest >> testLV04IfAShipLandsInABlackHoleItLosesATurbine [
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
-
-
+	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2
 ]
 
 { #category : #tests }
 LastVersionTest >> testLV05IfAShipLosesThenItCannotPlayAnymore [
-	
+
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
 	aBoard := Board
@@ -190,7 +187,7 @@ LastVersionTest >> testLV05IfAShipLosesThenItCannotPlayAnymore [
 				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: {3. 1. 2. 1. 2. 2. 3. 1. 2. 1. 2. 4. 20}.
+	aDie1 := LoadedDie of: { 3. 1. 2. 1. 2. 2. 3. 1. 2. 1. 2. 4. 20 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -199,37 +196,37 @@ LastVersionTest >> testLV05IfAShipLosesThenItCannotPlayAnymore [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	aGame playNextTurn .
-	aGame playNextTurn .
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
-	self deny: (aGame spaceshipOwnedBy: 'Danny') canPlay .
-	aGame playNextTurn .
-	aGame playNextTurn .
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+	self deny: (aGame spaceshipOwnedBy: 'Danny') canPlay.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
@@ -237,19 +234,12 @@ LastVersionTest >> testLV05IfAShipLosesThenItCannotPlayAnymore [
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Walter') canPlay.
-	
-	
-
-		
-	
-
-
+	self assert: (aGame spaceshipOwnedBy: 'Walter') canPlay
 ]
 
 { #category : #tests }
 LastVersionTest >> testLV06IfAllShipsLoseTheirTurbinesThenTheGameHasEnded [
-	
+
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
 	aBoard := Board
@@ -259,11 +249,10 @@ LastVersionTest >> testLV06IfAllShipsLoseTheirTurbinesThenTheGameHasEnded [
 				          Null create.
 				          (HyperGravity needsToThrow: 3).
 				          BlackHole new.
-				          Null create
-				           }
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: {3. 4. 2. 4. 2. 4. 1. 1. 2. 1. 2. 4. 20}.
+	aDie1 := LoadedDie of: { 3. 4. 2. 4. 2. 4. 1. 1. 2. 1. 2. 4. 20 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -272,40 +261,36 @@ LastVersionTest >> testLV06IfAllShipsLoseTheirTurbinesThenTheGameHasEnded [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 1.
-	aGame playNextTurn .
-	aGame playNextTurn .
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
-	
-	aGame playNextTurn .
+
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
-	self assert: aGame hasEnded 
-		
-	
-
-
+	self assert: aGame hasEnded
 ]
 
 { #category : #tests }
 LastVersionTest >> testLV07IfAllShipsLoseTheirTurbinesThenTheWinnerIsTheOneClosestToTheEnd [
-	
+
 	| aGame aBoard aDie1 someSpaceships |
 	someSpaceships := #( 'Danny' 'Walter' ).
 	aBoard := Board
@@ -315,11 +300,10 @@ LastVersionTest >> testLV07IfAllShipsLoseTheirTurbinesThenTheWinnerIsTheOneClose
 				          Null create.
 				          (HyperGravity needsToThrow: 3).
 				          BlackHole new.
-				          Null create
-				           }
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
-	aDie1 := LoadedDie of: {3. 4. 2. 4. 2. 4. 1. 1. 2. 1. 2. 4. 20}.
+	aDie1 := LoadedDie of: { 3. 4. 2. 4. 2. 4. 1. 1. 2. 1. 2. 4. 20 }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -328,37 +312,32 @@ LastVersionTest >> testLV07IfAllShipsLoseTheirTurbinesThenTheWinnerIsTheOneClose
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 	aGame playNextTurn.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
+
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 1.
-	aGame playNextTurn .
-	aGame playNextTurn .
+	aGame playNextTurn.
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
-	
-	aGame playNextTurn .
+
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 0.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 0.
-	self assert: aGame hasEnded .
-	self assert: aGame winner equals:'Danny' .
-
-		
-	
-
-
+	self assert: aGame hasEnded.
+	self assert: aGame winner equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -374,7 +353,7 @@ LastVersionTest >> testLV08IfAPlayersPlaysTheReversePolarityCardOnABlackHoleItMo
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new  }
+				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 2. 2. 2. 2. 2. 2. 2. 20 }.
 
@@ -387,9 +366,9 @@ LastVersionTest >> testLV08IfAPlayersPlaysTheReversePolarityCardOnABlackHoleItMo
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -397,29 +376,22 @@ LastVersionTest >> testLV08IfAPlayersPlaysTheReversePolarityCardOnABlackHoleItMo
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 7.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 7.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	
-	
-	
-	
-	
-	
-		
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7
 ]
 
 { #category : #tests }
@@ -435,7 +407,7 @@ LastVersionTest >> testLV09IfAPlayersPlaysTheReversePolarityCardOnABlackHoleAllT
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new  }
+				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 2. 2. 2. 2. 2. 2. 2. 20 }.
 
@@ -448,9 +420,9 @@ LastVersionTest >> testLV09IfAPlayersPlaysTheReversePolarityCardOnABlackHoleAllT
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -458,36 +430,29 @@ LastVersionTest >> testLV09IfAPlayersPlaysTheReversePolarityCardOnABlackHoleAllT
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 7.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 7.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') turbine equals: 3.
-	
-	aGame playNextTurn .
+
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') turbine equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') turbine equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') turbine equals: 3.
-	
-	
-	
-	
-	
-	
-		
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') turbine equals: 3
 ]
 
 { #category : #tests }
@@ -516,9 +481,9 @@ LastVersionTest >> testLV10IfAPlayersPlaysTheReversePolarityCardOnAMoonwalkTheOn
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -526,28 +491,19 @@ LastVersionTest >> testLV10IfAPlayersPlaysTheReversePolarityCardOnAMoonwalkTheOn
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 4.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-
-	
-
-	
-	
-	
-	
-	
-		
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7
 ]
 
 { #category : #tests }
@@ -576,9 +532,9 @@ LastVersionTest >> testLV11IfAPlayersPlaysTheReversePolarityCardOnANullEffectTil
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -586,28 +542,19 @@ LastVersionTest >> testLV11IfAPlayersPlaysTheReversePolarityCardOnANullEffectTil
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 3.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 3.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 2.
-
-	
-
-	
-	
-	
-	
-	
-		
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 2
 ]
 
 { #category : #tests }
@@ -636,9 +583,9 @@ LastVersionTest >> testLV12IfAPlayersPlaysTheReversePolarityCardOnAnAtomicBombEf
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -646,28 +593,19 @@ LastVersionTest >> testLV12IfAPlayersPlaysTheReversePolarityCardOnAnAtomicBombEf
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 5.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 5.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 5.
-
-	
-
-	
-	
-	
-	
-	
-		
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 5
 ]
 
 { #category : #tests }
@@ -723,7 +661,7 @@ LastVersionTest >> testLV13IfAPlayersPlaysTheReversePolarityCardOnAHyperJumpEffe
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
-	
+
 	aGame playNextTurn.
 
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 8.
@@ -780,16 +718,15 @@ LastVersionTest >> testLV14IfAPlayersPlaysTheReversePolarityCardOnACardGiverEffe
 	self assert: (aGame handOf: 'Joseph') cardsInHand size equals: 2.
 
 	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
-	
+
 	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 1.
 
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 	self assert: (aGame handOf: 'Danny') cardsInHand size equals: 1.
 	self assert: (aGame handOf: 'Walter') cardsInHand size equals: 3.
-	self assert: (aGame handOf: 'Joseph') cardsInHand size equals: 3.
-
+	self assert: (aGame handOf: 'Joseph') cardsInHand size equals: 3
 ]
 
 { #category : #tests }
@@ -821,7 +758,7 @@ LastVersionTest >> testLV15IfAPlayersPlaysTheReversePolarityCardOnAHyperGravityE
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard.}.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -831,12 +768,12 @@ LastVersionTest >> testLV15IfAPlayersPlaysTheReversePolarityCardOnAHyperGravityE
 		         usingCardsFrom: aDeck.
 
 	aGame play: aReversePolarityCard by: 'Danny' targetting: 4.
-	
+
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 4.
@@ -848,28 +785,26 @@ LastVersionTest >> testLV15IfAPlayersPlaysTheReversePolarityCardOnAHyperGravityE
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	
+
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 10.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	
+
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 9.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 10.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 9.
-
-
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 9
 ]
 
 { #category : #tests }
 LastVersionTest >> testLV16IfAPlayersPlaysTheReversePolarityCardOnAWormholeEffectTileItTargetsAllButTheSpaceshipThatTriggeredIt [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard wormholeTile3 wormholeTile5|
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard wormholeTile3 wormholeTile5 |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
 	wormholeTile3 := Wormhole betweenTiles: { 3. 5 }.
 	wormholeTile5 := Wormhole betweenTiles: { 5. 3 }.
@@ -896,7 +831,7 @@ LastVersionTest >> testLV16IfAPlayersPlaysTheReversePolarityCardOnAWormholeEffec
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard.}.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -906,11 +841,11 @@ LastVersionTest >> testLV16IfAPlayersPlaysTheReversePolarityCardOnAWormholeEffec
 		         usingCardsFrom: aDeck.
 
 	aGame play: aReversePolarityCard by: 'Danny' targetting: 3.
-	
+
 
 	aGame playNextTurn.
 	aGame playNextTurn.
-	
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
@@ -918,9 +853,7 @@ LastVersionTest >> testLV16IfAPlayersPlaysTheReversePolarityCardOnAWormholeEffec
 	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 3.
-
-
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 3
 ]
 
 { #category : #tests }
@@ -936,7 +869,7 @@ LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyRever
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new  }
+				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 2. 2. 2. 2. 2. 20 }.
 
@@ -949,9 +882,9 @@ LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyRever
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -959,33 +892,30 @@ LastVersionTest >> testLV17IfAPlayersPlaysTheReversePolarityCardOnAnAlreadyRever
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 7.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 7.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	aGame playNextTurn .
-	
+	aGame playNextTurn.
+
 	aGame play: aReversePolarityCard by: 'Walter' targetting: 7.
-	
-	aGame playNextTurn .
+
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	
-	
-
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7
 ]
 
 { #category : #tests }
@@ -1001,7 +931,7 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 				          Null create.
 				          Null create.
 				          Null create.
-				          BlackHole new  }
+				          BlackHole new }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 7. 2. 2. 2. 2. 20 }.
 
@@ -1014,9 +944,9 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 			         aReversePolarityCard.
 			         aReversePolarityCard.
 			         aReversePolarityCard.
-						aReversePolarityCard.
 			         aReversePolarityCard.
-			         aReversePolarityCard. }.
+			         aReversePolarityCard.
+			         aReversePolarityCard }.
 
 	aGame := Game
 		         playedBy: someSpaceships
@@ -1024,44 +954,41 @@ LastVersionTest >> testLV18IfAPlayersPlaysThreeTimesReversePolarityCardOnTheSame
 		         finishingAfter: 2
 		         rolling: aDie1
 		         usingCardsFrom: aDeck.
-	
- 
-	
-	aGame play: aReversePolarityCard  by: 'Danny'  targetting: 7.
 
-	
-	aGame playNextTurn .
-	aGame playNextTurn .
-	
+
+
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 7.
+
+
+	aGame playNextTurn.
+	aGame playNextTurn.
+
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	aGame playNextTurn .
-	
+	aGame playNextTurn.
+
 	aGame play: aReversePolarityCard by: 'Walter' targetting: 7.
-	
-	aGame playNextTurn .
+
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
 	aGame play: aReversePolarityCard by: 'Joseph' targetting: 7.
-	aGame playNextTurn .
+	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	
-	
-
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7
 ]
 
 { #category : #tests }
 LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoesntExistItCannot [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard|
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
 	aBoard := Board
 		          of: {
@@ -1107,17 +1034,13 @@ LastVersionTest >> testLV19IfAPlayersPlaysTheReversePolarityEffectOnATileThatDoe
 		aGame play: aReversePolarityCard by: 'Danny' targetting: -4 ]
 		raise: Error
 		withMessage:
-		'The tile number is greater or lower than the amounts of tiles in the board'.
-	
-
-		
-	
+		'The tile number is greater or lower than the amounts of tiles in the board'
 ]
 
 { #category : #tests }
 LastVersionTest >> testLV20IfAPlayersCancelsAReversePolarityCardTheTileEffectGoesBackToNormal [
 
-	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard aCancellationCard cardPlay|
+	| aGame aBoard aDie1 someSpaceships aDeck aReversePolarityCard aCancellationCard cardPlay |
 	someSpaceships := { 'Danny'. 'Walter'. 'Joseph' }.
 	aBoard := Board
 		          of: {
@@ -1132,7 +1055,7 @@ LastVersionTest >> testLV20IfAPlayersCancelsAReversePolarityCardTheTileEffectGoe
 	aDie1 := LoadedDie of: { 5. 5. 6. 1. 5. 7. 2. 2. 2. 2. 20 }.
 
 	aReversePolarityCard := ReversePolarityCard new.
-	aCancellationCard:=CancellationCard new.
+	aCancellationCard := CancellationCard new.
 
 	aDeck := LoadedDeck of: {
 			         aReversePolarityCard.
@@ -1153,8 +1076,8 @@ LastVersionTest >> testLV20IfAPlayersCancelsAReversePolarityCardTheTileEffectGoe
 		         usingCardsFrom: aDeck.
 
 
-	aGame play: aReversePolarityCard  by: 'Danny' targetting: 7.
-	
+	aGame play: aReversePolarityCard by: 'Danny' targetting: 7.
+
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
@@ -1162,14 +1085,13 @@ LastVersionTest >> testLV20IfAPlayersCancelsAReversePolarityCardTheTileEffectGoe
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
 	aGame playNextTurn.
-	cardPlay:= CardPlay a:aReversePolarityCard  wasPlayedBy: 'Danny' targetting: 7 .
-	aGame play: aCancellationCard  by: 'Walter'  targetting: cardPlay . 
+	cardPlay := CardPlay
+		            a: aReversePolarityCard
+		            wasPlayedBy: 'Danny'
+		            targetting: 7.
+	aGame play: aCancellationCard by: 'Walter' targetting: cardPlay.
 	aGame playNextTurn.
 	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
-	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7.
-	
-
-		
-	
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 7
 ]
