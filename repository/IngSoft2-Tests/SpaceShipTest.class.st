@@ -18,27 +18,29 @@ SpaceShipTest >> should: anErrorBlock raise: anErrorClass withMessage: anErrorMe
 SpaceShipTest >> testASpaceshipCanBeCreatedWithAName [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
-	self assert: aSpaceShip name equals: 'Danny'
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
+	self assert: aSpaceShip owner equals: 'Danny'
 ]
 
 { #category : #running }
 SpaceShipTest >> testASpaceshipCanBeCreatedWithFuel [
 
 	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
 	self assert: aSpaceShip fuelTank currentFuel equals: 10
 ]
 
 { #category : #running }
 SpaceShipTest >> testASpaceshipCanMoveBackwards [
 
-	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
-	aSpaceShip movePositionBy: 5 lapBy: 0 neededFuel: 0.
-	aSpaceShip movePositionBy: -2 lapBy: 0 neededFuel: 0.
+	| aSpaceShip pos1 pos2 |
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
+	pos1:= SpaceShipPosition createAt: 5 and: 1 .
+	pos2:= SpaceShipPosition createAt: 4 and: 1 .
+	aSpaceShip moveTo: pos1 needing: 5.
+	aSpaceShip moveTo: pos2 needing: 1 .
 
-	self assert: aSpaceShip position equals: 4
+	self assert: aSpaceShip tileNumber equals: 4
 ]
 
 { #category : #running }
@@ -47,28 +49,17 @@ SpaceShipTest >> testASpaceshipCannotBeCreatedWithoutAName [
 	| aName |
 	aName := ''.
 	self
-		should: [ SpaceShip named: aName withMaxFuel: 10 ]
+		should: [ SpaceShip ownedBy: aName withMaxFuel: 10 ]
 		raise: Error
 		withMessage: 'Ship cant be created without a name'
 ]
 
 { #category : #running }
-SpaceShipTest >> testASpaceshipIsMovedOnePosition [
+SpaceShipTest >> testASpaceshipIsMovedOneTile [
 
-	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
-	aSpaceShip movePositionBy: 1 lapBy: 0 neededFuel: 1.
-	self assert: aSpaceShip position equals: 2
-]
-
-{ #category : #running }
-SpaceShipTest >> testLostTurnsCanBeStacked [
-
-	| aSpaceShip |
-	aSpaceShip := SpaceShip named: 'Danny' withMaxFuel: 10.
-	self assert: aSpaceShip turnsToLose equals: 0.
-	aSpaceShip losesTurns: 2.
-	self assert: aSpaceShip turnsToLose equals: 2.
-	aSpaceShip losesTurns: 3.
-	self assert: aSpaceShip turnsToLose equals: 5
+	| aSpaceShip pos|
+	aSpaceShip := SpaceShip ownedBy: 'Danny' withMaxFuel: 10.
+	pos:= SpaceShipPosition createAt: 2 and: 1 .
+	aSpaceShip moveTo:pos  needing: 1 .
+	self assert: aSpaceShip tileNumber equals: 2
 ]

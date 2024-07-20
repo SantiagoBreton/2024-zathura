@@ -16,11 +16,22 @@ HyperGravity class >> needsToThrow: aRollingResult [
 { #category : #initialization }
 HyperGravity >> initializedWith: aNumber [
 
-	needsToThrow := aNumber
+	needsToThrow := aNumber.
+
+]
+
+{ #category : #playing }
+HyperGravity >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
+	anEffectManager
+		applyHyperGravityEffectOf: needsToThrow
+		toAllShipsBut: aSpaceship
 ]
 
 { #category : #playing }
 HyperGravity >> triggeredBy: aSpaceship on: anEffectManager [
 
-	aSpaceship changeRollingResultNeededToMove: needsToThrow
+	anEffectManager
+		applyHyperGravityEffectOf: needsToThrow
+		to: aSpaceship
 ]

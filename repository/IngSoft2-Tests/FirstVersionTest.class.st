@@ -60,11 +60,11 @@ FirstVersionTest >> testFV02SpaceshipsStartAtFirstTile [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 
-	self assert: (aGame spaceshipCalled: 'Danny') name equals: 'Danny'.
-	self assert: (aGame spaceshipCalled: 'Walter') name equals: 'Walter'.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') owner equals: 'Danny'.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') owner equals: 'Walter'.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1
 ]
 
 { #category : #tests }
@@ -92,19 +92,19 @@ FirstVersionTest >> testFV03GameHasEndedAsOneSpaceshipReachTheEnd [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2.
 
 
 
@@ -135,14 +135,14 @@ FirstVersionTest >> testFV04CantRollAfterGameEnded [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	self
 		should: [ aGame playNextTurn ]
@@ -180,7 +180,7 @@ FirstVersionTest >> testFV05IsValidWhenTheWinnerIsAssignedCorrectly [
 	aGame playNextTurn.
 
 
-	self assert: aGame winner name equals: 'Danny'
+	self assert: aGame winner equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -214,13 +214,13 @@ FirstVersionTest >> testFV06GameIsPlayedWithTwoDice [
 		         rolling: aDiceRoller
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	self deny: aGame hasEnded.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1
 ]
 
 { #category : #tests }
@@ -247,8 +247,8 @@ FirstVersionTest >> testFV07GameWithRandomDie [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	self deny: aGame hasEnded.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	self deny: aGame hasEnded.
 
@@ -284,8 +284,8 @@ FirstVersionTest >> testFV08GameWithTwoRandomDice [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	self deny: aGame hasEnded.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	self deny: aGame hasEnded.
 
@@ -321,10 +321,10 @@ FirstVersionTest >> testFV09PlayerOneCanRollTheDiceAfterPlayerTwoTurn [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7
 ]
 
 { #category : #tests }
@@ -355,13 +355,13 @@ FirstVersionTest >> testFV10TurnsWhenThreePlayersArePLaying [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 4
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 4
 ]
 
 { #category : #tests }
@@ -394,7 +394,7 @@ FirstVersionTest >> testFV11WormholeGoesBackwards [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3
 ]
 
 { #category : #tests }
@@ -431,7 +431,7 @@ FirstVersionTest >> testFV12WormholeGoesForward [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 12
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 12
 ]
 
 { #category : #tests }
@@ -463,5 +463,5 @@ FirstVersionTest >> testFV13WormholeIsNotOnANormalTile [
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5
 ]

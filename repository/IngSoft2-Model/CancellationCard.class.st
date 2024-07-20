@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #delegating }
+CancellationCard >> canBePlayedAtAnyTime [
+	^true
+]
+
+{ #category : #delegating }
 CancellationCard >> uses: cardPlayResolver [
 
 	cardPlayResolver resolveACancellationCardPlay:self

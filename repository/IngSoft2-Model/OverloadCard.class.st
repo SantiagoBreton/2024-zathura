@@ -5,9 +5,14 @@ Class {
 }
 
 { #category : #delegating }
-OverloadCard >> cancelEffectUsing: cardPlayResolver [
+OverloadCard >> canBePlayedAtAnyTime [
+	^false
+]
 
-	cardPlayResolver cancelAnOverloadCard: self
+{ #category : #delegating }
+OverloadCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aTarget [
+
+	cardPlayResolver cancelTheEffectOf: self appliedTo:aTarget.
 ]
 
 { #category : #initialization }

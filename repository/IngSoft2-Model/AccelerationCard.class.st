@@ -5,9 +5,14 @@ Class {
 }
 
 { #category : #delegating }
-AccelerationCard >> cancelEffectUsing: cardPlayResolver [
+AccelerationCard >> canBePlayedAtAnyTime [
+	^false
+]
 
-	cardPlayResolver cancelAnAccelerationCard: self
+{ #category : #delegating }
+AccelerationCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aTarget [
+
+	cardPlayResolver cancelACardEffectAppliedToAllPlayers: self
 ]
 
 { #category : #initialization }

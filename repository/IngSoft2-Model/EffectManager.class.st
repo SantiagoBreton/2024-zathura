@@ -16,29 +16,62 @@ EffectManager class >> usedIn: aGame with: aBoard affecting: someShips [
 	^ self new initializeIn: aGame using: aBoard affecting: someShips
 ]
 
-{ #category : #initialization }
-EffectManager >> applyEffectOnLandingShip: aSpaceship [
+{ #category : #playing }
+EffectManager >> applyBlackHoleEffectTo: aSpaceShip [
 
-	| effectToApply |
-	effectToApply := board effectToApplyTo: aSpaceship .
-	lastEffectApplied := effectToApply.
-	effectToApply triggeredBy: aSpaceship on: self
+	board move: aSpaceShip by: -4.
+	aSpaceShip decreaseATurbine
+]
+
+{ #category : #playing }
+EffectManager >> applyBlackHoleEffectToAllBut: aSpaceship [
+
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		board move: spaceship by: -4.
+		spaceship decreaseATurbine ]
+]
+
+{ #category : #playing }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow to: aSpaceship [
+
+	aSpaceship changeRollingResultNeededToMove: needsToThrow
+]
+
+{ #category : #playing }
+EffectManager >> applyHyperGravityEffectOf: needsToThrow toAllShipsBut: aSpaceship [
+
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self applyHyperGravityEffectOf: needsToThrow to: spaceship ]
 ]
 
 { #category : #playing }
 EffectManager >> applyMoonwalkMoving: anAmountOfTiles notAffecting: aShip [
 
+	(self getAllButOneSpaceship: aShip) do: [ :spaceship |
+		board move: spaceship by: anAmountOfTiles ]
+]
+
+{ #category : #playing }
+EffectManager >> getAllButOneSpaceship: theSpaceShip [
+
 	| filteredShips |
 	filteredShips := spaceships select: [ :spaceship |
-		                 spaceship ~= aShip ].
-	filteredShips do: [ :spaceship |
-		board move: spaceship by: anAmountOfTiles ]
+		                 spaceship ~= theSpaceShip ].
+
+	^ filteredShips
 ]
 
 { #category : #playing }
 EffectManager >> giveCardFromDeckTo: aSpaceship [
 
 	game giveCardFromDeckTo: aSpaceship
+]
+
+{ #category : #playing }
+EffectManager >> giveCardFromDeckToAllBut: aSpaceship [
+
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self giveCardFromDeckTo: spaceship ]
 ]
 
 { #category : #initialization }
@@ -51,15 +84,22 @@ EffectManager >> initializeIn: aGame using: aBoard affecting: someShips [
 ]
 
 { #category : #playing }
-EffectManager >> move: aSpaceShip by: anAmountOfTiles [
+EffectManager >> move: aSpaceShip by: anAmountOfTiles [ 
 
-	board move: aSpaceShip by: anAmountOfTiles
+	board move: aSpaceShip by: anAmountOfTiles.
 ]
 
 { #category : #playing }
 EffectManager >> move: aSpaceship jumping: aQuantityOfParsec [
 
 	board move: aSpaceship jumping: aQuantityOfParsec
+]
+
+{ #category : #playing }
+EffectManager >> moveAllBut: aSpaceship jumping: aQuantityOfParsec [
+
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		board move: spaceship jumping: aQuantityOfParsec ]
 ]
 
 { #category : #playing }
@@ -72,4 +112,24 @@ EffectManager >> moveAllSpaceshipsToFirstPosition [
 EffectManager >> repeatLastEffectAppliedOn: aSpaceship [
 
 	lastEffectApplied triggeredBy: aSpaceship on: self
+]
+
+{ #category : #playing }
+EffectManager >> teleport: aSpaceship to: tileToTeleport [
+
+	board move: aSpaceship toTile: tileToTeleport.
+]
+
+{ #category : #playing }
+EffectManager >> teleportAllBut: aSpaceship to: tileToTeleport [
+
+	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
+		self teleport: spaceship to: tileToTeleport ]
+]
+
+{ #category : #initialization }
+EffectManager >> trigger: anEffect on: aSpaceship [
+
+	lastEffectApplied := anEffect.
+	anEffect triggeredBy: aSpaceship on: self
 ]

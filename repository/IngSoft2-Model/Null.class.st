@@ -7,11 +7,16 @@ Class {
 { #category : #'instance creation' }
 Null class >> create [
 
-	^ self new initializeOf: OrderedCollection new
+	^ self new initialize.
 ]
 
-{ #category : #initialization }
-Null >> initializeOf: aCollection [
+{ #category : #playing }
+Null >> initialize [
+	
+]
+
+{ #category : #playing }
+Null >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
 
 	
 ]

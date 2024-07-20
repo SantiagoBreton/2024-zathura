@@ -29,10 +29,10 @@ SecondVersionTest >> testSV01PlayersStartAtLapOne [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1
 ]
 
 { #category : #tests }
@@ -60,26 +60,26 @@ SecondVersionTest >> testSV02PlayerChangesLapAfterPassingTheLastTile [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2
 ]
 
 { #category : #tests }
@@ -105,27 +105,27 @@ SecondVersionTest >> testSV03PlayersWinsAfterCompletingAnAmountOfLaps [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 
-	self assert: aGame winner name equals: 'Danny'
+	self assert: aGame winner equals: 'Danny'
 ]
 
 { #category : #tests }
@@ -188,10 +188,10 @@ SecondVersionTest >> testSV05EverySpaceshipStartsWithAmountOfFuelEqualToTheDoubl
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 12.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 12
 ]
 
@@ -227,14 +227,14 @@ SecondVersionTest >> testSV06WhenASpaceshipMovesItHasLessFuel [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
 
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		< (aGame spaceshipCalled: 'Danny') fuelTank maxFuel
+	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		< (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel
 ]
 
 { #category : #tests }
@@ -263,39 +263,39 @@ SecondVersionTest >> testSV07WhenASpaceshipRunsOutOfFuelItGoesBackToTileOneInLap
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Walter') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Walter') fuelTank maxFuel.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 7.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
 
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Walter') fuelTank maxFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Walter') fuelTank maxFuel
 ]
 
 { #category : #tests }
@@ -325,19 +325,19 @@ SecondVersionTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 6.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 6.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 4.
 
 	aGame playNextTurn.
@@ -346,26 +346,27 @@ SecondVersionTest >> testSV08WhenASpaceshipRunsOutOfFuelAlsoItLosesTwoTurns [
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 3.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel
+		
 ]
 
 { #category : #tests }
@@ -396,30 +397,30 @@ SecondVersionTest >> testSV09SpaceshipSkipsTheirTurnToHaveMaxFuel [
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 6.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 6.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 3.
 
-	aGame skipTurnFor: (aGame spaceshipCalled: 'Danny').
+	aGame skipTurnFor: (aGame spaceshipOwnedBy: 'Danny').
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6
 ]
 
 { #category : #tests }
@@ -449,14 +450,14 @@ SecondVersionTest >> testSV10LandingInAnEffectTileAfterBeingMovedByAnEffectDoesN
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2
 ]
 
 { #category : #tests }
@@ -485,26 +486,27 @@ SecondVersionTest >> testSV11Spaceship2IsTheFirstSpaceShipAtSpaceShipsRankingAsH
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+
+	aGame playNextTurn.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	aGame playNextTurn.
+
+	
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-
-	aGame playNextTurn.
-	aGame playNextTurn.
-
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
 
 	self
-		assert: aGame spaceShipsPositionsRanking first name
+		assert: aGame spaceShipsPositionsRanking first owner 
 		equals: 'Walter'.
 
 	self
-		assert: aGame spaceShipsPositionsRanking second name
+		assert: aGame spaceShipsPositionsRanking second owner
 		equals: 'Danny'
 ]
 
@@ -534,25 +536,25 @@ SecondVersionTest >> testSV12BlackHoleEffectWhenSpaceShipHasEnoughFuelItGoesFour
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Walter') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Walter') fuelTank maxFuel.
 
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		< (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
-	self assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
-		< (aGame spaceshipCalled: 'Walter') fuelTank maxFuel
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		< (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
+		< (aGame spaceshipOwnedBy: 'Walter') fuelTank maxFuel
 ]
 
 { #category : #tests }
@@ -581,38 +583,38 @@ SecondVersionTest >> testSV13BlackHoleEffectWhenSpaceShipRunsOutOfFuelItGoesToTh
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 8.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 8.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 7.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 7.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel.
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Walter') fuelTank maxFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Walter') fuelTank maxFuel
 ]
 
 { #category : #tests }
@@ -639,26 +641,26 @@ SecondVersionTest >> testSV14BlackHoleEffectWhenSpaceShipIsInTheFirstThreeTilesI
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1
 ]
 
 { #category : #tests }
@@ -669,14 +671,14 @@ SecondVersionTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsAC
 	aDie1 := LoadedDie of: { 5. 5. 4. 4. 6 }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (HyperGravity needsToThrow: 4).
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 
@@ -687,20 +689,20 @@ SecondVersionTest >> testSV15SpaceshipEscapesOfTheHyperGravityEffectWhenItGetsAC
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2
 ]
 
 { #category : #tests }
@@ -711,14 +713,14 @@ SecondVersionTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItD
 	aDie1 := LoadedDie of: {5}.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (HyperGravity needsToThrow: 4).
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aGame := Game
@@ -728,20 +730,20 @@ SecondVersionTest >> testSV16SpaceshipCannotEscapeFromTheHyperGravityEffectIfItD
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 6
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 6
 ]
 
 { #category : #tests }
@@ -751,14 +753,14 @@ SecondVersionTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTile
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (MoonWalk backwardDistance: 2).
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 4. 30 }.
@@ -769,18 +771,18 @@ SecondVersionTest >> testSV17MoonWalkEffectWhenSpaceShipHasEnoughFuelItGoesNTile
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 2
 ]
 
 { #category : #tests }
@@ -790,14 +792,14 @@ SecondVersionTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToThe
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
 				          (MoonWalk backwardDistance: 4).
-				          Null new }
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 2. 3. 3. 3. 1. 4 }.
@@ -809,24 +811,24 @@ SecondVersionTest >> testSV18MoonWalkEffectWhenSpaceShipRunsOutOfFuelItGoesToThe
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 3.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 7.
 
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
-		equals: (aGame spaceshipCalled: 'Danny') fuelTank maxFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
+		equals: (aGame spaceshipOwnedBy: 'Danny') fuelTank maxFuel
 ]
 
 { #category : #tests }
@@ -836,12 +838,12 @@ SecondVersionTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesIt
 	someSpaceships := { 'Danny'. 'Walter' }.
 	aBoard := Board
 		          of: {
-				          Null new.
+				          Null create.
 				          (MoonWalk backwardDistance: 4).
-				          Null new.
-				          Null new.
-				          Null new.
-				          Null new }
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
 
 	aDie1 := LoadedDie of: { 6. 6. 1. 1 }.
@@ -853,25 +855,25 @@ SecondVersionTest >> testSV19MoonWalkEffectWhenSpaceShipIsInTheFirstThreeTilesIt
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 2.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
 
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1
 ]
 
 { #category : #tests }
@@ -903,17 +905,17 @@ SecondVersionTest >> testSV20HyperJumpEffectAssignsParsecsToSpaceshipAndItGoesFo
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 6.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Joseph') position equals: 6
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 6.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Joseph') tileNumber equals: 6
 ]
 
 { #category : #tests }
@@ -939,37 +941,37 @@ SecondVersionTest >> testSV21AtomicBombEffectSendsAllSpaceshipsBackToTheFirstTil
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 34.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 36.
 
 	aGame playNextTurn.
 
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 	self
-		assert: (aGame spaceshipCalled: 'Danny') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Danny') fuelTank currentFuel
 		equals: 31.
 	self
-		assert: (aGame spaceshipCalled: 'Walter') fuelTank currentFuel
+		assert: (aGame spaceshipOwnedBy: 'Walter') fuelTank currentFuel
 		equals: 36
 ]
 
@@ -996,23 +998,23 @@ SecondVersionTest >> testSV22SequenceDie [
 		         rolling: aDie1
 		         usingCardsFrom: (Deck of: { 'card1'. 'card2' }).
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 5.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 1.
-	self assert: (aGame spaceshipCalled: 'Walter') position equals: 4.
-	self assert: (aGame spaceshipCalled: 'Walter') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 4.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') lap equals: 1.
 
 	aGame playNextTurn.
 
-	self assert: (aGame spaceshipCalled: 'Danny') position equals: 2.
-	self assert: (aGame spaceshipCalled: 'Danny') lap equals: 2
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 2.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') lap equals: 2
 ]
 
 { #category : #tests }
@@ -1051,7 +1053,7 @@ SecondVersionTest >> testSV23GameWithRandomBoardAndRandomDie [
 				                       with: AtomicBomb new
 				                       and: 0.02) }.
 
-	randomCollection := effectDistribution randomCollectionWith: 5.
+	randomCollection := effectDistribution randomCollectionWith: 10.
 
 	aBoard := Board
 		          of: randomCollection

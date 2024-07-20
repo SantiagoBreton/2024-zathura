@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #delegating }
+RepeatCard >> canBePlayedAtAnyTime [
+	^true
+]
+
+{ #category : #delegating }
 RepeatCard >> uses: cardPlayResolver [
 
 	cardPlayResolver resolveARepeatCardPlay:self

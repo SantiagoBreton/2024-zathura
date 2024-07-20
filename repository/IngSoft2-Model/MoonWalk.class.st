@@ -16,7 +16,14 @@ MoonWalk class >> backwardDistance: anAmountOfTiles [
 { #category : #initialization }
 MoonWalk >> initializedWith: anAmountOfTiles [
 
-	tilesToMove := 0 - anAmountOfTiles
+	tilesToMove := 0 - anAmountOfTiles.
+
+]
+
+{ #category : #playing }
+MoonWalk >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
+	anEffectManager move: aSpaceship by: tilesToMove
 ]
 
 { #category : #playing }

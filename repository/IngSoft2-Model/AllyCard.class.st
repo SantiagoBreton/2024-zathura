@@ -5,15 +5,14 @@ Class {
 }
 
 { #category : #delegating }
-AllyCard >> cancelEffectUsing: cardPlayResolver [
-
-	cardPlayResolver cancelAnAllyCard: self
+AllyCard >> canBePlayedAtAnyTime [
+	^false
 ]
 
-{ #category : #initialization }
-AllyCard >> effect [
+{ #category : #delegating }
+AllyCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aTarget [
 
-	^ 0
+	cardPlayResolver cancelAnAllyCardPlayedBy: aPlayer targetting: aTarget.
 ]
 
 { #category : #delegating }
