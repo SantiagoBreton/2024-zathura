@@ -9,7 +9,8 @@ Class {
 		'turnHandler',
 		'deck',
 		'effectManager',
-		'cardPlayManager'
+		'cardPlayManager',
+		'maxLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -55,7 +56,7 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
-		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
+		  maxLaps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
 ]
 
 { #category : #asserting }
@@ -129,6 +130,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
+	maxLaps:=laps.
 	hasEnded := false.
 	deck := aDeck.
 	board finishesAfter: laps.

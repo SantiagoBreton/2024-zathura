@@ -52,12 +52,6 @@ Board >> initializeOf: aTileCollection withDistance: aUnitOfDistance [
 ]
 
 { #category : #accessing }
-Board >> laps [
-
-	^ laps
-]
-
-{ #category : #accessing }
 Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
 	| tilesSinceBeginning positionAfterMovement tileAfterMovement lapAfterMovement amountOfFuelNeeded |
