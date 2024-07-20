@@ -5,6 +5,12 @@ Class {
 }
 
 { #category : #delegating }
+Card >> =anotherCard [ 
+	^ self class = anotherCard class
+	
+]
+
+{ #category : #delegating }
 Card >> canBePlayedAtAnyTime [
 
 	self subclassResponsibility

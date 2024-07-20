@@ -27,6 +27,14 @@ SpaceShip class >> ownedBy: aName withMaxFuel: anAmount [
 	^ self new initialize: aName withMaxFuel: anAmount
 ]
 
+{ #category : #'accessing - arguments' }
+SpaceShip >> >= anotherSpaceship [
+
+	^ self lap > anotherSpaceship lap or:
+		  (self lap = anotherSpaceship lap and:
+			   self tileNumber > anotherSpaceship tileNumber)
+]
+
 { #category : #testing }
 SpaceShip >> ally [
 
