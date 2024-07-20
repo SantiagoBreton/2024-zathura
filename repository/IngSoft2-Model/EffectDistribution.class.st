@@ -56,14 +56,14 @@ EffectDistribution >> initializeWith: probabilityTileList [
 { #category : #creating }
 EffectDistribution >> randomCollectionWith: length [
 
-	| randomCollection  |
+	| randomCollection |
 	randomCollection := OrderedCollection new.
 
 	length timesRepeat: [ randomCollection add: self randomEffect ].
-	
-	randomCollection:=self createWormholes:randomCollection.
 
-	
+	randomCollection := self createWormholes: randomCollection.
+
+
 
 	^ randomCollection
 ]

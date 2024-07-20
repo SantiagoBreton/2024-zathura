@@ -5,9 +5,14 @@ Class {
 }
 
 { #category : #delegating }
+ReversePolarityCard >> canBePlayedAtAnyTime [
+	^false
+]
+
+{ #category : #delegating }
 ReversePolarityCard >> cancelEffectUsing: cardPlayResolver playedBy: aPlayer targetting: aTarget [
 
-	cardPlayResolver cancelAReversePolarityCardTargetting: aTarget.
+	cardPlayResolver reversePolarityOfEffectAtTile:aTarget.
 ]
 
 { #category : #delegating }

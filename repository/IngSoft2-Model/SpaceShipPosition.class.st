@@ -37,28 +37,33 @@ SpaceShipPosition >> costToMoveTo: anotherPostion withBoardSize: boardSize [
 ]
 
 { #category : #'as yet unclassified' }
-SpaceShipPosition >> initilizewith:aTileNumber and:aLap [
+SpaceShipPosition >> initilizewith: aTileNumber and: aLap [
+
 	tileNumber := aTileNumber.
-	lap :=aLap.
-	self correctIfInNegativeLap.
+	lap := aLap.
+	self correctIfInNegativeLap
 ]
 
 { #category : #'as yet unclassified' }
 SpaceShipPosition >> lap [
-	^lap
+
+	^ lap
 ]
 
 { #category : #'as yet unclassified' }
 SpaceShipPosition >> resetPosition [
-	tileNumber :=1.
+
+	tileNumber := 1
 ]
 
 { #category : #'as yet unclassified' }
 SpaceShipPosition >> tileNumber [
-	^tileNumber
+
+	^ tileNumber
 ]
 
 { #category : #'as yet unclassified' }
 SpaceShipPosition >> totalAmountOfSquaresMovedWith: anAmountOfTilesPerLap [
-	^ (tileNumber + ((lap-1)*anAmountOfTilesPerLap) ).
+
+	^ tileNumber + (lap - 1 * anAmountOfTilesPerLap)
 ]

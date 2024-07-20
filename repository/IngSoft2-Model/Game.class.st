@@ -9,7 +9,8 @@ Class {
 		'turnHandler',
 		'deck',
 		'effectManager',
-		'cardPlayManager'
+		'cardPlayManager',
+		'maxLaps'
 	],
 	#category : #'IngSoft2-Model'
 }
@@ -55,7 +56,7 @@ Game class >> playedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: 
 Game >> anySpaceShipAtLastTileAndLap [
 
 	^ spaceships anySatisfy: [ :aSpaceship |
-		  board laps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
+		  maxLaps + 1 = aSpaceship lap and: [ 1 = aSpaceship tileNumber ] ]
 ]
 
 { #category : #asserting }
@@ -97,8 +98,9 @@ Game >> checkIf: spaceshipTurn isRewardedWhenRolling: rollingResult [
 Game >> endGameIfPossible [
 
 	self anySpaceShipAtLastTileAndLap ifTrue: [ hasEnded := true ].
-	
-	(spaceships anySatisfy:  [ :aSpaceship |  aSpaceship canPlay ]) ifFalse: [ hasEnded := true ]
+
+	(spaceships anySatisfy: [ :aSpaceship | aSpaceship canPlay ])
+		ifFalse: [ hasEnded := true ]
 ]
 
 { #category : #playing }
@@ -106,13 +108,13 @@ Game >> giveCardFromDeckTo: aSpaceship [
 
 	| card |
 	card := deck pick.
-	cardPlayManager addNewCard:  card to: aSpaceship owner.
+	cardPlayManager addNewCard: card to: aSpaceship owner
 ]
 
 { #category : #testing }
 Game >> handOf: aPlayer [
 
-	^ cardPlayManager handOf: aPlayer.
+	^ cardPlayManager handOf: aPlayer
 ]
 
 { #category : #testing }
@@ -123,16 +125,18 @@ Game >> hasEnded [
 
 { #category : #initialization }
 Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolling: dice usingCardsFrom: aDeck [
-	|cardHands|
+
+	| cardHands |
 	board := aBoard.
 	diceCollection := dice.
 	spaceships := someSpaceShips.
+	maxLaps:=laps.
 	hasEnded := false.
 	deck := aDeck.
 	board finishesAfter: laps.
 	cardHands := spaceships collect: [ :spaceShip |
 		             PlayerHand of: spaceShip using: aDeck ].
-	cardPlayManager := CardPlayManager with: self having:cardHands.
+	cardPlayManager := CardPlayManager with: self having: cardHands.
 	turnHandler := TurnHandler withPlayers: someSpaceShips.
 	effectManager := EffectManager
 		                 usedIn: self
@@ -141,9 +145,11 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 ]
 
 { #category : #'target resize' }
-Game >> play: aCard by:aPlayer targetting: aTarget [
-	cardPlayManager resolve: aCard by: aPlayer  targetting: aTarget.
-	
+Game >> play: aCard by: aPlayer targetting: aTarget [
+
+	aCard canBePlayedAtAnyTime ifFalse: [ self assertIsTurnOf: aPlayer ].
+	cardPlayManager resolve: aCard by: aPlayer targetting: aTarget.
+	cardPlayManager removeFromHand: aCard to: aPlayer
 ]
 
 { #category : #playing }
@@ -153,32 +159,36 @@ Game >> playNextTurn [
 	self hasEnded ifTrue: [ Error signal: 'Game has already ended' ].
 	spaceshipTurn := turnHandler nextSpaceshipTurn.
 	rollingResult := spaceshipTurn rollDiceUsing: diceCollection.
-	self checkIf: spaceshipTurn isRewardedWhenRolling:rollingResult.
+	self checkIf: spaceshipTurn isRewardedWhenRolling: rollingResult.
 	rollModifier := cardPlayManager diceEffectApplyingTo: spaceshipTurn owner.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
-	effectManager applyEffectOnLandingShip: spaceshipTurn.
+	board triggerLandingEffectFor:spaceshipTurn using: effectManager .
+	"effectManager applyEffectOnLandingShip: spaceshipTurn."
 	self endGameIfPossible
 ]
 
 { #category : #accessing }
 Game >> repeatLastEffectAppliedOn: aPlayer [
-	effectManager repeatLastEffectAppliedOn: (self spaceshipOwnedBy: aPlayer).
+
+	effectManager repeatLastEffectAppliedOn:
+		(self spaceshipOwnedBy: aPlayer)
 ]
 
 { #category : #testing }
 Game >> reversePolarityOfEffectAtTile: aNumber [
 
-	board reversePolarityOfEffectAtTile: aNumber.
+	board reversePolarityOfEffectAtTile: aNumber
 ]
 
 { #category : #'target resize' }
 Game >> setAnAllianceBewtween: aPlayer and: anotherPlayer [
-	|spaceship1 spaceship2|
+
+	| spaceship1 spaceship2 |
 	spaceship1 := self spaceshipOwnedBy: aPlayer.
 	spaceship2 := self spaceshipOwnedBy: anotherPlayer.
 
-	spaceship1 isAlliedWith: spaceship2.
-	spaceship2 isAlliedWith: spaceship1.
+	spaceship1 makeAnAllianceWith: spaceship2.
+	spaceship2 makeAnAllianceWith: spaceship1
 ]
 
 { #category : #asserting }
@@ -208,7 +218,7 @@ Game >> winner [
 
 	| winner |
 	self hasEnded ifFalse: [ ^ self hasEnded ].
-	
-	winner := (self spaceShipsPositionsRanking first) owner.
+
+	winner := self spaceShipsPositionsRanking first owner.
 	^ winner
 ]

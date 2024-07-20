@@ -14,15 +14,18 @@ InversedEffect class >> reversePolarityOf:anEffect [
 
 { #category : #'as yet unclassified' }
 InversedEffect >> inizializewith: anEffect [
-	effect:=  anEffect.
+
+	effect := anEffect
 ]
 
 { #category : #playing }
-InversedEffect >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
-	effect triggeredBy: aSpaceship on: anEffectManager.
+InversedEffect >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
+	effect triggeredBy: aSpaceship on: anEffectManager
 ]
 
 { #category : #playing }
 InversedEffect >> triggeredBy: aSpaceship on: anEffectManager [
-	effect triggerReversePolarityEffectBy:aSpaceship on: anEffectManager.
+
+	effect triggerReversePolarityEffectBy: aSpaceship on: anEffectManager
 ]

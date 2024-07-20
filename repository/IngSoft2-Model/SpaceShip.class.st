@@ -27,12 +27,15 @@ SpaceShip class >> ownedBy: aName withMaxFuel: anAmount [
 	^ self new initialize: aName withMaxFuel: anAmount
 ]
 
-{ #category : #accessing }
-SpaceShip >> >=anotherSpaceship [
-	^ ((self lap > anotherSpaceship lap) or: (self lap = anotherSpaceship lap and: self tileNumber > anotherSpaceship tileNumber)).
+{ #category : #'accessing - arguments' }
+SpaceShip >> >= anotherSpaceship [
+
+	^ self lap > anotherSpaceship lap or:
+		  (self lap = anotherSpaceship lap and:
+			   self tileNumber > anotherSpaceship tileNumber)
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 SpaceShip >> ally [
 
 	^ ally
@@ -43,20 +46,22 @@ SpaceShip >> applyPenaltyForEmptyFuelTank [
 
 	self resetPosition.
 	fuelTank refuelToMax.
-	self decreaseATurbine .
+	self decreaseATurbine.
 	self losesTurns: 2
 ]
 
 { #category : #'accessing - arguments' }
 SpaceShip >> canPlay [
-	(turbines > 0 and: turnsToLose <= 0) ifTrue:  [ ^true ].
-	^false.
+
+	(turbines > 0 and: turnsToLose <= 0) ifTrue: [ ^ true ].
+	^ false
 ]
 
 { #category : #asserting }
 SpaceShip >> canProvideToAnAlly: anAmountOfFuel [
-	fuelTank currentFuel > anAmountOfFuel ifTrue: [ ^true ].
-	^false.
+
+	fuelTank currentFuel > anAmountOfFuel ifTrue: [ ^ true ].
+	^ false
 ]
 
 { #category : #playing }
@@ -67,16 +72,16 @@ SpaceShip >> changeRollingResultNeededToMove: aNumber [
 
 { #category : #accessing }
 SpaceShip >> checkForRollInHyperGravity: rolledNumber [
-    (needsToThrow = 0 or: [ rolledNumber = needsToThrow ]) ifTrue: [
-        needsToThrow := 0
-    ] ifFalse: [
-        self decreaseATurbine 
-    ].
+
+	(needsToThrow = 0 or: [ rolledNumber = needsToThrow ])
+		ifTrue: [ needsToThrow := 0 ]
+		ifFalse: [ self decreaseATurbine ]
 ]
 
 { #category : #playing }
 SpaceShip >> decreaseATurbine [
-	turbines := turbines - 1.
+
+	turbines := turbines - 1
 ]
 
 { #category : #playing }
@@ -92,13 +97,13 @@ SpaceShip >> fuelTank [
 ]
 
 { #category : #playing }
-SpaceShip >> handleAllyFuelToMoveFor:positionAfterMovement [
+SpaceShip >> handleAllyFuelToMoveFor: positionAfterMovement [
 
 	(ally canProvideToAnAlly: fuelTank currentFuel abs)
 		ifTrue: [
 			ally decreaseFuelBy: fuelTank currentFuel abs.
 			fuelTank fuel: 0.
-			self moveToNextPostion:  positionAfterMovement]
+			self moveToNextPostion: positionAfterMovement ]
 		ifFalse: [
 			ally applyPenaltyForEmptyFuelTank.
 			self applyPenaltyForEmptyFuelTank ]
@@ -107,9 +112,9 @@ SpaceShip >> handleAllyFuelToMoveFor:positionAfterMovement [
 { #category : #playing }
 SpaceShip >> handleEmptyFuelTankToMoveFor: positionAfterMovement [
 
-	ally ifNil: [ self applyPenaltyForEmptyFuelTank ] ifNotNil: [
-		self
-			handleAllyFuelToMoveFor:positionAfterMovement.]
+	ally
+		ifNil: [ self applyPenaltyForEmptyFuelTank ]
+		ifNotNil: [ self handleAllyFuelToMoveFor: positionAfterMovement ]
 ]
 
 { #category : #initialization }
@@ -118,16 +123,10 @@ SpaceShip >> initialize: aName withMaxFuel: anAmount [
 	owner := aName.
 	turnsToLose := 0.
 	needsToThrow := 0.
-	turbines:=3.
+	turbines := 3.
 	fuelTank := FuelTank withMaxFuel: anAmount.
-	position := SpaceShipPosition createAt: 1 and: 1 .
+	position := SpaceShipPosition createAt: 1 and: 1.
 	ally := nil
-]
-
-{ #category : #asserting }
-SpaceShip >> isAlliedWith: anotherSpaceship [
-
-	ally := anotherSpaceship
 ]
 
 { #category : #'accessing - arguments' }
@@ -142,6 +141,12 @@ SpaceShip >> losesTurns: amountOfTurns [
 	turnsToLose := turnsToLose + amountOfTurns
 ]
 
+{ #category : #asserting }
+SpaceShip >> makeAnAllianceWith: anotherSpaceship [
+
+	ally := anotherSpaceship
+]
+
 { #category : #playing }
 SpaceShip >> moveTo: positionAfterMovement needing: amountOfFuelNeeded [
 
@@ -149,17 +154,14 @@ SpaceShip >> moveTo: positionAfterMovement needing: amountOfFuelNeeded [
 	self decreaseFuelBy: amountOfFuelNeeded.
 
 	fuelTank isEmpty
-		ifTrue: [
-			self
-				handleEmptyFuelTankToMoveFor: positionAfterMovement ]
-		ifFalse: [
-		self moveToNextPostion: positionAfterMovement. ]
+		ifTrue: [ self handleEmptyFuelTankToMoveFor: positionAfterMovement ]
+		ifFalse: [ self moveToNextPostion: positionAfterMovement ]
 ]
 
 { #category : #playing }
 SpaceShip >> moveToNextPostion: positionAfterMovement [
-	position :=positionAfterMovement.
 
+	position := positionAfterMovement
 ]
 
 { #category : #accessing }
@@ -176,7 +178,8 @@ SpaceShip >> position [
 
 { #category : #accessing }
 SpaceShip >> resetPosition [
-	position resetPosition. 
+
+	position resetPosition
 ]
 
 { #category : #playing }
@@ -207,7 +210,7 @@ SpaceShip >> tileNumber [
 	^ position tileNumber .
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 SpaceShip >> turbine [
 
 	^ turbines

@@ -21,7 +21,8 @@ MoonWalk >> initializedWith: anAmountOfTiles [
 ]
 
 { #category : #playing }
-MoonWalk >> triggerReversePolarityEffectBy:aSpaceship on: anEffectManager [
+MoonWalk >> triggerReversePolarityEffectBy: aSpaceship on: anEffectManager [
+
 	anEffectManager move: aSpaceship by: tilesToMove
 ]
 
