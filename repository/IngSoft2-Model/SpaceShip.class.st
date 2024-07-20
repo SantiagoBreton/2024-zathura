@@ -210,7 +210,7 @@ SpaceShip >> tileNumber [
 	^ position tileNumber .
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 SpaceShip >> turbine [
 
 	^ turbines

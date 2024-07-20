@@ -27,7 +27,7 @@ PlayerHand >> addToHand: aCard [
 	cardsInHand add: aCard
 ]
 
-{ #category : #accessing }
+{ #category : #testing }
 PlayerHand >> cardsInHand [
 
 	^ cardsInHand

@@ -38,11 +38,6 @@ Board >> amountOfTiles [
 	^ tiles size
 ]
 
-{ #category : #initialization }
-Board >> effectToApplyTo: aSpaceship [
-	^ tiles at: (aSpaceship tileNumber).
-]
-
 { #category : #playing }
 Board >> finishesAfter: amountOfLaps [
 
@@ -112,6 +107,14 @@ Board >> reversePolarityOfEffectAtTile: aNumber [
 	effect := tiles at: aNumber.
 	inversedEffect := InversedEffect reversePolarityOf: effect.
 	tiles at: aNumber put: inversedEffect
+]
+
+{ #category : #accessing }
+Board >> triggerLandingEffectFor: aSpaceship using: effectManager [
+
+	| effect |
+	effect := tiles at: aSpaceship tileNumber.
+	effectManager trigger: effect on: aSpaceship
 ]
 
 { #category : #accessing }

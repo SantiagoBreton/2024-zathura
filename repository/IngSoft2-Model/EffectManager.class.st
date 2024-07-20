@@ -31,15 +31,6 @@ EffectManager >> applyBlackHoleEffectToAllBut: aSpaceship [
 		spaceship decreaseATurbine ]
 ]
 
-{ #category : #initialization }
-EffectManager >> applyEffectOnLandingShip: aSpaceship [
-
-	| effectToApply |
-	effectToApply := board effectToApplyTo: aSpaceship.
-	lastEffectApplied := effectToApply.
-	effectToApply triggeredBy: aSpaceship on: self
-]
-
 { #category : #playing }
 EffectManager >> applyHyperGravityEffectOf: needsToThrow to: aSpaceship [
 
@@ -134,4 +125,11 @@ EffectManager >> teleportAllBut: aSpaceship to: tileToTeleport [
 
 	(self getAllButOneSpaceship: aSpaceship) do: [ :spaceship |
 		self teleport: spaceship to: tileToTeleport ]
+]
+
+{ #category : #initialization }
+EffectManager >> trigger: anEffect on: aSpaceship [
+
+	lastEffectApplied := anEffect.
+	anEffect triggeredBy: aSpaceship on: self
 ]

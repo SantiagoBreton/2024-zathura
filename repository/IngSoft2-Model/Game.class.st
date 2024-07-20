@@ -160,7 +160,8 @@ Game >> playNextTurn [
 	self checkIf: spaceshipTurn isRewardedWhenRolling: rollingResult.
 	rollModifier := cardPlayManager diceEffectApplyingTo: spaceshipTurn owner.
 	board move: spaceshipTurn by: rollingResult + rollModifier.
-	effectManager applyEffectOnLandingShip: spaceshipTurn.
+	board triggerLandingEffectFor:spaceshipTurn using: effectManager .
+	"effectManager applyEffectOnLandingShip: spaceshipTurn."
 	self endGameIfPossible
 ]
 
