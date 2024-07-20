@@ -16,7 +16,7 @@ CardPlay class >> a:card wasPlayedBy:aPlayer targetting:aTarget [
 
 { #category : #comparing }
 CardPlay >> =anotherCardPlay [
-	^ self hash = anotherCardPlay hash and: self class = anotherCardPlay class
+	^ self hash = anotherCardPlay hash and: self class = anotherCardPlay class 
 ]
 
 { #category : #'as yet unclassified' }
