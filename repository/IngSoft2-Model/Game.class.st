@@ -149,7 +149,7 @@ Game >> play: aCard by: aPlayer targetting: aTarget [
 
 	aCard canBePlayedAtAnyTime ifFalse: [ self assertIsTurnOf: aPlayer ].
 	cardPlayManager resolve: aCard by: aPlayer targetting: aTarget.
-	cardPlayManager removeFromHand: aCard to: aPlayer
+	
 ]
 
 { #category : #playing }

@@ -15,8 +15,10 @@ CardPlay class >> a:card wasPlayedBy:aPlayer targetting:aTarget [
 ]
 
 { #category : #'as yet unclassified' }
-CardPlay >> =anotherCardPlay [ 
-	^ self hash = anotherCardPlay hash and: self class = anotherCardPlay class
+CardPlay >> = anotherCardPlay [
+
+	^ ((self hash = anotherCardPlay hash)
+		  and: (self class = anotherCardPlay class)) and: self cardPlayer = anotherCardPlay cardPlayer.
 ]
 
 { #category : #'as yet unclassified' }
@@ -28,10 +30,15 @@ CardPlay >> cancelEffectUsing: aCardPlayManager [
 		targetting: cardTarget
 ]
 
+{ #category : #accessing }
+CardPlay >> cardPlayer [
+	^cardPlayer  
+]
+
 { #category : #'as yet unclassified' }
 CardPlay >> hash [
 
-	^ cardPlayer hash + card hash + cardTarget hash
+	^ (cardPlayer hash + card hash + cardTarget hash).
 ]
 
 { #category : #'as yet unclassified' }
