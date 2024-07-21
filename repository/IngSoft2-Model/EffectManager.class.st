@@ -127,7 +127,7 @@ EffectManager >> teleportAllBut: aSpaceship to: tileToTeleport [
 		self teleport: spaceship to: tileToTeleport ]
 ]
 
-{ #category : #initialization }
+{ #category : #triggering }
 EffectManager >> trigger: anEffect on: aSpaceship [
 
 	lastEffectApplied := anEffect.

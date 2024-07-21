@@ -688,7 +688,7 @@ ThirdVersionTest >> testTV15WhenSpaceshipUsesCancellationCardOnAnOverloadCardThe
 				          Null create.
 				          Null create }
 		          withUnitsOfMeasurement: (Parsecs with: 10).
-	aDie1 := LoadedDie of: { 2. 2. 2. 2. 6 }.
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 2. 6 }.
 
 	anOverloadCard := OverloadCard new.
 	aCancellationCard := CancellationCard new.
@@ -1510,4 +1510,69 @@ ThirdVersionTest >> testTV29WhenSpaceshipUsesCancellationCardOnACardPlayThatWast
 		raise: Error
 		withMessage:
 		'There is no CardPlay matching the one tried to be cancelled'
+]
+
+{ #category : #tests }
+ThirdVersionTest >> testTV30WhenSpaceshipUsesCancellationCardOnANOverloadCardThatWasPlayedBecauseOfAREdoThenItCancellsIt [
+
+	| aGame aBoard aDie1 someSpaceships aDeck anOverloadCard aCancellationCard aCardPlay aRedoCard |
+	someSpaceships := { 'Danny'. 'Walter' }.
+	aBoard := Board
+		          of: {
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create.
+				          Null create }
+		          withUnitsOfMeasurement: (Parsecs with: 10).
+	aDie1 := LoadedDie of: { 2. 2. 2. 2. 2. 2. 2. 2. 15 }.
+
+	anOverloadCard := OverloadCard new.
+	aCancellationCard := CancellationCard new.
+	aRedoCard:=RedoCard new.
+
+	aDeck := LoadedDeck of: {
+			         anOverloadCard.
+			         aCancellationCard.
+			         aRedoCard .
+			         aCancellationCard.
+			         anOverloadCard }.
+	aGame := Game
+		         playedBy: someSpaceships
+		         on: aBoard
+		         finishingAfter: 2
+		         rolling: aDie1
+		         usingCardsFrom: aDeck.
+
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 1.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+
+	aGame play: anOverloadCard by: 'Danny' targetting: 'Walter'.
+	aGame playNextTurn.
+	aGame playNextTurn.
+	
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 3.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	
+	aGame playNextTurn.
+	aGame play: aRedoCard by: 'Walter' targetting: 'Danny'.
+	aGame playNextTurn.
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 5.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	
+
+	
+	aCardPlay := CardPlay
+		             a: anOverloadCard
+		             wasPlayedBy: 'Walter'
+		             targetting: 'Danny'.
+	aGame play: aCancellationCard  by: 'Walter'  targetting: aCardPlay.
+	
+	aGame playNextTurn .
+
+	self assert: (aGame spaceshipOwnedBy: 'Danny') tileNumber equals: 7.
+	self assert: (aGame spaceshipOwnedBy: 'Walter') tileNumber equals: 1.
+	
 ]

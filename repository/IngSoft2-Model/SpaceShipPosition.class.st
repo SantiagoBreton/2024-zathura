@@ -13,7 +13,7 @@ SpaceShipPosition class >> createAt:aTile and:aLap [
 	^self new initilizewith: aTile and:aLap.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #correcting }
 SpaceShipPosition >> correctIfBeyond: maxLaps [
 
 	lap >= maxLaps ifFalse: [ ^ self ].
@@ -21,7 +21,7 @@ SpaceShipPosition >> correctIfBeyond: maxLaps [
 	lap := maxLaps
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #correcting }
 SpaceShipPosition >> correctIfInNegativeLap [
 
 	lap < 1 ifFalse: [ ^ self ].
@@ -29,14 +29,7 @@ SpaceShipPosition >> correctIfInNegativeLap [
 	lap := 1
 ]
 
-{ #category : #'as yet unclassified' }
-SpaceShipPosition >> costToMoveTo: anotherPostion withBoardSize: boardSize [
-
-	^ ((self totalAmountOfSquaresMovedWith: boardSize)
-	   - (anotherPostion totalAmountOfSquaresMovedWith: boardSize)) abs
-]
-
-{ #category : #'as yet unclassified' }
+{ #category : #'class initialization' }
 SpaceShipPosition >> initilizewith: aTileNumber and: aLap [
 
 	tileNumber := aTileNumber.
@@ -44,26 +37,33 @@ SpaceShipPosition >> initilizewith: aTileNumber and: aLap [
 	self correctIfInNegativeLap
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'accessing - arguments' }
 SpaceShipPosition >> lap [
 
 	^ lap
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #playing }
 SpaceShipPosition >> resetPosition [
 
 	tileNumber := 1
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'accessing - attributes' }
 SpaceShipPosition >> tileNumber [
 
 	^ tileNumber
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #calculating }
 SpaceShipPosition >> totalAmountOfSquaresMovedWith: anAmountOfTilesPerLap [
 
 	^ tileNumber + (lap - 1 * anAmountOfTilesPerLap)
+]
+
+{ #category : #calculating }
+SpaceShipPosition >> totalTilesToMoveTo: anotherPostion withBoardSize: boardSize [
+
+	^ ((self totalAmountOfSquaresMovedWith: boardSize)
+	   - (anotherPostion totalAmountOfSquaresMovedWith: boardSize)) abs
 ]

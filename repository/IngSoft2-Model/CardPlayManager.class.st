@@ -24,25 +24,25 @@ CardPlayManager >> addNewCard: aCard to: aPlayer [
 	(self handOf: aPlayer) addToHand: aCard
 ]
 
-{ #category : #resolving }
+{ #category : #cancelling }
 CardPlayManager >> cancelACardEffectAppliedToAllPlayers: aCard [
 
 	allPlayersHands do: [ :playerHand | playerHand removeEffectOf: aCard ]
 ]
 
-{ #category : #resolving }
+{ #category : #cancelling }
 CardPlayManager >> cancelAnAllyCardPlayedBy: aPlayer targetting: anotherPlayer [
 
 	game cancelAllianceBetween: aPlayer and: anotherPlayer
 ]
 
-{ #category : #resolving }
+{ #category : #cancelling }
 CardPlayManager >> cancelTheEffectOf: aCard appliedTo: aPlayer [
 
 	(self handOf: aPlayer) removeEffectOf: aCard
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 CardPlayManager >> diceEffectApplyingTo: aPlayer [
 
 	^ (self handOf: aPlayer) totalEffectsOnPlayer
@@ -85,10 +85,11 @@ CardPlayManager >> resolve: aCardPlayed by: aPlayer targetting: aTarget [
 	self validate: aPlayer has: aCardPlayed.
 	cardPlayer := aPlayer.
 	cardTarget := aTarget.
-
-	aCardPlayed uses: self.
 	cardPlays add:
-		(CardPlay a: aCardPlayed wasPlayedBy: aPlayer targetting: aTarget)
+		(CardPlay a: aCardPlayed wasPlayedBy: aPlayer targetting: aTarget).
+	aCardPlayed uses: self.
+
+	self removeFromHand: aCardPlayed to: aPlayer.
 ]
 
 { #category : #resolving }
@@ -97,7 +98,9 @@ CardPlayManager >> resolveACancellationCardPlay: aCard [
 	| cardPlayToCancel |
 	cardPlayToCancel := cardPlays
 		                    detect: [ :cardPlay | cardPlay = cardTarget ]
-		                    ifNone: [ self handleWrongCancellationCard ].
+		                    ifNone: [
+			                    cardPlays removeLast.
+			                    self handleWrongCancellationCard ].
 	cardPlayToCancel cancelEffectUsing: self.
 	cardPlays remove: cardPlayToCancel.
 	lastCardPlayed := aCard
@@ -107,8 +110,9 @@ CardPlayManager >> resolveACancellationCardPlay: aCard [
 CardPlayManager >> resolveARedoCardPlay: aCard [
 
 	self addNewCard: lastCardPlayed to: cardPlayer.
+	cardPlays removeLast.
 	game play: lastCardPlayed by: cardPlayer targetting: cardTarget.
-	cardPlays removeLast
+	
 ]
 
 { #category : #resolving }
@@ -152,7 +156,7 @@ CardPlayManager >> reversePolarityOfEffectAtTile: aTarget [
 	game reversePolarityOfEffectAtTile: aTarget
 ]
 
-{ #category : #resolving }
+{ #category : #validation }
 CardPlayManager >> validate: aPlayer has: aCard [
 
 	| cardsHand |
