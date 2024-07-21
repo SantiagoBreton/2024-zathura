@@ -79,7 +79,7 @@ Game >> assignRewardForMaxRollFor: aSpaceship [
 
 ]
 
-{ #category : #initialization }
+{ #category : #cancelling }
 Game >> cancelAllianceBetween: aPlayer and: anotherPlayer [
 	(self spaceshipOwnedBy: aPlayer ) setAllyToNil .
 	(self spaceshipOwnedBy: anotherPlayer ) setAllyToNil .
@@ -144,7 +144,7 @@ Game >> initializePlayedBy: someSpaceShips on: aBoard finishingAfter: laps rolli
 		                 affecting: someSpaceShips
 ]
 
-{ #category : #'target resize' }
+{ #category : #playing }
 Game >> play: aCard by: aPlayer targetting: aTarget [
 
 	aCard canBePlayedAtAnyTime ifFalse: [ self assertIsTurnOf: aPlayer ].
@@ -167,20 +167,20 @@ Game >> playNextTurn [
 	self endGameIfPossible
 ]
 
-{ #category : #accessing }
+{ #category : #triggering }
 Game >> repeatLastEffectAppliedOn: aPlayer [
 
 	effectManager repeatLastEffectAppliedOn:
 		(self spaceshipOwnedBy: aPlayer)
 ]
 
-{ #category : #testing }
+{ #category : #reversing }
 Game >> reversePolarityOfEffectAtTile: aNumber [
 
 	board reversePolarityOfEffectAtTile: aNumber
 ]
 
-{ #category : #'target resize' }
+{ #category : #'set up' }
 Game >> setAnAllianceBewtween: aPlayer and: anotherPlayer [
 
 	| spaceship1 spaceship2 |
@@ -191,13 +191,13 @@ Game >> setAnAllianceBewtween: aPlayer and: anotherPlayer [
 	spaceship2 makeAnAllianceWith: spaceship1
 ]
 
-{ #category : #asserting }
+{ #category : #playing }
 Game >> skipTurnFor: aSpaceship [
 
 	aSpaceship skipTurn
 ]
 
-{ #category : #accessing }
+{ #category : #reordering }
 Game >> spaceShipsPositionsRanking [
 
 	| spaceShipsPositions |

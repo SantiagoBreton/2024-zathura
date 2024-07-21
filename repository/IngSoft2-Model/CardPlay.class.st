@@ -21,7 +21,7 @@ CardPlay >> = anotherCardPlay [
 		  and: (self class = anotherCardPlay class)) and: self cardPlayer = anotherCardPlay cardPlayer.
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #cancelling }
 CardPlay >> cancelEffectUsing: aCardPlayManager [
 
 	card
@@ -41,7 +41,7 @@ CardPlay >> hash [
 	^ (cardPlayer hash + card hash + cardTarget hash).
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #'class initialization' }
 CardPlay >> initializewith: aCard playedBy: aPlayer targetting: aTarget [
 
 	card := aCard.

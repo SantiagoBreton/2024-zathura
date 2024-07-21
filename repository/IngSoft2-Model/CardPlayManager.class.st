@@ -24,25 +24,25 @@ CardPlayManager >> addNewCard: aCard to: aPlayer [
 	(self handOf: aPlayer) addToHand: aCard
 ]
 
-{ #category : #resolving }
+{ #category : #cancelling }
 CardPlayManager >> cancelACardEffectAppliedToAllPlayers: aCard [
 
 	allPlayersHands do: [ :playerHand | playerHand removeEffectOf: aCard ]
 ]
 
-{ #category : #resolving }
+{ #category : #cancelling }
 CardPlayManager >> cancelAnAllyCardPlayedBy: aPlayer targetting: anotherPlayer [
 
 	game cancelAllianceBetween: aPlayer and: anotherPlayer
 ]
 
-{ #category : #resolving }
+{ #category : #cancelling }
 CardPlayManager >> cancelTheEffectOf: aCard appliedTo: aPlayer [
 
 	(self handOf: aPlayer) removeEffectOf: aCard
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 CardPlayManager >> diceEffectApplyingTo: aPlayer [
 
 	^ (self handOf: aPlayer) totalEffectsOnPlayer
@@ -156,7 +156,7 @@ CardPlayManager >> reversePolarityOfEffectAtTile: aTarget [
 	game reversePolarityOfEffectAtTile: aTarget
 ]
 
-{ #category : #resolving }
+{ #category : #validation }
 CardPlayManager >> validate: aPlayer has: aCard [
 
 	| cardsHand |

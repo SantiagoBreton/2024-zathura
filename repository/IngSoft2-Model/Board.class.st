@@ -32,7 +32,7 @@ Board class >> of: tiles withUnitsOfMeasurement: units [
 		  withDistance: units
 ]
 
-{ #category : #initialization }
+{ #category : #cleanup }
 Board >> amountOfTiles [
 
 	^ tiles size
@@ -51,7 +51,7 @@ Board >> initializeOf: aTileCollection withDistance: aUnitOfDistance [
 	parsecs := aUnitOfDistance valueAsParsecs
 ]
 
-{ #category : #accessing }
+{ #category : #playing }
 Board >> move: aSpaceship by: anAmountOfTilesToMove [
 
 	| tilesSinceBeginning positionAfterMovement tileAfterMovement lapAfterMovement amountOfFuelNeeded |
@@ -67,12 +67,12 @@ Board >> move: aSpaceship by: anAmountOfTilesToMove [
 		                         and: lapAfterMovement.
 	positionAfterMovement correctIfBeyond: laps + 1.
 	amountOfFuelNeeded := aSpaceship position
-		                      costToMoveTo: positionAfterMovement
+		                      totalTilesToMoveTo: positionAfterMovement
 		                      withBoardSize: self amountOfTiles.
 	aSpaceship moveTo: positionAfterMovement needing: amountOfFuelNeeded
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 Board >> move: aSpaceship jumping: aQuantityOfParsec [
 
 	| tilesToMove |
@@ -82,18 +82,18 @@ Board >> move: aSpaceship jumping: aQuantityOfParsec [
 	self move: aSpaceship by: tilesToMove
 ]
 
-{ #category : #accessing }
+{ #category : #playing }
 Board >> move: aSpaceship toTile: tileToTeleport [
 	self move: aSpaceship  by: tileToTeleport - aSpaceship tileNumber. 
 ]
 
-{ #category : #initialization }
+{ #category : #playing }
 Board >> moveAllSpaceshipsToFirstPosition: allSpaceShips [
 
 	allSpaceShips do: [ :spaceship | spaceship resetPosition ]
 ]
 
-{ #category : #accessing }
+{ #category : #reversing }
 Board >> reversePolarityOfEffectAtTile: aNumber [
 
 	| effect inversedEffect |
@@ -103,7 +103,7 @@ Board >> reversePolarityOfEffectAtTile: aNumber [
 	tiles at: aNumber put: inversedEffect
 ]
 
-{ #category : #accessing }
+{ #category : #triggering }
 Board >> triggerLandingEffectFor: aSpaceship using: effectManager [
 
 	| effect |
@@ -111,7 +111,7 @@ Board >> triggerLandingEffectFor: aSpaceship using: effectManager [
 	effectManager trigger: effect on: aSpaceship
 ]
 
-{ #category : #accessing }
+{ #category : #'argument validation' }
 Board >> validateIfIsPossibleToRevertATileEffect: aTileNumber [
 
 	(self amountOfTiles < aTileNumber or: aTileNumber < 0) ifTrue: [
